@@ -1,1 +1,1 @@
-web: gunicorn oleadawebshop.wsgi
+web: gunicorn oleadawebshop.wsgi --log-file -
