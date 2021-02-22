@@ -1,0 +1,192 @@
+{% extends "webshop/layout.html" %}
+
+{% block body %}
+{% load static %}
+<div class="main">
+
+    <div class="container">
+        <form class="needs-validation" action="{% url 'checkout' %}" id="myform" method="post" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <div id="title">    
+                                <h3>Facturering & verzending</h3>
+                            </div>
+                            <hr class="my-4">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Voornaam</label>
+                            {% if customer.firstname %}
+                                <input type='text' value='{{ customer.firstname }}' id="voornaam" name='voornaam' class='form-control' required>
+                            {% else %}
+                                <input type='text' name='voornaam' id="voornaam" class='form-control' required>
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                Vul je voornaam in.
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label>Achternaam</label>
+                            {% if customer.lastname %}
+                                <input type='text' id="achternaam" value='{{ customer.lastname }}' name='achternaam' class='form-control' required>
+                            {% else %}
+                                <input type='text' id="achternaam" name='achternaam' class='form-control' required>
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                Vul je achternaam in.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <label>Straatnaam</label>
+                            {% if customer.streetname %}
+                                <input type='text' id="straatnaam" value="{{ customer.streetname }}" name='streetname' class='form-control' required>
+                            {% else %}
+                                <input type='text' id="straatnaam" value="" name='streetname' class='form-control' required>
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                Vul je straatnaam in.
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <label>Huisnr.</label>
+                            {% if customer.housenr %}
+                                <input type='text' id="huisnummer" value="{{ customer.housenr }}" name='housenr' class='form-control' required>
+                            {% else %}
+                                <input type='text' id="huisnummer" name='housenr' class='form-control' required>     
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                Vul je huisnummer in.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Postcode</label>
+                            {% if customer.postalcode %}
+                                <input type='text' id="postcode" value="{{ customer.postalcode}}" name='postalcode' class='form-control' required>
+                            {% else %}
+                                <input type='text' id="postcode" name='postalcode' class='form-control' required>
+                            {% endif %} 
+                            <div class="invalid-feedback">
+                                Vul je postcode in.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Stad</label>
+                            {% if customer.city %}
+                                <input type='text' id="stad" value="{{ customer.city }}" name='city' class='form-control' required>
+                            {% else %}
+                                <input type='text' id="stad" name='city' class='form-control' required>
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                Vul je stad in.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>E-mail</label>
+                            {% if customer.email %}
+                                <input type='text' id="email" value='{{ customer.email}}'name='email' class='form-control' required>
+                            {% else %}
+                                <input type='text' id="email" name='email' class='form-control' required>
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                Vul je e-mailadres in.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <div id="title">    
+                                <h3>Jouw bestelling</h3>
+                            </div>
+                            <hr class="my-4">
+                        </div>
+                    </div>
+                    {% for item in cart %}
+                        <div class="row" id="checkoutinfo">
+                            <div class="col" id="cki">
+                                <a href="{% url 'product' item.product.name %}">
+                                    <img src="{% static item.product.image.first.image.url %}" id="cartpic">
+                                </a>
+                            </div>
+                            <div class="col" id="cki">
+                                <a href="{% url 'product' item.product.name %}">
+                                    {{ item.product.name }} <img src="{% static 'images/Delete.png' %}" height="8px"> {{ item.quantity }}
+                                </a>
+                            </div>
+                            <div class="col" id="cki">
+                                €{{ item.product.price }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col">
+                            <div id="title">            
+                                <h3>Betaalwijze</h3>
+                            </div>
+                            <hr class="my-4">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="custom-control custom-radio">
+                                <input id="iDeal" name="payment_option" value="iDeal" type="radio" class="custom-control-input">
+                                <label class="custom-control-label" for="iDeal">iDeal</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="Mastercard" name="payment_option" value="Mastercard" type="radio" class="custom-control-input">
+                                <label class="custom-control-label" for="Mastercard">Mastercard</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button data-testid="add-to-cart-button-enabled" class="btn" id="buttonadd" type="submit">
+                                <span class="text" id="bestellingplaatsen">
+                                    Bestelling plaatsen
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script>
+(function () {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+
+{% endblock %}
