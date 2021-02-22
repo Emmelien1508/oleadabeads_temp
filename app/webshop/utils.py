@@ -3,7 +3,10 @@ from django.contrib.sessions.models import Session
 
 def get_customer_session(request):
 
-    request.session.clear_expired()
+    try:
+        request.session.clear_expired()
+    except:
+        pass
 
     try:
         s = Session.objects.get(pk=request.session.session_key)
