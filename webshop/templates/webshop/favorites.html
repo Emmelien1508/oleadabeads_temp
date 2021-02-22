@@ -1,0 +1,46 @@
+{% extends "webshop/layout.html" %}
+
+{% block body %}
+{% load static %}
+    <div class="main">
+        <div class="container">
+            <div class="row">
+                <div id="cat" class="col">
+                    <h1 id="title">Favorieten</h1>
+                    <hr class="my-4">
+                </div>
+            </div>
+            {% if favitems %}
+                {% for product in favorites %}
+                    {% if forloop.first %}
+                        <div class="row">
+                    {% endif %}
+                        <div class="col">
+                            <div class="hvrbox">
+                                <div class="jumbotron" id="jumbo">
+                                    <a href="{% url 'product' product.name %}"><img src="{% static product.image.first %}" width="100%" class="hvrbox-layer_bottom"></a>
+                                    <div class="hvrbox-layer_top">
+                                        <div class="hvrbox-text">
+                                            <p><a id="pic" href="{% url 'product' product.name %}">{{ product.name }}</a></p>
+                                            <p>€{{ product.price }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% if forloop.counter|divisibleby:4%}
+                        </div>
+                        <div class="row">
+                    {% endif %}
+                {% endfor %}
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col" id="continuecheckout">Je hebt geen producten in je favorieten staan!</div>
+                    <div class="col"></div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
