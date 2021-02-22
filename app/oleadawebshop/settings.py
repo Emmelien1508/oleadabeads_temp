@@ -145,4 +145,4 @@ EMAIL_HOST_USER = 'oleadabeads@gmail.com'
 EMAIL_HOST_PASSWORD = 'iCleem1998'
 EMAIL_USE_TLS = True
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
