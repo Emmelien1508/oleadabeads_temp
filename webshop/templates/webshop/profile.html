@@ -1,0 +1,61 @@
+{% extends "webshop/layout.html" %}
+
+{% block body %}
+{% load static %}
+<div class="main">
+    <div class="container">
+        <div class="row" id="roww">
+            <div class="col" id="prof">
+                <h4 id="title">Persoonsgegevens</h4>
+                <p>E-mailadres: {{ info.email }}</p>
+                <p>Naam: {{ info.firstname }} {{ info.lastname }}</p>
+                {% if info.streetname %}
+                    <p>Adres: {{ info.streetname }} {{ info.housenr }} <br> 
+                    {{ info.postalcode }} {{ info.city }} {{ info.country }}</p>
+                {% endif %}
+            </div>
+            <div class="col" id="prof">
+                <h4 id="title">Bestelgeschiedenis</h4>
+                {% if orders %}
+                    {% for item in orders.all %}
+                        <p>Ordernummer: <a href="{% url 'order' item.id %}">{{ item.id }}</a></p>
+                        <p>Status: {{ item.status }}</p>
+                        <p>Totaal: €{{ item.total }}</p>
+                        {% if forloop.last %}
+                            <br>
+                        {% else %}
+                            <hr class="my-4">
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    Je hebt nog geen bestellingen geplaatst.
+                {% endif %}
+            </div>
+            <div class="col" id="prof">
+                <h4 id="title"><a href="{% url 'fav' %}">Favorieten</a></h4>
+                {% if favitems %}
+                    <div class="row align-items-center" id="wrapp">
+                        {% for item in favorites %}
+                            <div id="favproduct">
+                                <a href="{% url 'product' item.name %}">
+                                    <img src="{% static item.image.first.image.url %}" height="200px">
+                                    <p>
+                                        {{ item.name }}
+                                        <a href="{% url 'deletefromprofile' item.name %}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                            </svg>
+                                        </a>
+                                    </p>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    Je hebt geen producten op je favorieten staan!
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

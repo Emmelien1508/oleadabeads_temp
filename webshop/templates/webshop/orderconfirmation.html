@@ -1,0 +1,69 @@
+{% extends "webshop/layout.html" %}
+
+{% block body %}
+{% load static %}
+<div class="main">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div id="title">
+                    <h1>Dankjewel voor je bestelling, {{ customer.firstname }}!</h1>
+                    <hr class="my-4">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h3>Samenvatting van je bestelling</h3>
+                <p>Ordernummer {{ cart.id }}</p>
+                <hr class="my-4">
+            </div>
+        </div>
+        <table class="center" style="width:90%">
+            <tr id="lines" class="header">
+                <th></th>
+                <th><h5>Product</h5></th>
+                <th><h5>Aantal</h5></th>
+                <th><h5>Prijs</h5></th>
+                <th></th>
+            </tr>
+            {% for item in cart.orderproduct.all %}
+                <tr id="itemcontent">
+                    <td class='alnleft'>
+                        <a href="{% url 'product' item.product.name %}">
+                            <img src="{% static item.product.image.first.image.url %}" width="100px">
+                        </a>
+                    </td>
+                    <td>
+                        <h6><a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a></h6>
+                    </td>
+                    <td>
+                        <h6>{{ item.quantity }}</h6>
+                    </td>
+                    <td>
+                        <h6>€{{ item.product.price }}</h6>
+                    </td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="row">
+            <div class="col">
+                <hr class="my-4">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col text-right">
+                <strong id="Totalnr">Totaal €{{ total }}</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col text-right">
+                <a href="{% url 'home' %}"><button class="btn" id="bestelling" type="button">Ga terug naar de homepagina</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
