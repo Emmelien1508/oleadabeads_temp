@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os 
-import django_heroku
+# import django_heroku
 
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,7 +28,7 @@ SECRET_KEY = 'hpwptazjkxg%t1#b6)xldod5t9p43-+8%&j3qmx1zk!#s4$gnh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'oleadabeads.herokuapp.com', 'oleadabeads.nl']
 
 # Application definition
 
@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'webshop.apps.WebshopConfig'
+    'webshop.apps.WebshopConfig',
+    # 'backend.webshop',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -72,6 +74,8 @@ TEMPLATES = [
     },
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 WSGI_APPLICATION = 'oleadawebshop.wsgi.application'
 
 SESSION_ENGINE = 'webshop.session_backend'
@@ -85,7 +89,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -145,4 +148,4 @@ EMAIL_HOST_USER = 'oleadabeads@gmail.com'
 EMAIL_HOST_PASSWORD = 'iCleem1998'
 EMAIL_USE_TLS = True
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())

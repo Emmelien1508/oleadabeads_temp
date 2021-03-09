@@ -17,16 +17,12 @@ urlpatterns = [
     path("continue", views.cont, name="cont"),
     path("checkout", views.checkout, name="checkout"),
     path("contact", views.contact, name="contact"),
-    path("foto's", views.photos, name="photos"),
     path("mijnaccount", views.profile, name="profile"),
     path("bestelinformatie", views.info, name="info"),
-    path("zoeken", views.query, name="query"),
-    path("favorieten/<str:naam>", views.addtofav, name="addtofav"),
-    path("verwijderenvanfavorieten/<str:naam>", views.deletefromfav, name="deletefromfav"),
+    path("favorieten/<str:naam>", views.fav, name="fav"),
     path("verwijderen/<str:naam>", views.deletefromprofile, name="deletefromprofile"),
     path("toevoegenwinkelwagen/<str:naam>", views.addtocart, name="addtocart"),
     path("verwijderenwinkelwagen/<str:naam>", views.deletefromcart, name="deletefromcart"),
-    path("allefavorieten", views.fav, name="fav"),
     path("bestelling/<int:ordernummer>", views.order, name="order"),
     path("kortingscodetoevoegen", views.discount, name="discount")
 ]

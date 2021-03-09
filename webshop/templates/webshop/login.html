@@ -1,5 +1,7 @@
 {% extends "webshop/layout.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block body %}
 <div class="main">
     <div class="container">
@@ -17,32 +19,32 @@
         <div class="row">
             <div class="col">
                 <div id="title">
-                    <h1>Log in</h1>
-                    <hr class="my-4">
+                    <h3>Log in</h3>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col-6">
-                <div class="jumbotron" id="jumbo">
-                    <div>
-                        <form action="{% url 'login' %}" method="post">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button class="btn btn-outline-dark" type="submit" id="submit">Login</button>
-                        </form>
-                    </div>
-                    <br>
-                    <div>
-                        <p>Heb je nog geen account? <a href="{% url 'register' %}"><strong>Registreer hier.</strong></a></p>
-                    </div>
-                    <div>
-                        <p><a href="{% url 'reset_password'%}">Wachtwoord vergeten?</a></p>
-                    </div>
-                </div>
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button class="btn" type="submit" id="buttonadd" id="submit">
+                        <span class="text" id="bestellingplaatsen">
+                            Login
+                        </span>
+                    </button>
+                </form>
             </div>
-            <div class="col"></div>
+        </div>
+        <div class="row justify-content-end">
+            <div class="col d-flex justify-content-center">
+                <p>Heb je nog geen account? <a href="{% url 'register' %}" id="reg">Registreer hier</a>.</p>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <div class="col d-flex justify-content-center">
+                <p><a href="{% url 'reset_password'%}" id="reg">Wachtwoord vergeten?</a></p>
+            </div>
         </div>
     </div>
 </div>

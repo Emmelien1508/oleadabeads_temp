@@ -1,145 +1,218 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Transitional//EN” “https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd”>
 
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
-        <style>
+<html xmlns=“https://www.w3.org/1999/xhtml”>
 
-            html, body {
-                height: 100%;
-                font-weight: 300;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-            .navbar .navbar-collapse .navbar-nav {
-                display: table;
-                width:100%;
-                visibility: visible;
-            }
+    <title>Bestelbevestiging #XXX</title>
 
-            #itemcontent {
-                margin-bottom:5px;
-            }
+    <link href="https://fonts.googleapis.com/css?family=Gothic+A1:300,600|Playfair+Display" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="{% static 'webshop/styles.css' %}" rel="stylesheet" type="text/css" title="Default Styles" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
-            #lines {
-                border-bottom: 1px solid #f4f4f5;
-            }
+    <style>
 
-            th, td {
-                padding-top:20px;
-            }
+        html, body {
+            height: 100%;
+            width:100%;
+            font-family: 'Gothic A1', sans-serif;
+            font-weight: 300;
+            margin: 0;
+            background-color: #F1E5E5;
+        }
 
-            th {
-                padding-bottom:15px;
-            }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 200;
+            text-transform: uppercase;
+        }
 
+        #topbar {
+            background-color: #F1E5E5;
+            margin: 0;
+            width:100%;
+            height: auto;
+        }
 
-            .center {
-                margin-left: auto;
-                margin-right: auto;
-            }
+        #topbar .row {
+            width:100%;
+            margin: 0;
+        }
 
-            .alnright { 
-                text-align: right; 
-            }
+        #lines {
+            border-bottom: 1px solid #D8CECE;
+        }
 
-            .alnleft { 
-                text-align: left; 
-            }
+        th, td {
+            padding-top:20px;
+        }
 
-            a {
-                color: #1a1919;
-                text-decoration: none;
-            }
+        th {
+            padding-bottom:15px;
+        }
 
-            a:hover {
-                color: grey;
-                text-decoration: none;
-            }
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-            #info {
-                text-align: center
-            }
+        .alnleft { 
+            text-align: left; 
+        }
 
-        </style>
+        .container {
+            width:100%;
+        }
 
-    </head>
+        .container .row {
+            margin-top: 20px;
+        }
 
-    {% load static %}
+        a {
+            color: #1a1919;
+            text-decoration: none;
+        }
 
-    <body>
-        <div class="main">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <h1>Dankjewel voor je bestelling, {{ customer.firstname }}!</h1>
-                        <p>
-                            Bedankt voor je bestelling bij Oleada Beads! Hieronder vind je een overzicht van je bestelling.
-                        </p>
-                    </div>
+        a:hover {
+            color: #c4d6dc;
+            text-decoration: none;
+        }
+
+        #title {
+            text-align: center;
+            padding-top: 20px;
+            color: #1a1919;
+            text-decoration: underline #F1B150 !important;
+        }
+
+        #Totalnr {
+            font-size: 22px;
+        }
+
+        .main {
+            margin: 0;
+            width:100%;
+        }
+
+        #header {
+            font-size:400%;
+        }
+
+        #logo {
+            text-decoration: underline #1a1919;
+            text-decoration-style: dotted;
+            font-size:100%;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="topbar">
+        <div class="row" style="display: inline-flex;">
+            <div class="col" class="center"></div>
+            <div class="col" class="center" style="text-align: center;">
+                <h1 id="header">Oleada <p id="logo">Beads</p></h1>
+            </div>
+            <div class="col" class="center"></div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3 id="title">Dankjewel voor je bestelling, Emmelien!</h3>
+                    <!-- <h3 id="title">Dankjewel voor je bestelling, {{ customer.firstname }}!</h3> -->
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <div id="title">
-                            <h3>Samenvatting van bestelling #{{ order.id }}</h3>
-                            <p>
-                                Totaal: €{{ order.total }}
-                            </p>
-                            <p>
-                                Status: {{ order.status }}
-                            </p>
-                        </div>
-                    </div>
+            </div>
+            <div class="row">
+                <table class="center" style="width:90%">
+                    <tr id="lines" class="header">
+                        <th><h6>Ordernummer 352</h6></th>
+                        <th><h6>Product</h6></th>
+                        <th><h6>Aantal</h6></th>
+                        <th><h6>Prijs</h6></th>
+                    </tr>
+                    <tr>
+                        <td>Foto van kiwi</td>
+                        <td>Kiwi</td>
+                        <td>2</td>
+                        <td>3.00</td>
+                    </tr>
+                    <tr>
+                        <td>Foto van classy</td>
+                        <td>Classy</td>
+                        <td>1</td>
+                        <td>3.00</td>
+                    </tr>
+                    <!-- {% for b, item in cart.items %}
+                        {% if b %}
+                            {% for i in item %}
+                                <tr>
+                                    <td class='alnleft'>
+                                        <a href="{% url 'product' i.product.name %}">
+                                            <img src="{% static i.product.image.first.image.url %}" width="80px">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'product' i.product.name %}">
+                                            {{ i.product.name }} <img src="{% static 'images/Delete.png' %}" height="8px"> {{ i.quantity }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        €{{ i.product.price }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            {% for j in item %}
+                                <tr>
+                                    <td class="alnleft">
+                                        <img src="{% static 'images/home1.jpeg' %}" width="80px">
+                                    </td>
+                                    <td>
+                                        {{ j.customer.firstname }} DIY #{{ j.diyproduct.name }} <img src="{% static 'images/Delete.png' %}" height="8px"> 1
+                                    </td>
+                                    <td>
+                                        €{{ j.diyproduct.price }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %} -->
+                </table>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <hr class="my-4">
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <h5>Product</h5>
-                    </div>
-                    <div class="col">
-                        <h5>Aantal</h5>
-                    </div>
-                    <div class="col">
-                        <h5>Prijs</h5>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col text-right">
+                    <strong id="Totalnr">Totaal €1234</strong>
+                    <!-- <strong id="Totalnr">Totaal €{{ total }}</strong> -->
                 </div>
-                {% for item in order.orderproduct.all %}
-                    <div class="row">
-                        <div class="col">
-                            <h6><a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a></h6>
-                        </div>
-                        <div class="col">
-                            <h6>{{ item.quantity }}</h6>
-                        </div>
-                        <div class="col">
-                            <h6>€{{ item.product.price }}</h6>
-                        </div>
-                    </div>
-                {% endfor %}
-                <div class="row">
-                    <div class="col">
-                        <p>
-                            Mocht je nog vragen hebben, stuur dan een e-mail naar oleadabeads@gmail.com of een DM op onze Instagram pagina @oleadabeads.
-                        </p>
-                        <p>
-                            Veel plezier met je bestelling!
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>
-                            Groetjes,
-                        </p>
-                        <p>
-                            <h4>Oleada Beads</h4>
-                        </p>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    
                 </div>
             </div>
         </div>
-    </body>
+    </div>
 
-</html>
+</body>

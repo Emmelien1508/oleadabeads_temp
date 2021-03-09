@@ -3,10 +3,55 @@
 {% block body %}
 {% load static %}
 <div class="main">
-    <div class="container"> 
-        <div class="row align-items-center">
-            <div class="col" style="text-align: center; margin-top:10px;">
-                <img src="{% static 'images/home.jpeg' %}" id="home">
+    <div class="container" style="text-align: center; padding:50px;"> 
+        <div class="row" id="homedisplay">
+            <div class="col">
+                <a href="{% url 'allproducts' 'armbanden' %}">
+                    <div class="containerr">
+                        <img src="{% static 'images/home_armbanden.jpg'%}" class="image">
+                        <div class="centered">
+                            <div class="textt">
+                                Armbanden
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="{% url 'allproducts' 'kettingen' %}">
+                    <div class="containerr">
+                        <img src="{% static 'images/home_kettingen.jpg'%}" class="image">
+                        <div class="centered">
+                            <div class="textt">
+                                Kettingen
+                            </div>
+                        </div>
+                    </div> 
+                </a>
+            </div>
+            <div class="col">
+                <a href="{% url 'allproducts' 'oorbellen' %}">
+                    <div class="containerr">
+                        <img src="{% static 'images/home_oorbellen.jpg'%}" class="image">
+                        <div class="centered">
+                            <div class="textt">
+                                Oorbellen
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="{% url 'allproducts' 'hangers' %}">
+                    <div class="containerr">
+                        <img src="{% static 'images/home_hangers.jpg'%}" class="image">
+                        <div class="centered">
+                            <div class="textt">
+                                Hangers
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
         <div class="row align-items-center">
@@ -19,6 +64,29 @@
                 </p>
             </div>
         </div>
+    </div>
+</div>
+<!-- <div class="main" style="margin:0; background-color: #f3f5f2;">
+    <div class="row" id="home" id="homepics" style="border:1px solid black;margin:0; padding:20px;">
+        <div class="col">
+            <img src="{% static 'images/home1.jpg'%}" id="home">
+        </div>
+        <div class="col">
+            <img src="{% static 'images/home2.jpg'%}" id="home">
+        </div>
+        <div class="col">
+            <img src="{% static 'images/home3.jpg'%}" id="home">
+        </div>
+        <div class="col">
+            <img src="{% static 'images/home4.jpg'%}" id="home">
+        </div>
+        <div class="col">
+            <img src="{% static 'images/home5.jpg'%}" id="home">
+        </div>
+    </div>
+</div> -->
+<div class="main">
+    <div class="container">
         {% if best %}
             <div class="row align-items-center" id="wrapp">
                 {% for product in bestsellers %}

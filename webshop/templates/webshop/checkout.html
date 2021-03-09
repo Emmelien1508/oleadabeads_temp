@@ -7,14 +7,11 @@
     <div class="container">
         <form class="needs-validation" action="{% url 'checkout' %}" id="myform" method="post" novalidate>
             {% csrf_token %}
-            <div class="row">
+            <div class="row" id="checkoutform">
                 <div class="col">
                     <div class="row">
                         <div class="col">
-                            <div id="title">    
-                                <h3>Facturering & verzending</h3>
-                            </div>
-                            <hr class="my-4">
+                            <h3 id="title">Facturering & verzending</h3>
                         </div>
                     </div>
                     <div class="row">
@@ -54,7 +51,7 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <label>Huisnr.</label>
+                            <label>Huisnummer</label>
                             {% if customer.housenr %}
                                 <input type='text' id="huisnummer" value="{{ customer.housenr }}" name='housenr' class='form-control' required>
                             {% else %}
@@ -108,35 +105,70 @@
                 <div class="col">
                     <div class="row">
                         <div class="col">
-                            <div id="title">    
-                                <h3>Jouw bestelling</h3>
-                            </div>
-                            <hr class="my-4">
+                            <h3 id="title">Jouw bestelling</h3>
                         </div>
                     </div>
-                    {% for item in cart %}
-                        <div class="row" id="checkoutinfo">
-                            <div class="col" id="cki">
-                                <a href="{% url 'product' item.product.name %}">
-                                    <img src="{% static item.product.image.first.image.url %}" id="cartpic">
-                                </a>
-                            </div>
-                            <div class="col" id="cki">
-                                <a href="{% url 'product' item.product.name %}">
-                                    {{ item.product.name }} <img src="{% static 'images/Delete.png' %}" height="8px"> {{ item.quantity }}
-                                </a>
-                            </div>
-                            <div class="col" id="cki">
-                                €{{ item.product.price }}
-                            </div>
-                        </div>
-                    {% endfor %}
                     <div class="row">
-                        <div class="col">
-                            <div id="title">            
-                                <h3>Betaalwijze</h3>
-                            </div>
-                            <hr class="my-4">
+                        <table class="center" style="width:90%">
+                            <tr id="lines" class="header">
+                                <th></th>
+                                <th><h6>Product</h6></th>
+                                <th><h6>Prijs</h6></th>
+                                <th></th>
+                            </tr>
+                            {% for item in normalproducts %}
+                                <tr>
+                                    <td class='alnleft'>
+                                        <a href="{% url 'product' item.product.name %}">
+                                            <img src="{% static item.product.image.first.image.url %}" width="80px">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
+                                            </td>
+                                            <td>
+                                                {{ item.quantity }}
+                                            </td>
+                                            <td>
+                                                €{{ item.product.price }}
+                                            </td>
+                                        </tr>
+                                    </td>
+                                    <td>
+                                        €{{ item.total }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            {% for item in diyproducts %}
+                                <tr>
+                                    <td class="alnleft">
+                                        <img src="{% static 'images/home1.jpeg' %}" width="80px">
+                                    </td>
+                                    <td>
+                                        <tr>
+                                            <td>
+                                                {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
+                                            </td>
+                                            <td>
+                                                {{ item.quantity }}
+                                            </td>
+                                            <td>
+                                                €{{ item.diyproduct.price }}
+                                            </td>
+                                        </tr>
+                                    </td>
+                                    <td>
+                                        €{{ item.total }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col">       
+                            <h3 id="title">Betaalwijze</h3>
                         </div>
                     </div>
                     <div class="row">
@@ -152,7 +184,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col"> 
                             <button data-testid="add-to-cart-button-enabled" class="btn" id="buttonadd" type="submit">
                                 <span class="text" id="bestellingplaatsen">
                                     Bestelling plaatsen

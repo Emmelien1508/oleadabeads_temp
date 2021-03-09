@@ -6,76 +6,120 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div id="title">
-                        <h1>Winkelwagen</h1>
-                        <hr class="my-4">
+                    <div style="text-align: center;">
+                        <h3 id="title">Winkelwagen</h3>
                     </div>
                 </div>
             </div>
+            {% if message %}
+                <div class="row">
+                    <div class="col" class="center">
+                        <div class="alert alert-danger" role="alert">
+                            {{ message }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
             {% if incart %}
-                <table class="center" style="width:90%">
-                    <tr id="lines" class="header">
-                        <th></th>
-                        <th><h5>Product</h5></th>
-                        <th><h5>Aantal</h5></th>
-                        <th><h5>Prijs</h5></th>
-                        <th></th>
-                    </tr>
-                    {% for item in cartitems %}
-                        <tr id="itemcontent">
-                            <td class='alnleft'>
-                                <a href="{% url 'product' item.product.name %}">
-                                    <img src="{% static item.product.image.first.image.url %}" width="100px">
-                                </a>
-                            </td>
-                            <td>
-                                <h6><a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a></h6>
-                            </td>
-                            <td>
-                                <h6>{{ item.quantity }}</h6>
-                            </td>
-                            <td>
-                                <h6>€{{ item.product.price }}</h6>
-                            </td>
-                            <td class='alnright'>
-                                <a href="{% url 'deletefromcart' item.product.name %}">
-                                    <button class="btn" id="deletebutton" type="button">
-                                        <img src="{% static 'images/Delete.png' %}" height="20px">
-                                    </button>
-                                </a>
-                            </td>
+                <div class="row">
+                    <table class="center" style="width:90%">
+                        <tr id="lines" class="header">
+                            <th></th>
+                            <th><h6></h6></th>
+                            <th><h6></h6></th>
+                            <th><h6></h6></th>
+                            <th></th>
                         </tr>
-                    {% endfor %}
-                </table>
+                        {% for item in normalproducts %}
+                            <tr>
+                                <td class='alnleft'>
+                                    <a href="{% url 'product' item.product.name %}">
+                                        <img src="{% static item.product.image.first.image.url %}" width="90px">
+                                    </a>
+                                </td>
+                                <td>
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
+                                        </td>
+                                        <td>
+                                            {{ item.quantity }}
+                                        </td>
+                                        <td>
+                                            €{{ item.product.price }}
+                                        </td>
+                                    </tr>
+                                </td>
+                                <td>
+                                    €{{ item.total }}
+                                </td>
+                                <td class='alnright'>
+                                    <a href="{% url 'deletefromcart' item.product.name %}">
+                                        <button class="btn" id="deletebutton" type="button">
+                                            <img src="{% static 'images/Delete.png' %}" height="20px">
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        {% for item in diyproducts %}
+                            <tr>
+                                <td class="alnleft">
+                                    <img src="{% static 'images/home1.jpeg' %}" width="90px">
+                                </td>
+                                <td>
+                                    <tr>
+                                        <td>
+                                            {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
+                                        </td>
+                                        <td>
+                                            {{ item.quantity }}
+                                        </td>
+                                        <td>
+                                            €{{ item.diyproduct.price }}
+                                        </td>
+                                    </tr>
+                                </td>
+                                <td>
+                                    €{{ item.total }}
+                                </td>
+                                <td class='alnright'>
+                                    <a href="{% url 'deletefromcart' item.diyproduct.name %}">
+                                        <button class="btn" id="deletebutton" type="button">
+                                            <img src="{% static 'images/Delete.png' %}" height="20px">
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
                 <div class="row">
                     <div class="col">
                         <hr class="my-4">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col text-right">
-                        <strong id="Totalnr">Subtotaal €{{ total }}</strong>
-                    </div>
-                </div>
                 <div class="row" id="Checkout">
-                    <div class="col text-left">
+                    <div class="col text-left" style="width:100%;">
                         <form action="{% url 'discount' %}" method="post" class="form-inline">
                             {% csrf_token %}
-                            <div class="flex">
-                                <div>
-                                    <input class="form-control" type="text" id="Korting" placeholder="Kortingscode"> 
-                                </div>
-                                <div>
-                                    <button type="submit" id="Voegtoe" style="display: none;" class="btn">
-                                        <img src="{% static 'images/Plus.png' %}" height="25px">
-                                    </button>
-                                </div>
+                            <div>
+                                <input class="form-control" type="text" id="Korting" placeholder="Kortingscode"> 
+                            </div>
+                            <div>
+                                <button type="submit" id="Voegtoe" style="display:none;" class="btn" id='buttonadd' type="button">
+                                    <img src="{% static 'images/Plus.png' %}" height="37.5px">
+                                </button>
                             </div>
                         </form>
                     </div>
                     <div class="col text-right">
-                        <a href="{% url 'cont' %}"><button class="btn" id="bestelling" type="button">Bestelling afronden</button></a>
+                        <h4><strong id="Totalnr">Subtotaal €{{ total }}</strong></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style="margin-left:10px;margin-right:10px;">
+                        <a href="{% url 'cont' %}"><button class="btn" id='buttonadd' id="bestelling" type="button">Bestelling afronden</button></a>
                     </div>
                 </div>
             {% else %}

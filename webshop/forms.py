@@ -23,5 +23,5 @@ class RegisterForm(UserCreationForm):
             self.fields['password2'].widget.attrs['class'] = 'form-control'
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(label='E-mail')
-    password = forms.CharField(widget=forms.PasswordInput, label="Wachtwoord")
+    username = forms.CharField(label='E-mail', label_suffix=': ')
+    password = forms.CharField(widget=forms.PasswordInput, label="Wachtwoord", label_suffix=': ')

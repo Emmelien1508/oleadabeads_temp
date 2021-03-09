@@ -5,24 +5,25 @@
     <div class="main">
         <div class="container">
             <div class="row">
-                <div id="cat" class="col">
-                    <h1>{{ name }}</h1>
-                    <p>
-                        {{ text }}
-                    </p>
-                    <hr class="my-4">
+                <div class="col">
+                    <h3 id="title">{{ name }}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" style="text-align: center;">
+                    {{ text }}
                 </div>
             </div>
             {% if empty%}
                 <div class="row">
-                    <div class="col" id="cat">Geen producten in deze categorie.</div>
+                    <div class="col" id="cat">Sorry, we hebben even geen producten in deze categorie!</div>
                 </div>
             {% else %}
                 <div class="row" id="wrapp">
                     {% for product in products %}
                         <div id="product">
                             <a href="{% url 'product' product.name %}">
-                                <img src="{% static product.image.first.image.url %}" height="320px">
+                                <img src="{% static product.image.first.image.url %}" height="175px">
                                 <p>
                                     {{ product.name }}
                                     €{{ product.price }}

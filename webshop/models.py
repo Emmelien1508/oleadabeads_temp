@@ -43,7 +43,7 @@ class CustomUserManager(BaseUserManager):
 class Customer(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(_('email'), unique=True, null=True)
-    session = models.ForeignKey(Session, on_delete=models.SET_NULL, null=True)
+    session = models.ForeignKey(Session, on_delete=models.SET_NULL, null=True, blank=True)
     firstname = models.CharField(max_length=30)
     lastname = models.CharField(max_length=30)
     streetname = models.CharField(max_length=30)
@@ -117,8 +117,10 @@ class Product(models.Model):
     )
 
     METAL_CHOICES = (
-        ('Goud', 'Goud'),
-        ('Zilver', 'Zilver')
+        ('RVS Goud', 'RVS Goud'),
+        ('RVS Zilver', 'RVS Zilver'),
+        ('Gold plated', 'Gold plated'),
+        ('Silver plated', 'Silver plated')
     )
 
     name = models.CharField(max_length=50)
@@ -153,12 +155,14 @@ class Diy(models.Model):
     )
 
     METAL_CHOICES = (
-        ('Goud', 'Goud'),
-        ('Zilver', 'Zilver')
+        ('RVS Goud', 'RVS Goud'),
+        ('RVS Zilver', 'RVS Zilver'),
+        ('Gold plated', 'Gold plated'),
+        ('Silver plated', 'Silver plated')
     )
 
     name = models.CharField(max_length=30)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     color = models.ManyToManyField(Color)
     description = models.TextField()
     jewelry_type = models.CharField(max_length=30, choices=JEWELRY_CHOICES)
@@ -172,6 +176,7 @@ class OrderProduct(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     diyproduct = models.OneToOneField(Diy, on_delete=models.CASCADE, null=True)
     quantity = models.IntegerField()
+    total = models.DecimalField(max_digits=6, decimal_places=2)
     ordered = models.BooleanField(default=False)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
@@ -221,9 +226,9 @@ class Discount(models.Model):
     code = models.CharField(max_length=20)
     active = models.BooleanField(default=True)
     expiry_date = models.DateTimeField()
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
     discount_type = models.CharField(max_length=30, choices=DISCOUNT_CHOICES)
-    discount_amount = models.DecimalField(max_digits=5, decimal_places=2)
+    discount_percentage = models.IntegerField(null=True)
+    discount_amount = models.DecimalField(max_digits=5, decimal_places=2, null=True)
 
     def __str__(self):
         return self.code

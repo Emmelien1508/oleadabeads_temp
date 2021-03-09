@@ -1,34 +1,38 @@
 {% extends "webshop/layout.html" %}
 
 {% block body %}
+{% load crispy_forms_tags %}
 <div class="main">
     <div class="container">
         <div class="row">
-            <div class="col" id="title">
-                <h1>Doorgaan met of zonder account</h1>
-                <hr class="my-4">
+            <div class="col">
+                <h3 id="title">Doorgaan met of zonder account</h3>
+            </div>
+        </div>
+        <div class="row justify-content-start">
+            <div class="col">
+                <h4 id="title">Bestaande klant?</h4>
+                <p>Heb je al een account? Klik dan op de knop hier beneden en log in met je gegevens.</p>
+            </div>
+            <div class="col">
+                <h4 id="title">Geen account?</h4>
+                <p>Met een account kan je snel en simpel bestellen. 
+                Bovendien kan je je bestelgeschiedenis inzien!
+                Je kan er ook voor kiezen om zonder account door te gaan.</p>
             </div>
         </div>
         <div class="row">
-            <div class="col">
-                <div class="jumbotron" id="jumbo">
-                    <h4>Bestaande klant?</h4>
-                    <p>Heb je al een account? Klik dan op de knop hier beneden en log in met je gegevens.</p>
-                    <form action="{% url 'login' %}" method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button class="btn btn-outline-dark" type="submit" id="submit">Login</button>
-                    </form>
-                </div>
+            <div class="col-6">
+                <a href="{% url 'login' %}"><button class="btn" id='buttonadd' id="bestelling" type="submit" type="button">Login</button></a>
             </div>
-            <div class="col">
-                <div class="jumbotron" id="jumbo">
-                    <h4>Geen account?</h4>
-                    <p>Met een account kan je snel en simpel bestellen. 
-                    Bovendien kan je je bestelgeschiedenis inzien!
-                    Je kan er ook voor kiezen om zonder account door te gaan.</p>
-                    <a href="{% url 'register' %}"><button class="btn btn-outline-dark">Account aanmaken</button></a>
-                    <a href="{% url 'checkout' %}"><button class="btn btn-outline-dark">Doorgaan zonder account</button></a>
+            <div class="col-6">
+                <div class="row" style="margin-top:0px !important;">
+                    <div class="col">
+                        <a href="{% url 'register' %}"><button class="btn" id='buttonadd' id="bestelling" type="button">Account aanmaken</button></a>
+                    </div>
+                    <div class="col" id="belowbutton">
+                        <a href="{% url 'checkout' %}"><button class="btn" id='buttonadd' id="bestelling" type="button">Doorgaan <br>zonder account</button></a>
+                    </div>
                 </div>
             </div>
         </div>

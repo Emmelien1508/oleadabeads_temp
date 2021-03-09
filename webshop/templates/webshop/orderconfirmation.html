@@ -6,47 +6,73 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <div id="title">
-                    <h1>Dankjewel voor je bestelling, {{ customer.firstname }}!</h1>
-                    <hr class="my-4">
-                </div>
+                <h3 id="title">Dankjewel voor je bestelling, {{ customer.firstname }}!</h3>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <h3>Samenvatting van je bestelling</h3>
+                <h4>Samenvatting van je bestelling</h4>
                 <p>Ordernummer {{ cart.id }}</p>
-                <hr class="my-4">
             </div>
         </div>
-        <table class="center" style="width:90%">
-            <tr id="lines" class="header">
-                <th></th>
-                <th><h5>Product</h5></th>
-                <th><h5>Aantal</h5></th>
-                <th><h5>Prijs</h5></th>
-                <th></th>
-            </tr>
-            {% for item in cart.orderproduct.all %}
-                <tr id="itemcontent">
-                    <td class='alnleft'>
-                        <a href="{% url 'product' item.product.name %}">
-                            <img src="{% static item.product.image.first.image.url %}" width="100px">
-                        </a>
-                    </td>
-                    <td>
-                        <h6><a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a></h6>
-                    </td>
-                    <td>
-                        <h6>{{ item.quantity }}</h6>
-                    </td>
-                    <td>
-                        <h6>€{{ item.product.price }}</h6>
-                    </td>
-                    <td></td>
+        <div class="row">
+            <table class="center" style="width:90%">
+                <tr id="lines" class="header">
+                    <th></th>
+                    <th><h6>Product</h6></th>
+                    <th><h6>Prijs</h6></th>
+                    <th></th>
                 </tr>
-            {% endfor %}
-        </table>
+                {% for item in normalproducts %}
+                    <tr>
+                        <td class='alnleft'>
+                            <a href="{% url 'product' item.product.name %}">
+                                <img src="{% static item.product.image.first.image.url %}" width="80px">
+                            </a>
+                        </td>
+                        <td>
+                            <tr>
+                                <td>
+                                    <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
+                                </td>
+                                <td>
+                                    {{ item.quantity }}
+                                </td>
+                                <td>
+                                    €{{ item.product.price }}
+                                </td>
+                            </tr>
+                        </td>
+                        <td>
+                            €{{ item.total }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% for item in diyproducts %}
+                    <tr>
+                        <td class="alnleft">
+                            <img src="{% static 'images/home1.jpeg' %}" width="80px">
+                        </td>
+                        <td>
+                            <tr>
+                                <td>
+                                    {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
+                                </td>
+                                <td>
+                                    {{ item.quantity }}
+                                </td>
+                                <td>
+                                    €{{ item.diyproduct.price }}
+                                </td>
+                            </tr>
+                        </td>
+                        <td>
+                            €{{ item.total }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
         <div class="row">
             <div class="col">
                 <hr class="my-4">

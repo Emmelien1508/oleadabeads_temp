@@ -1,52 +1,171 @@
-@import url(//db.onlinewebfonts.com/c/c18b9353b189d8e62455b8b5a8587321?family=Chapaza);
+@font-face {
+    font-family: 'Sartono';
+    src: url('Sartono.eot'); /* IE9 Compat Modes */
+    src: url('Sartono.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('Sartono.woff') format('woff'), /* Modern Browsers */
+         url('Sartono.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('Sartono.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'Chapaza';
+    src: url('Chapaza.eot'); /* IE9 Compat Modes */
+    src: url('Chapaza.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('Chapaza.woff') format('woff'), /* Modern Browsers */
+         url('Chapaza.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('Chapaza.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'GT Medium';
+    src: url('GTWalsheimPro-Medium.eot'); /* IE9 Compat Modes */
+    src: url('GTWalsheimPro-Medium.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('GTWalsheimPro-Medium.woff') format('woff'), /* Modern Browsers */
+         url('GTWalsheimPro-Medium.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('GTWalsheimPro-Medium.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'GT Thin';
+    src: url('GT_Walsheim_Thin.eot'); /* IE9 Compat Modes */
+    src: url('GT_Walsheim_Thin.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('GT_Walsheim_Thin.woff') format('woff'), /* Modern Browsers */
+         url('GT_Walsheim_Thin.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('GT_Walsheim_Thin.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
 
 html, body {
     height: 100%;
-    font-family: 'Gothic A1', sans-serif;
-    font-weight: 300;
+    width: 100%;
+    margin: 0;
 }
 
 #headlogo {
+    font-family: 'Chapaza';
     font-size:300%;
-    color:#1a1919;
-    /* font-family: 'Playfair Display', serif; */
-    font-family: 'Chapaza', serif;
-    /* font-weight: bold; */
+    display:inline-block;
+    line-height:38px;
+    padding-top:15px;
+}
+
+#headlogo:hover {
+    color: #1a1919;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    /* font-family: 'Playfair Display', serif; */
-    font-family: 'Chapaza', serif;
-    font-weight: 400;
-    /* text-transform: uppercase; */
+    font-family: 'GT Medium';
 }
 
-.button {
-    font-family: 'Gothic A1', sans-serif;
+.containerr {
+    position: relative;
+    text-align: center;
+    background-color: #1a1919;
+    margin-bottom:30px;
+    width:140px;
+}
+
+.image {
+    opacity: 1;
+    display: block;
+    width: 140px;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.centered {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+/* voor een laptop */
+@media(hover: hover) and (pointer: fine) {
+    .containerr, .image {
+        width:225px;
+    }
+    
+    .containerr:hover .image {
+        opacity: 0.6;
+    }
+    
+    .containerr:hover .centered {
+        opacity: 1;
+    }
+
+    #productpic {
+        width:400px;
+    }
+
+    #columntext {
+        padding:50px;
+    }
+}
+
+/* voor een telefoon */
+@media(hover: none) and (pointer: coarse) {
+    .containerr, .image {
+        width:140px;
+    }
+
+    .containerr .image {
+        opacity: 0.6;
+    }
+    
+    .containerr .centered {
+        opacity: 1;
+    }
+
+    #productpic {
+        width:300px;
+    }
+
+    #columntext {
+        padding:30px;
+    }
+}
+  
+.textt {
+    font-family: 'GT Medium';
+    text-transform: uppercase;
+    font-size:150%;
+    color: white;
+}
+
+#homedisplay {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#homedisplay .col {
+    display: inline-flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar a, html, body {
+    font-family: 'GT Thin';
+    color: #1a1919;
+}
+
+.btn {
+    font-family: 'GT Medium';
     font-weight: 600;
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 3px;
-    background-color: #E0CBC4;
 }
 
 #logo {
     font-size:25px;
-}
-
-#home {
-    max-width: 100%;
-}
-
-#bestelinfo {
-    padding-left: 50px;
-    padding-right: 50px;
-}
-
-#productpic {
-    width:400px;
-    align-self: center;
-    padding-bottom:10px;
 }
 
 #cartpic {
@@ -57,10 +176,9 @@ h1, h2, h3, h4, h5, h6 {
 
 #diypic {
     width:550px;
+    margin:0;
     align-self: center;
-    padding-left:40px;
-    padding-right:40px;
-    padding-bottom:40px;
+    padding-bottom:20px;
 }
 
 #cartadding {
@@ -73,6 +191,8 @@ h1, h2, h3, h4, h5, h6 {
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
+    align-items: center;
+    border:1px solid magenta;
 }
 
 #checkouttable {
@@ -84,50 +204,72 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
     flex-basis: 100%;
     flex: 1;
+    padding-left:40px;
+    padding-right:40px;
 }
 
 #overons {
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 50px;
+    padding-top: 20px;
 }
 
 .emmelien {
-    padding:50px;
+    padding:10px;
 }
 
-.navbar {
-    background-color: #EBE4DE;
-}
-
-.navbar .navbar-collapse .navbar-nav {
-    display: table;
+#topbar {
+    background-color: white;
+    margin: 0;
     width:100%;
-    visibility: visible;
+    height: auto;
 }
 
-.navbar .navbar-collapse .navbar-nav .nav-item {
-    display: table-cell;
+#topbar .row {
+    width:100%;
+    margin: 0;
 }
 
-.navbar .navbar-collapse .navbar-nav .nav-item .nav-link {
-    color: #1a1919;
+.main #homepics {
+    padding:80px !important;
+}
+
+@media screen and (max-width: 993px) {
+    
+    #belowbutton {
+        margin-top:20px;
+    }
+}
+
+@media screen and (max-width: 989px) {
+    #bar, #acc {
+        margin-top:15px;
+    }
 }
 
 @media screen and (max-width: 768px) {
-    .navbar .navbar-collapse .navbar-nav .nav-item {
-        display: inline;
-    }
-
-    .navbar .navbar-collapse .navbar-nav .nav-item::after {
-        content:"\a";
-        white-space: pre;
-    }
-
     #roww {
         width:400px;
         text-align: center;
-        margin:30px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: start;
+    }
+
+    #checkoutform {
+        display:block;
+    }
+
+    #diypic {
+        width:330px;
+    }
+
+    #sticky-footer .bottom-menu ul li {
+        display: inline;
+    }
+
+    #sticky-footer .bottom-menu ul li::after {
+        content:"\a\a";
+        white-space: pre;
     }
 }
 
@@ -136,7 +278,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-right:1px;
 }
 
-#buttonadd, .text {
+#buttonadd, .text, #Korting {
     padding: 0px;
     width: 100%;
     height: 51px;
@@ -146,16 +288,36 @@ h1, h2, h3, h4, h5, h6 {
     color: #1a1919;
     align-content: center;
     text-transform: uppercase;
-    background-color: #E0CBC4;
+}
+
+#Korting {
+    margin-right: 10px;
+}
+
+#Korting, #Voegtoe {
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+
+#Voegtoe::-moz-focus-inner { 
+    border: 0;
+}
+
+#Voegtoe, #bestelling, #buttonadd, .text, .btn {
+    background-color: #96a480;
+}
+
+#bestelling {
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 0;
+    -webkit-appearance: none;
 }
 
 #bestellingplaatsen {
-    margin-top:10px;
-}
-
-#itemcontent {
-    margin-bottom:5px;
-    /* border: 1px solid blue; */
+    margin-top:13px;
 }
 
 #lines {
@@ -195,7 +357,7 @@ th {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    background-color: #f4f4f5;
+    background-color: #f2e7d2;
 }
 
 #shoppingbag {
@@ -213,14 +375,18 @@ th {
     align-content: flex-start;
 }
 
+#favos {
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 #product {
     padding:10px;
 }
 
-#favproduct {
-    padding-left:5px;
-    padding-right:5px;
-    padding-bottom:10px;
+.container {
+    width:100%;
 }
 
 .container .row {
@@ -244,26 +410,8 @@ a {
 }
 
 a:hover {
-    color: grey;
+    color: #96a480;
     text-decoration: none;
-}
-
-#topbar {
-    /* background-color: #EBE4DE; */
-    background-color: #EBE4DE;
-    margin: 0;
-    padding-top:20px;
-}
-
-#topbar .col {
-    padding: 10px;
-    text-align: center;
-}
-
-#search {
-    padding-left: 50px;
-    padding-top: 10px;
-    text-align: center;
 }
 
 #pic {
@@ -292,19 +440,20 @@ li {
     margin-right: -4px;
 }
 
-#footer {
-    padding-top: 10px;
-    padding-bottom: 0px;
-    height:100%;
-    width:100%;
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+  
+#content-wrap {
+    padding-bottom:250px;
 }
 
 #sticky-footer {
-    position: relative;
-    /* height: 20%; */
-    display:table;
-    table-layout:fixed;
-    width:100%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: auto;
 }
 
 .bottom-menu {
@@ -314,9 +463,9 @@ li {
     text-decoration: none;
     text-align: center;
     height: 100%;
-    padding:20px;
-    margin-top: 40px;
-    background-color: #EBE4DE;
+    padding-top:10px;
+    padding-bottom:10px;
+    background-color: #f0ebeb;
 }
 
 .bottom-menu ul {
@@ -334,6 +483,7 @@ li {
     text-align: center;
     padding-top: 20px;
     color: #1a1919;
+    /* text-decoration: underline #613b44 !important; */
 }
 
 .flex {
@@ -341,40 +491,8 @@ li {
     flex-direction: row;
 }
 
-#Korting {
-    margin-right: 10px;
-}
-
-#Korting, #Voegtoe {
-    display: inline-block;
-    padding: 10px 15px;
-    font-size: 18px;
-    border-radius: 0;
-    -webkit-appearance: none;
-}
-
-#Voegtoe::-moz-focus-inner { 
-    border: 0;
-}
-
-#Voegtoe {
-    background-color: #E0CBC4;
-}
-
-#bestelling {
-    background-color: #E0CBC4;
-    padding: 10px 15px;
-    font-size: 18px;
-    border-radius: 0;
-    -webkit-appearance: none;
-}
-
 #Totalnr {
     font-size: 18px;
-}
-
-.bigger {
-    font-size: 130%;
 }
 
 #deletebutton {
@@ -383,38 +501,102 @@ li {
 
 #Checkout {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    margin:0;
+    justify-content: flex-end;
 }
 
-.cart-counter {
-    /* font-size: 0.6875rem; */
-    font-size:12px;
-    font-weight: 500;
-    color: #fff;
-    text-align: center;
-    line-height: 12px;
-    min-width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    padding: 4px;
-    background: #1a1919;
-    display: inline-block;
-    margin-right:15px;
-}
-
-#userdata, #cartinfo, #shoppingicon, #cartcounter {
+#prof, #acc, #bar {
     display: inline-block;
 }
 
-#cartcounter {
-    margin-right: 15px;
+#acc {
+    padding-top:10px;
+    padding-right:15px;
+    text-align: right;
+}
+
+#bar {
+    text-align: left;
+    padding-left:15px;
 }
 
 #prof {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    flex-basis: 100%;
-    flex: 1;
+}
+
+.sidebar {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #F1E5E5;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+}
+  
+  /* The sidebar links */
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    font-size: 20px;
+    color: #1a1919;
+    display: block;
+    transition: 0.5s;
+    /* font-family: 'Oxygen'; */
+    font-weight: 200;
+}
+  
+  /* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+    color: #96a480;
+}
+  
+  /* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+  
+  /* The button used to open the sidebar */
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: white;
+    /* background-color: #111; */
+    /* color: white; */
+    padding: 10px 15px;
+    margin-left:5px;
+    border: none;
+    align-self: flex-start;
+}
+  
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s; /* If you want a transition effect */
+    padding: 20px;
+}
+
+.main {
+    margin: 0;
+    width:100%;
+}
+  
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidebar {
+        padding-top: 15px;
+    }
+
+    .sidebar a {
+        font-size: 18px;
+    }
 }
