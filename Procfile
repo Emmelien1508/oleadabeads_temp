@@ -1,1 +1,1 @@
-web: gunicorn oleadawebshop.wsgi
+web: python server.py
