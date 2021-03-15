@@ -28,7 +28,7 @@ SECRET_KEY = 'hpwptazjkxg%t1#b6)xldod5t9p43-+8%&j3qmx1zk!#s4$gnh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'oleadabeads.herokuapp.com', 'oleadabeads.nl']
+ALLOWED_HOSTS = ['127.0.0.1', 'oleadabeads.herokuapp.com', 'oleadabeads.nl', 'https://oleadabeads-383i7.ondigitalocean.app/']
 
 # Application definition
 
