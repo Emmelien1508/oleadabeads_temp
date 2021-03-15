@@ -12,43 +12,33 @@
                 </div>
             </div>
             {% if message %}
-                <div class="row">
-                    <div class="col" class="center">
-                        <div class="alert alert-danger" role="alert">
+                <div class="row" style="text-align: center;">
+                    <div class="col">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     </div>
                 </div>
             {% endif %}
             {% if incart %}
                 <div class="row">
-                    <table class="center" style="width:90%">
-                        <tr id="lines" class="header">
-                            <th></th>
-                            <th><h6></h6></th>
-                            <th><h6></h6></th>
-                            <th><h6></h6></th>
+                    <table class="center" style="width:80%">
+                        <tr id="lines" class="header" style="text-align: center;">
+                            <th><h6>Naam</h6></th>
+                            <th><h6>Hoeveelheid</h6></th>
+                            <th><h6>Totaal</h6></th>
                             <th></th>
                         </tr>
                         {% for item in normalproducts %}
-                            <tr>
-                                <td class='alnleft'>
-                                    <a href="{% url 'product' item.product.name %}">
-                                        <img src="{% static item.product.image.first.image.url %}" width="90px">
-                                    </a>
+                            <tr style="text-align: center;">
+                                <td>
+                                    <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
                                 </td>
                                 <td>
-                                    <tr>
-                                        <td>
-                                            <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
-                                        </td>
-                                        <td>
-                                            {{ item.quantity }}
-                                        </td>
-                                        <td>
-                                            €{{ item.product.price }}
-                                        </td>
-                                    </tr>
+                                    {{ item.quantity }} <img src="{% static 'images/Multiply.png' %}" width="20px"> €{{ item.product.price }}
                                 </td>
                                 <td>
                                     €{{ item.total }}
@@ -63,22 +53,12 @@
                             </tr>
                         {% endfor %}
                         {% for item in diyproducts %}
-                            <tr>
-                                <td class="alnleft">
-                                    <img src="{% static 'images/home1.jpeg' %}" width="90px">
+                            <tr style="text-align: center;">
+                                <td>
+                                    {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
                                 </td>
                                 <td>
-                                    <tr>
-                                        <td>
-                                            {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
-                                        </td>
-                                        <td>
-                                            {{ item.quantity }}
-                                        </td>
-                                        <td>
-                                            €{{ item.diyproduct.price }}
-                                        </td>
-                                    </tr>
+                                    {{ item.quantity }} <img src="{% static 'images/Multiply.png' %}" width="20px"> €{{ item.diyproduct.price }}
                                 </td>
                                 <td>
                                     €{{ item.total }}
@@ -103,13 +83,15 @@
                     <div class="col text-left" style="width:100%;">
                         <form action="{% url 'discount' %}" method="post" class="form-inline">
                             {% csrf_token %}
-                            <div>
-                                <input class="form-control" type="text" id="Korting" placeholder="Kortingscode"> 
-                            </div>
-                            <div>
-                                <button type="submit" id="Voegtoe" style="display:none;" class="btn" id='buttonadd' type="button">
-                                    <img src="{% static 'images/Plus.png' %}" height="37.5px">
-                                </button>
+                            <div class="flexing">
+                                <div>
+                                    <input class="form-control" type="text" id="Korting" name="korting" placeholder="Kortingscode"> 
+                                </div>
+                                <div>
+                                    <button type="submit" id="Voegtoe" style="display:none; height:38px;" class="btn" id='buttonadd' type="button">
+                                        <img src="{% static 'images/Plus.png' %}" height="16px;" style="padding-bottom: 4px;">
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>

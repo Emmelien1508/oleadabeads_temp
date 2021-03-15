@@ -8,6 +8,9 @@
             <div class="row" style="text-align: center;">
                 <div class="col"id="prof">
                     <h3 id="title">Hi, {{ info.firstname }}!</h3>
+                    {% if message %}
+                        <p>{{ message }}</p>
+                    {% endif %}
                 </div>
             </div>
             <div class="row" style="text-align: center;">
@@ -19,6 +22,9 @@
                         <p>Adres: {{ info.streetname }} {{ info.housenr }} <br> 
                         {{ info.postalcode }} {{ info.city }} {{ info.country }}</p>
                     {% endif %}
+                    <p>
+                        <a href="{% url 'change' %}"><button class="btn" id='buttonadd' id="bestelling" type="button">Gegevens wijzigen</button></a>
+                    </p>
                 </div>
                 <div class="col" id="prof">
                     <h4 id="title">Bestelgeschiedenis</h4>
@@ -58,24 +64,24 @@
                     {% endif %}
                 </div>
             </div>
-        </div>
-    {% else %}
-        <div class='row justify-content-end'>
-            <div class="col">
-                <h3 id="title">Bestaande klant?</h3>
+        {% else %}
+            <div class='row justify-content-end'>
+                <div class="col">
+                    <h3 id="title">Bestaande klant?</h3>
+                </div>
+                <div class="col">
+                    <h3 id="title">Account aanmaken?</h3>
+                </div>
             </div>
-            <div class="col">
-                <h3 id="title">Account aanmaken?</h3>
-            </div>
-        </div>
-        <div class='row'>
-            <div class="col">
-                <a href="{% url 'login' %}"><button class="btn" id='buttonadd' id="bestelling" type="button">Log in</button></a>
-            </div>
-            <div class="col">
-                <a href="{% url 'register' %}"><button class="btn" id='buttonadd' id="bestelling" type="button">Registreren</button></a>
-            </div>
-        </div>    
-    {% endif %}
+            <div class='row'>
+                <div class="col">
+                    <a href="{% url 'login' %}"><button class="btn" id='buttonadd' id="bestelling" type="button">Log in</button></a>
+                </div>
+                <div class="col">
+                    <a href="{% url 'register' %}"><button class="btn" id='buttonadd' id="bestelling" type="button">Registreren</button></a>
+                </div>
+            </div>    
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

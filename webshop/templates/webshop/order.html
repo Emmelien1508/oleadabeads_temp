@@ -6,45 +6,121 @@
     <div class="container">
         <div class="row">
             <div class="col">
-            <h3 id="title">Samenvatting van bestelling #{{ order.id }}</h3>
-            <div class="row">
-                <div class="col text-right">
-                    Totaal: €{{ order.total }}
-                </div>
-                <div class="col text-left">
-                    Status: {{ order.status }}
-                </div>
-            </div>
+                <h4 id="title">Samenvatting van bestelling #{{ order.id }}</h4>
             </div>
         </div>
-        <table class="center" style="width:90%">
-            <tr id="lines" class="header">
-                <th></th>
-                <th><h5>Product</h5></th>
-                <th><h5>Aantal</h5></th>
-                <th><h5>Prijs</h5></th>
-                <th></th>
-            </tr>
-            {% for item in order.orderproduct.all %}
-                <tr id="itemcontent">
-                    <td class='alnleft'>
-                        <a href="{% url 'product' item.product.name %}">
-                            <img src="{% static item.product.image.first.image.url %}" width="100px">
-                        </a>
-                    </td>
-                    <td>
-                        <h6><a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a></h6>
-                    </td>
-                    <td>
-                        <h6>{{ item.quantity }}</h6>
-                    </td>
-                    <td>
-                        <h6>€{{ item.product.price }}</h6>
-                    </td>
+        <div class="row">
+            <table class="center" style="width:90%">
+                <tr id="lines" class="header">
+                    <th><h6>Ordernummer {{ order.id }}</h6></th>
+                    <th><h6>Product</h6></th>
+                    <th><h6>Prijs</h6></th>
+                    <th><h6>Totaal</h6></th>
+                </tr>
+                {% for item in order.orderproduct.all %}
+                    {% if item.product %}
+                        <tr>
+                            <td class='alnleft'>
+                                <a href="{% url 'product' item.product.name %}">
+                                    <img src="{% static item.product.image.first.image.url %}" width="80px">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
+                            </td>
+                            <td>
+                                {{ item.quantity }} <img src="{% static 'images/Multiply.png' %}" width="20px"> €{{ item.product.price }}
+                            </td>
+                            <td>
+                                €{{ item.total }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if item.diyproduct %}
+                        <tr>
+                            <td class="alnleft">
+                                <img src="{% static 'images/home1.jpeg' %}" width="80px">
+                            </td>
+                            <td>
+                                {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
+                            </td>
+                            <td>
+                                {{ item.quantity }} <img src="{% static 'images/Multiply.png' %}" width="20px"> €{{ item.diyproduct.price }}
+                            </td>
+                            <td>
+                                €{{ item.total }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                 </tr>
-            {% endfor %}
-        </table>
+                <tr id="overline">
+                    <td style="font-weight: 600;">Status verzending</td>
+                    <td></td>
+                    <td style="font-weight: 600;">Totaal (incl. verzenden)</td>
+                    <td style="font-weight: 600;">€{{ order.total }}</td>
+                </tr>
+                <tr>
+                    <td>{{ order.status }}</td>
+                    {% if request.user.is_staff %}
+                        <td><a href="{% url 'changestatus' order.id %}">Status aanpassen</a></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td>Verzendmethode:</td>
+                    <td>{{ order.shipping }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="header">
+                    <th><h6>Contactgegevens</h6></th>
+                    <th></th>
+                    <th>Factuuradres</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Naam:</td>
+                    <td>{{ order.customer.firstname }} {{ order.customer.lastname }}</td>
+                    <td>Straat:</td>
+                    <td>{{ order.customer.streetname }} {{ order.customer.housenr }}</td>
+                </tr>
+                <tr>
+                    <td>E-mail:</td>
+                    <td>{{ order.customer.email }}</td>
+                    <td>Postcode:</td>
+                    <td>{{ order.customer.postalcode }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Stad:</td>
+                    <td>{{ order.customer.city }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col">
+                <hr class="my-4">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'profile' %}">
+                    <button class="btn" id="buttonadd" type="button">
+                        <span class="text" id="bestellingplaatsen">Ga terug</span>
+                    </button>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

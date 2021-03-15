@@ -11,7 +11,7 @@
                 <div class="col">
                     <div class="row">
                         <div class="col">
-                            <h3 id="title">Facturering & verzending</h3>
+                            <h3 id="title">Facturering</h3>
                         </div>
                     </div>
                     <div class="row">
@@ -101,6 +101,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <h3 id="title">Verzendmethode</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input id="Brievenbuspakketje" name="shipping_option" value="Brievenbuspakketje" type="radio" class="custom-control-input">
+                                <label class="custom-control-label" for="Brievenbuspakketje">Brievenbuspakketje (+ €2)</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input id="Met Track & Trace" name="shipping_option" value="Met Track & Trace" type="radio" class="custom-control-input">
+                                <label class="custom-control-label" for="Met Track & Trace">Met Track & Trace (+ €4)</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col">
                     <div class="row">
@@ -114,7 +131,7 @@
                                 <th></th>
                                 <th><h6>Product</h6></th>
                                 <th><h6>Prijs</h6></th>
-                                <th></th>
+                                <th><h6>Totaal</h6></th>
                             </tr>
                             {% for item in normalproducts %}
                                 <tr>
@@ -124,17 +141,10 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <tr>
-                                            <td>
-                                                <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
-                                            </td>
-                                            <td>
-                                                {{ item.quantity }}
-                                            </td>
-                                            <td>
-                                                €{{ item.product.price }}
-                                            </td>
-                                        </tr>
+                                        <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
+                                    </td>
+                                    <td>
+                                        {{ item.quantity }} <img src="{% static 'images/Multiply.png' %}" width="20px"> €{{ item.product.price }}
                                     </td>
                                     <td>
                                         €{{ item.total }}
@@ -144,27 +154,42 @@
                             {% for item in diyproducts %}
                                 <tr>
                                     <td class="alnleft">
-                                        <img src="{% static 'images/home1.jpeg' %}" width="80px">
+                                        <img src="{% static 'images/home1.jpg' %}" width="80px">
                                     </td>
                                     <td>
-                                        <tr>
-                                            <td>
-                                                {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
-                                            </td>
-                                            <td>
-                                                {{ item.quantity }}
-                                            </td>
-                                            <td>
-                                                €{{ item.diyproduct.price }}
-                                            </td>
-                                        </tr>
+                                        {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
+                                    </td>
+                                    <td>
+                                        {{ item.quantity }} <img src="{% static 'images/Multiply.png' %}" width="20px"> €{{ item.diyproduct.price }}
                                     </td>
                                     <td>
                                         €{{ item.total }}
                                     </td>
                                 </tr>
                             {% endfor %}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><h6>Subtotaal</h6></td>
+                                <td><h6>€{{ total }}</h6></td>
+                            </tr>
+                            {% if freeshipping %}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><h5>Totaal</h5></td>
+                                <td><h5>€{{ total }}</h5></td>
+                            </tr>
+                            {% endif %}
                         </table>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Opmerkingen</label>
+                                <textarea class="form-control" name="comments" rows="3" placeholder="Eventuele opmerkingen"></textarea>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">       
@@ -173,11 +198,11 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div class="custom-control custom-radio">
+                            <div class="custom-control custom-radio custom-control-inline">
                                 <input id="iDeal" name="payment_option" value="iDeal" type="radio" class="custom-control-input">
                                 <label class="custom-control-label" for="iDeal">iDeal</label>
                             </div>
-                            <div class="custom-control custom-radio">
+                            <div class="custom-control custom-radio custom-control-inline">
                                 <input id="Mastercard" name="payment_option" value="Mastercard" type="radio" class="custom-control-input">
                                 <label class="custom-control-label" for="Mastercard">Mastercard</label>
                             </div>

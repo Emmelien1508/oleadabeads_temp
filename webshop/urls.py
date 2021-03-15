@@ -24,5 +24,8 @@ urlpatterns = [
     path("toevoegenwinkelwagen/<str:naam>", views.addtocart, name="addtocart"),
     path("verwijderenwinkelwagen/<str:naam>", views.deletefromcart, name="deletefromcart"),
     path("bestelling/<int:ordernummer>", views.order, name="order"),
-    path("kortingscodetoevoegen", views.discount, name="discount")
+    path("kortingscodetoevoegen", views.discount, name="discount"),
+    path("gegevenswijzigen", views.changeprofile, name="change"),
+    path("gegevenswijzigen", views.changeprofile, name="changeinfo"),
+    path("statusveranderen/<int:ordernummer>", views.changestatus, name="changestatus")
 ]

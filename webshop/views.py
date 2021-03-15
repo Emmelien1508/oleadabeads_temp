@@ -98,7 +98,21 @@ def addtocart(request, naam):
     if request.method == "POST":
         add_product_to_cart(request, cust, item)
 
-    return redirect(product, naam)
+        _, outofstock, added, incart, images = get_product_info(cust, naam)
+
+        message = ""
+        if item.left == 0:
+            message = "Dit product is uitverkocht!" 
+
+        return render(request, "webshop/product.html", {
+            "product": item,
+            "outofstock": outofstock,
+            "added": added, 
+            "incart": incart,
+            "images": images,
+            "message": message,
+            "addedtocart": f"{item.name.capitalize()} is aan je winkelmandje toegevoegd!"
+        })
 
 def deletefromcart(request, naam):
     cust = get_customer_session(request)
@@ -124,47 +138,59 @@ def checkout(request):
     diyproducts, normalproducts, _, total = get_all_cartitems(cust)
 
     if request.method == "POST":
-        cart = save_checkout_data(request, cust)
+        cart, payment_option, shipping_option, comments = save_checkout_data(request, cust)
+        
+        order = create_order(cust, cart, total, payment_option, shipping_option, comments)
 
-        order = create_order(cust, cart, total)
-
-        send_email(order, cust)
+        send_email(order, cust, shipping_option)
 
         return render(request, "webshop/orderconfirmation.html", {
-            "customer": cust,
+            "cust": cust,
             "order": order,
+            "payment": payment_option,
             "normalproducts": normalproducts,
-            "diyproducts": diyproducts,
-            "total": total
+            "diyproducts": diyproducts
         })
+    
+    freeshipping = False
+    if total > 35:
+        freeshipping = True
 
     return render(request, "webshop/checkout.html", {
         "customer": cust,
         "normalproducts": normalproducts,
         "diyproducts": diyproducts,
-        "total": total
+        "total": total,
+        "freeshipping": freeshipping
     })
 
 def contact(request):
     return render(request, "webshop/contact.html")
 
 def profile(request):
-    cust = get_customer_session(request)
+    if request.user.is_staff:
+        orders = Order.objects.all()
 
-    favorites, favitems = get_favorite_info(cust)
+        return render(request, "webshop/admin.html", {
+            "orders": orders
+        })
 
-    orders = Order.objects.filter(customer = cust)
+    else:
+        cust = get_customer_session(request)
+        favorites, favitems = get_favorite_info(cust)
+        orders = Order.objects.filter(customer = cust)
 
-    return render(request, "webshop/profile.html", {
-        "favorites": favorites,
-        "favitems": favitems,
-        "orders": orders,
-        "info": cust,
-        "added": True
-    })
+        return render(request, "webshop/profile.html", {
+            "favorites": favorites,
+            "favitems": favitems,
+            "orders": orders,
+            "info": cust,
+            "added": True
+        })
 
 def order(request, ordernummer):
     order = Order.objects.get(id=ordernummer)
+
     return render(request, "webshop/order.html", {
         "order": order
     })
@@ -177,8 +203,13 @@ def fav(request, naam):
         fav = Favorite.objects.get(customer = cust, favoriteproduct = item)
         fav.favoriteproduct.remove(item)
     except:
-        fav = Favorite.objects.create(customer = cust, favoriteproduct = item)
-    
+        try:
+            fav = Favorite.objects.get(customer = cust)
+        except:
+            fav = Favorite.objects.create(customer = cust)
+            fav.save()
+        fav.favoriteproduct.add(item)
+
     return redirect(product, naam)
 
 def deletefromprofile(request, naam):
@@ -192,12 +223,12 @@ def deletefromprofile(request, naam):
 def info(request):
     return render(request, "webshop/information.html")
 
-def discount(request, code):
+def discount(request):
     cust = get_customer_session(request)
-
     diyproducts, normalproducts, incart, total = get_all_cartitems(cust)
 
     if request.method == "POST":
+        code = request.POST["korting"]
         try:
             discount = Discount.objects.get(code = code)
             if discount.active:
@@ -216,4 +247,36 @@ def discount(request, code):
         "incart": incart,
         "customer": cust,
         "message": message
+    })
+
+def changeprofile(request):
+    cust = get_customer_session(request)
+    message = ""
+
+    if request.method == "POST":
+        change_profile_info(request, cust)
+        message = "Gegevens succesvol gewijzigd"
+
+    return render(request, "webshop/change.html", {
+        "customer": cust,
+        "message": message
+    })
+
+def changestatus(request, ordernummer):
+    order = Order.objects.get(id = ordernummer)
+
+    if request.method == "POST":
+        status = request.POST['orderstatus']
+        if order.status == status:
+            return render(request, "webshop/changestatus.html", {
+                "order": order,
+                "message": "Dat is al de huidige status van deze bestelling!"
+            })
+        elif "Verzonden" in status:
+            send_update_email(order)
+        order.status = status
+        order.save(update_fields=['status'])
+
+    return render(request, "webshop/changestatus.html", {
+        "order": order
     })

@@ -1,0 +1,53 @@
+{% extends "webshop/layout.html" %}
+
+{% block body %}
+{% load static %}
+<div class="main">
+    <div class="container">
+        <div class="row">
+            <div class="col" id="title"><h4>Bestelling #{{ order.id }} van {{ order.customer.firstname }} {{ order.customer.lastname }}</h4></div>
+        </div>
+        {% if message %}
+            <div class="row" style="text-align: center;">
+                <div class="col">
+                    <div class="alert alert-custom alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <table class="center" style="width:90%">
+            <tr id="lines" class="header">
+                <th style="padding:20px;">Huidige status</th>
+                <th style="padding:20px;">Opties</th>
+                <th style="padding:20px;">Wijzigingen opslaan</th>
+            </tr>
+            <tr>
+                <form action="{% url 'changestatus' order.id %}" method="post">
+                    {% csrf_token %}
+                    <td style="padding:20px;">
+                        {{ order.status }}
+                    </td>
+                    <td style="padding:20px;">
+                        <select class="custom-select" name="orderstatus">
+                            <option value="Ontvangen">Ontvangen</option>
+                            <option value="In behandeling">In behandeling</option>
+                            <option value="Verzonden">Verzonden</option>
+                        </select>
+                    </td>
+                    <td style="padding:20px;">
+                        <button class="btn" id="buttonadd" type="submit">
+                            <span class="text" id="bestellingplaatsen">
+                                Wijzig
+                            </span>
+                        </button>
+                    </td>
+                </form>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}

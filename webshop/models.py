@@ -203,7 +203,7 @@ class Order(models.Model):
     date_ordered = models.DateField()
     status = models.CharField(max_length=30, choices=STATUS_CHOICES)
     total = models.DecimalField(max_digits=5, decimal_places=2)
-    comment = models.TextField()
+    comment = models.TextField(null=True, blank=True)
     shipping = models.CharField(max_length=50, choices=SHIPPING_CHOICES)
     free_shipping = models.BooleanField(default=False)
 

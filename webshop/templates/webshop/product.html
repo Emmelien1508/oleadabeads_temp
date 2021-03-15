@@ -34,26 +34,49 @@
         </div>
         <div class="row" style="text-align: center;">
             <div class="col">
-                <img src="{% static product.image.first.image.url %}" id="productpic">
+                <div class="slideshow-container">
+
+                    {% for image in product.image.all %}
+                        <div class="mySlides">
+                            <button class="w3-button w3-display-left" onclick="plusSlides(-1)">&#10094;</button>
+                            <img src="{% static image.image.url%}" id="productpic">
+                            <button class="w3-button w3-display-right" onclick="plusSlides(+1)">&#10095;</button>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="col" id="columntext" style="text-align: left !important;">
+                {% if addedtocart %}
+                    <div class="row" style="text-align: center;">
+                        <div class="col">
+                            <div class="alert alert-custom alert-dismissible fade show" role="alert">
+                                {{ addedtocart }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
                 {% if message %}
-                    <p><strong>{{ message }}</strong></p>
-                    {{ product.description }}<br>
-                    Kleuren:<br>
+                    <p style="font-weight: 600;">{{ message }}</p>
+                    <p>{{ product.description }}</p>
+                    <p>Kleuren:<br>
                     {% for color in product.color.all %}
                         - {{ color }}<br>
                     {% endfor %}
-                    Materiaal: {{ product.metal_type }}<br>
-                    <strong>€{{ product.price }}</strong><br>
+                    </p>
+                    <p>Materiaal: {{ product.metal_type }}</p>
+                    <p style="font-weight: 600;">€{{ product.price }}</p>
                 {% else %}
-                    {{ product.description }}<br>
-                    Kleuren:<br>
+                    <p>{{ product.description }}</p>
+                    <p>Kleuren:<br>
                     {% for color in product.color.all %}
                         - {{ color }}<br>
                     {% endfor %}
-                    Materiaal: {{ product.metal_type }}<br>
-                    <strong>€{{ product.price }}</strong><br>
+                    </p>
+                    <p>Materiaal: {{ product.metal_type }}</p>
+                    <p style="font-weight: 600;">€{{ product.price }}</p>
                     {% if product.left < 5 %}
                         <p>Er zijn nog {{ product.left }} stuks van dit product op voorraad!</p>
                     {% endif %}
@@ -107,6 +130,24 @@
         enableDisableButton();
         });
     });
+
+    var slideIndex = 1;
+    showDivs(slideIndex);
+
+    function plusSlides(n) {
+    showDivs(slideIndex += n);
+    }
+
+    function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    if (n > x.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = x.length} ;
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    x[slideIndex-1].style.display = "block";
+    }
 </script>
 
 {% endblock %}

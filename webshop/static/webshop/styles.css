@@ -16,23 +16,15 @@
          url('Chapaza.svg#svgFontName') format('svg'); /* Legacy iOS */
 }
 
-@font-face {
-    font-family: 'GT Medium';
-    src: url('GTWalsheimPro-Medium.eot'); /* IE9 Compat Modes */
-    src: url('GTWalsheimPro-Medium.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('GTWalsheimPro-Medium.woff') format('woff'), /* Modern Browsers */
-         url('GTWalsheimPro-Medium.ttf')  format('truetype'), /* Safari, Android, iOS */
-         url('GTWalsheimPro-Medium.svg#svgFontName') format('svg'); /* Legacy iOS */
+#overline {
+    border-top: 1px solid #D8CECE;
 }
 
-@font-face {
-    font-family: 'GT Thin';
-    src: url('GT_Walsheim_Thin.eot'); /* IE9 Compat Modes */
-    src: url('GT_Walsheim_Thin.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('GT_Walsheim_Thin.woff') format('woff'), /* Modern Browsers */
-         url('GT_Walsheim_Thin.ttf')  format('truetype'), /* Safari, Android, iOS */
-         url('GT_Walsheim_Thin.svg#svgFontName') format('svg'); /* Legacy iOS */
+.w3-button {
+    background-color: white;
+    border:0;
 }
+
 
 html, body {
     height: 100%;
@@ -53,7 +45,8 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'GT Medium';
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
 }
 
 .containerr {
@@ -103,8 +96,16 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     #columntext {
-        padding:50px;
+        padding-bottom:50px;
     }
+
+    @media screen and (max-width: 768px) {
+        #columntext {
+            padding-left: 50px;
+            padding-right:50px;
+        }
+    }
+
 }
 
 /* voor een telefoon */
@@ -126,12 +127,20 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     #columntext {
-        padding:30px;
+        padding-bottom:25px;
+        padding-left:25px;
+        padding-left:25px;
     }
 }
   
+
+.alert-custom{
+    background-color:#96a480;
+}
+
 .textt {
-    font-family: 'GT Medium';
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
     text-transform: uppercase;
     font-size:150%;
     color: white;
@@ -151,15 +160,16 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
 }
 
-.sidebar a, html, body {
-    font-family: 'GT Thin';
+html, body {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
     color: #1a1919;
 }
 
 .btn {
-    font-family: 'GT Medium';
+    font-family: 'Raleway', sans-serif;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 3px;
 }
@@ -271,6 +281,10 @@ h1, h2, h3, h4, h5, h6 {
         content:"\a\a";
         white-space: pre;
     }
+
+    #columntext {
+        padding-top:20px;
+    }
 }
 
 #buttonadding { 
@@ -278,7 +292,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-right:1px;
 }
 
-#buttonadd, .text, #Korting {
+#buttonadd, .text {
     padding: 0px;
     width: 100%;
     height: 51px;
@@ -292,6 +306,11 @@ h1, h2, h3, h4, h5, h6 {
 
 #Korting {
     margin-right: 10px;
+}
+
+.flexing {
+    display: flex;
+    flex-direction: row;
 }
 
 #Korting, #Voegtoe {
@@ -483,7 +502,6 @@ li {
     text-align: center;
     padding-top: 20px;
     color: #1a1919;
-    /* text-decoration: underline #613b44 !important; */
 }
 
 .flex {
@@ -500,10 +518,10 @@ li {
 }
 
 #Checkout {
-    display: flex;
+    /* display: flex;
     align-items: flex-end;
     flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: row; */
     width: 100%;
     margin:0;
     justify-content: flex-end;
@@ -535,7 +553,7 @@ li {
     z-index: 1; /* Stay on top */
     top: 0;
     left: 0;
-    background-color: #F1E5E5;
+    background-color: white;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
@@ -543,21 +561,23 @@ li {
   
   /* The sidebar links */
 .sidebar a {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
     padding: 8px 8px 8px 32px;
     font-size: 20px;
     color: #1a1919;
     display: block;
     transition: 0.5s;
     /* font-family: 'Oxygen'; */
-    font-weight: 200;
+    /* font-weight: 200; */
 }
   
-  /* When you mouse over the navigation links, change their color */
+/* When you mouse over the navigation links, change their color */
 .sidebar a:hover {
     color: #96a480;
 }
   
-  /* Position and style the close button (top right corner) */
+/* Position and style the close button (top right corner) */
 .sidebar .closebtn {
     position: absolute;
     top: 0;
@@ -566,20 +586,18 @@ li {
     margin-left: 50px;
 }
   
-  /* The button used to open the sidebar */
+/* The button used to open the sidebar */
 .openbtn {
     font-size: 20px;
     cursor: pointer;
     background-color: white;
-    /* background-color: #111; */
-    /* color: white; */
     padding: 10px 15px;
     margin-left:5px;
     border: none;
     align-self: flex-start;
 }
   
-  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
     transition: margin-left .5s; /* If you want a transition effect */
     padding: 20px;

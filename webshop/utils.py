@@ -13,9 +13,9 @@ def get_customer_session(request):
         request.session.save()
 
     try:
-        s = Session.objects.get(session_key=request.session.session_key)
+        s = Session.objects.get(pk=request.session.session_key)
     except:
-        s = Session.objects.create(session_key=request.session.session_key)
+        s = Session.objects.create(pk=request.session.session_key)
 
     if not request.user.is_anonymous:
         try:
@@ -155,7 +155,7 @@ def save_diy_data(request):
     look = request.POST['look']
     color = request.POST.getlist('color[]')
     colors = []
-    for c in diycolor:
+    for c in color:
         if '€' in c:
             colors.append(c[:-10])
         else:
@@ -167,15 +167,15 @@ def save_diy_data(request):
 
 def create_diy_product(jewelrytype, look, colors, metaltype):
     price = 5
-    if jewelrytype == "Ketting":
+    if "Ketting" in jewelrytype:
         price += 2
-    if look == "Schakelketting":
+    if "Schakelketting" in look:
         price += 1.50
     if "Edelsteen" in colors:
         price += 1.50
     if "Parel" in colors:
         price += 1
-    if metaltype == "Goud":
+    if "Goud" in metaltype:
         price += 0.5
 
     diy = Diy.objects.create(price = price, jewelry_type = jewelrytype, look = look, metal_type = metaltype)
@@ -201,7 +201,8 @@ def get_all_cartitems(cust):
         if item.product:
             if item.quantity > item.product.left:
                 item.quantity = item.product.left
-                item.save(update_fields=['quantity'])
+                item.total = item.quantity * item.product.price
+                item.save(update_fields=['quantity', 'total'])
             normalproducts.append(item)
             total += item.quantity * item.product.price
         else:
@@ -222,10 +223,12 @@ def add_product_to_cart(request, cust, item):
         cartproduct.total += amount * cartproduct.product.price
         cartproduct.save(update_fields=['quantity', 'total'])
     except:
-        cartproduct = OrderProduct.objects.create(customer = cust, product = item, ordered = False)
+        cartproduct = OrderProduct()
+        cartproduct.customer = cust
+        cartproduct.product = item
         cartproduct.quantity = amount
         cartproduct.total = amount * cartproduct.product.price
-        cartproduct.save(update_fields=['quantity', 'total'])
+        cartproduct.save()
         
 def save_checkout_data(request, cust):
     straat = request.POST['streetname']
@@ -233,6 +236,8 @@ def save_checkout_data(request, cust):
     postcode = request.POST['postalcode']
     stad = request.POST['city']
     betaalwijze = request.POST['payment_option']
+    verzendmethode = request.POST['shipping_option']
+    opmerkingen = request.POST['comments']
     voornaam = request.POST['voornaam']
     achternaam = request.POST['achternaam']
     email = request.POST['email']
@@ -249,17 +254,37 @@ def save_checkout_data(request, cust):
 
     cust.save(update_fields=['email', 'firstname', 'lastname', 'streetname', 'housenr', 'postalcode', 'city'])
     
-    return OrderProduct.objects.filter(customer = cust, ordered = False)
+    return OrderProduct.objects.filter(customer = cust, ordered = False), betaalwijze, verzendmethode, opmerkingen
 
-def create_order(cust, cart, total):
-    order = Order.objects.create(customer = cust, date_ordered = datetime.now(), status = "Ontvangen", total = total)
+def create_order(cust, cart, total, payment_option, shipping_option, comment):
+    if total > 35:
+        freeshipping = True
+    else:
+        freeshipping = False
+        if "Brievenbuspakketje" in shipping_option:
+            total += 2
+        if "Met Track & Trace" in shipping_option:
+            total += 4
+
+    for item in cart:
+        if item.product:
+            item.product.left -= item.quantity
+            item.product.save(update_fields=['left'])
+
+    order = Order.objects.create(customer = cust, date_ordered = datetime.now(), status = "Ontvangen", total = total, shipping = shipping_option, free_shipping = freeshipping, comment = comment)
     order.save()
-    order.orderproduct.set(cart)
+    for item in cart:
+        item.ordered = True
+        item.save(update_fields=['ordered'])
+        order.orderproduct.add(item)
 
-def send_email(order, cust):
+    return order
+
+def send_email(order, cust, shipping_option):
     context = {
         "order": order,
-        "customer": cust
+        "customer": cust,
+        "shipping": shipping_option
     }
 
     subject = f"Dankjewel voor je bestelling {cust.firstname}!"
@@ -296,3 +321,42 @@ def process_discount(discount, cust, total):
         total *= (1 - minus)
 
     return total
+
+def change_profile_info(request, cust):
+    straat = request.POST['streetname']
+    huisnr = request.POST['housenr']
+    postcode = request.POST['postalcode']
+    stad = request.POST['city']
+    voornaam = request.POST['voornaam']
+    achternaam = request.POST['achternaam']
+    email = request.POST['email']
+
+    cust.firstname = voornaam
+    cust.lastname = achternaam
+    cust.email = email
+    cust.streetname = straat
+    cust.housenr = huisnr
+    cust.postalcode = postcode
+    cust.city = stad
+
+    cust.save(update_fields=['email', 'firstname', 'lastname', 'streetname', 'housenr', 'postalcode', 'city'])
+
+def send_update_email(order):
+    context = {
+        "order": order
+    }
+
+    subject = f"Dankjewel voor je bestelling {order.customer.firstname}!"
+    msg_plain = render_to_string("webshop/update_email.txt", context)
+    msg_html = render_to_string("webshop/update_email.html", context)
+    from_email = settings.EMAIL_HOST_USER
+    to_list = [f"{order.customer.email}"]
+
+    send_mail(
+        subject,
+        msg_plain,
+        from_email,
+        to_list,
+        html_message=msg_html,
+        fail_silently=True,
+    )

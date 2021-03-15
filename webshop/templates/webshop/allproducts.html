@@ -24,7 +24,7 @@
                         <div id="product">
                             <a href="{% url 'product' product.name %}">
                                 <img src="{% static product.image.first.image.url %}" height="175px">
-                                <p>
+                                <p id="title">
                                     {{ product.name }}
                                     €{{ product.price }}
                                 </p>

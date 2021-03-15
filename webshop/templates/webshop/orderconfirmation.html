@@ -6,22 +6,17 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3 id="title">Dankjewel voor je bestelling, {{ customer.firstname }}!</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h4>Samenvatting van je bestelling</h4>
-                <p>Ordernummer {{ cart.id }}</p>
+                <h4 id="title">Dankjewel voor je bestelling, {{ cust.firstname }}!</h4>
+                <p id="title">Samenvatting van je bestelling</p>
             </div>
         </div>
         <div class="row">
             <table class="center" style="width:90%">
                 <tr id="lines" class="header">
-                    <th></th>
+                    <th><h6>Ordernummer {{ order.id }}</h6></th>
                     <th><h6>Product</h6></th>
                     <th><h6>Prijs</h6></th>
-                    <th></th>
+                    <th><h6>Totaal</h6></th>
                 </tr>
                 {% for item in normalproducts %}
                     <tr>
@@ -31,17 +26,10 @@
                             </a>
                         </td>
                         <td>
-                            <tr>
-                                <td>
-                                    <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
-                                </td>
-                                <td>
-                                    {{ item.quantity }}
-                                </td>
-                                <td>
-                                    €{{ item.product.price }}
-                                </td>
-                            </tr>
+                            <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
+                        </td>
+                        <td>
+                            {{ item.quantity }} <img src="{% static 'images/Multiply.png' %}" width="20px"> €{{ item.product.price }}
                         </td>
                         <td>
                             €{{ item.total }}
@@ -54,23 +42,88 @@
                             <img src="{% static 'images/home1.jpeg' %}" width="80px">
                         </td>
                         <td>
-                            <tr>
-                                <td>
-                                    {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
-                                </td>
-                                <td>
-                                    {{ item.quantity }}
-                                </td>
-                                <td>
-                                    €{{ item.diyproduct.price }}
-                                </td>
-                            </tr>
+                            {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
+                        </td>
+                        <td>
+                            {{ item.quantity }} <img src="{% static 'images/Multiply.png' %}" width="20px"> €{{ item.diyproduct.price }}
                         </td>
                         <td>
                             €{{ item.total }}
                         </td>
                     </tr>
                 {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr id="overline">
+                    <td></td>
+                    <td></td>
+                    <td style="font-weight: 600;">Totaal (incl. verzenden)</td>
+                    <td style="font-weight: 600;">€{{ order.total }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Verzendmethode:</td>
+                    <td>{{ order.shipping }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="header">
+                    <th><h6>Contactgegevens</h6></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Naam:</td>
+                    <td>{{ cust.firstname }} {{ cust.lastname }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>E-mail:</td>
+                    <td>{{ cust.email }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="header">
+                    <th><h6>Factuuradres</h6></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Straat:</td>
+                    <td>{{ cust.streetname }} {{ cust.housenr }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Postcode:</td>
+                    <td>{{ cust.postalcode }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Stad:</td>
+                    <td>{{ cust.city }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </table>
         </div>
         <div class="row">
@@ -81,13 +134,11 @@
         <div class="row">
             <div class="col"></div>
             <div class="col text-right">
-                <strong id="Totalnr">Totaal €{{ total }}</strong>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col text-right">
-                <a href="{% url 'home' %}"><button class="btn" id="bestelling" type="button">Ga terug naar de homepagina</button></a>
+                <a href="{% url 'home' %}">
+                    <button class="btn" id="buttonadd" type="button">
+                        <span class="text" id="bestellingplaatsen">Ga terug naar de homepagina</span>
+                    </button>
+                </a>
             </div>
         </div>
     </div>

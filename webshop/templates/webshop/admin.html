@@ -1,0 +1,62 @@
+{% extends "webshop/layout.html" %}
+
+{% block body %}
+{% load static %}
+
+<div class="main">
+    <div class="container">
+        <div class="row" style="text-align: center;">
+            <div class="col" id="prof">
+                <h4 id="title">Bestellingen</h4>
+            </div>
+        </div>
+        <div class="row">
+            <table class="center" style="width:100%">
+                <tr id="lines" class="header" style="text-align: center;">
+                    <th><h6>Klant</h6></th>
+                    <th><h6>Datum besteld</h6></th>
+                    <th><h6>Totaal</h6></th>
+                    <th><h6>Opmerkingen</h6></th>
+                    <th><h6>Verzendmethode</h6></th>
+                    <th><h6>Status</h6></th>
+                </tr>
+                {% for order in orders %}
+                    <tr style="text-align: center;">
+                        <td>
+                            <a href="{% url 'order' order.id %}">
+                            {{ order.customer.firstname }} {{ order.customer.lastname }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'order' order.id %}">
+                                {{ order.date_ordered}}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'order' order.id %}">
+                                {{ order.total }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'order' order.id %}">
+                                {{ order.comment }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'order' order.id %}">
+                                {{ order.shipping }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'order' order.id %}">
+                                {{ order.status }}   
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

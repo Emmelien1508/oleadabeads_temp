@@ -93,7 +93,7 @@
                     <div id="product">
                         <a href="{% url 'product' product.name %}">
                             <img src="{% static product.image.first.image.url %}" height="320px">
-                            <p>
+                            <p id="title">
                                 {{ product.name }}
                                 €{{ product.price }}
                             </p>
@@ -102,9 +102,13 @@
                 {% endfor %}
             </div>
             <div class="row">
-                <div class="col" id="continuecheckout">
+                <div class="col" style="padding-left:420px;padding-right:420px;" id="continuecheckout">
                     <a href="{% url 'allproducts' 'bestsellers'%}">
-                        <button class="btn" id="bestelling" type="button">Alle bestsellers</button>
+                        <button class="btn" id="buttonadd">
+                            <span class="text" id="bestellingplaatsen">
+                                Naar alle bestsellers
+                            </span>
+                        </button>
                     </a>
                 </div>
             </div>
