@@ -10,7 +10,6 @@ def add_variable_to_context(request):
         for item in items:
             count += item.quantity
 
-
     except:
         count = 0
 

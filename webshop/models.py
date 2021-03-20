@@ -206,6 +206,7 @@ class Order(models.Model):
     comment = models.TextField(null=True, blank=True)
     shipping = models.CharField(max_length=50, choices=SHIPPING_CHOICES)
     free_shipping = models.BooleanField(default=False)
+    payment_option = models.CharField(max_length=30, blank=True)
 
     def __str__(self):
         return self.customer.email

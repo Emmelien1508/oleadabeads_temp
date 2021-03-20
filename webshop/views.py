@@ -5,6 +5,9 @@ from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 from django.views import generic
 
+from pandas import DataFrame
+import json
+
 from .models import *
 from .forms import LoginForm, RegisterForm
 from .utils import *
@@ -23,9 +26,15 @@ def home(request):
 
     bestsellers, best = get_sorted_bestsellers()
 
+    df = DataFrame.from_dict({'hey': list(range(5, 10)), 'hoi': list(range(10, 15)), 'hi': list(range(30, 35))})
+    jsonn = df.reset_index().to_json(orient='records')
+    data = []
+    data = json.loads(jsonn)
+    print(data)
     return render(request, "webshop/home.html", {
         "bestsellers": bestsellers,
-        "best": best
+        "best": best,
+        "df": data
     })
 
 def logout_view(request):
@@ -147,9 +156,7 @@ def checkout(request):
         return render(request, "webshop/orderconfirmation.html", {
             "cust": cust,
             "order": order,
-            "payment": payment_option,
-            "normalproducts": normalproducts,
-            "diyproducts": diyproducts
+            "payment": payment_option
         })
     
     freeshipping = False

@@ -17,10 +17,6 @@
 
         <title>{% block title %}Oleada Beads{% endblock %}</title>
 
-        <!-- <link href="https://fonts.googleapis.com/css?family=Gothic+A1:300,600|Playfair+Display" rel="stylesheet"> -->
-        <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sartono"> -->
-        
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -28,14 +24,18 @@
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     
-    </head>
+        {% block head %}
+        {% endblock %}
 
-    {% block head %}
-    {% endblock %}
+    </head>
     
     <body>
+        <div class="main" style="background-color: pink;">
+            <p style="text-align:center;">
+                Gratis verzenden bij orders vanaf €35!
+            </p>
+        </div>
         <div id="page-container">
-
             <div id="topbar" style="padding-top:15px;">
                 <div class="row justify-content-center" style="display: inline-flex;">
                     <div class="col" class="center" id="bar">
@@ -50,8 +50,7 @@
                             <a href="{% url 'allproducts' 'limitededitions'%}">Limited Editions</a>
                             <a href="{% url 'diy' %}">DIY</a>
                             {% if user.is_authenticated %}
-                                <img src="{% static 'images/DotLine.png' %}" style="color:#1a1919;margin-left:31px;" height="6px">
-                                <a href="{% url 'logout' %}" style="font-size:18px;">Log uit</a>
+                                <a href="{% url 'logout' %}">Log uit</a>
                             {% endif %}
                         </div>
                         <button class="openbtn" onclick="openNav()">&#9776;</button>
@@ -78,22 +77,26 @@
             </div>
 
             <footer id="sticky-footer">
-                <div class="bottom-menu" style="padding-top:20px;">
-                    <ul>
-                        <li>
-                            <a href="{% url 'info' %}">Bestelinformatie</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'about'%}">Over Ons</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'contact' %}">Contact</a>
-                        </li>
-                        <li>
-                            <a href="https://www.instagram.com/oleadabeads/"><img src="{% static 'images/instalogo.jpg' %}" height="40"></a>
-                            <a href="https://www.facebook.com/OleadaBeads"><img src="{% static 'images/fblogo.png' %}" height="50"></a>
-                        </li>
-                    </ul>
+                <div class="bottom-menu">
+                    <div class="row">
+                        <div class="col" id="bottominfo">
+                            <p id="bottom">Informatie</p>
+                            <p><a href="{% url 'info' %}">Bestelinformatie</a></p>
+                            <p><a href="{% url 'contact' %}">Contact</a></p>
+                        </div>
+                        <div class="col" id="bottominfo">
+                            <p id="bottom">Over ons</p>
+                            <p><a href="{% url 'about'%}">Wie zijn wij?</a></p>
+                            <p>Oleada Beads</p>
+                            <p>KvK-nummer: 82217769</p>
+                        </div>
+                        <div class="col" id="bottominfo">
+                            <p id="bottom">Socials</p>
+                            <p><a href="https://www.instagram.com/oleadabeads/">Instagram: @oleadabeads <img src="{% static 'images/instalogo.jpg' %}" height="20"></a></p>
+                            <p><a href="https://www.facebook.com/OleadaBeads">Facebook: OleadaBeads <img src="{% static 'images/fblogo.png' %}" height="25"></a></p>
+                            <p>E-mail: oleadabeads@gmail.com</p>
+                        </div>
+                    </div>
                 </div>
             </footer>
 

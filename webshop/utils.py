@@ -271,7 +271,7 @@ def create_order(cust, cart, total, payment_option, shipping_option, comment):
             item.product.left -= item.quantity
             item.product.save(update_fields=['left'])
 
-    order = Order.objects.create(customer = cust, date_ordered = datetime.now(), status = "Ontvangen", total = total, shipping = shipping_option, free_shipping = freeshipping, comment = comment)
+    order = Order.objects.create(customer = cust, date_ordered = datetime.now(), status = "Ontvangen", total = total, shipping = shipping_option, free_shipping = freeshipping, payment_option = payment_option, comment = comment)
     order.save()
     for item in cart:
         item.ordered = True

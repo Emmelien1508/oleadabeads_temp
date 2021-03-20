@@ -20,6 +20,18 @@
     border-top: 1px solid #D8CECE;
 }
 
+#orderinfo, #header {
+    text-align: center;
+}
+
+#header {
+    font-weight:600;
+}
+
+#centered {
+    text-align: center;
+}
+
 .w3-button {
     background-color: white;
     border:0;
@@ -46,7 +58,7 @@ html, body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Raleway', sans-serif;
-    font-weight: 600;
+    /* font-weight: 600; */
 }
 
 .containerr {
@@ -55,6 +67,11 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #1a1919;
     margin-bottom:30px;
     width:140px;
+}
+
+.main h2 {
+    font-family: 'Chapaza' !important;
+    font-size: 35px;
 }
 
 .image {
@@ -99,6 +116,10 @@ h1, h2, h3, h4, h5, h6 {
         padding-bottom:50px;
     }
 
+    #bestsellings {
+        width:300px;
+    }
+
     @media screen and (max-width: 768px) {
         #columntext {
             padding-left: 50px;
@@ -131,6 +152,10 @@ h1, h2, h3, h4, h5, h6 {
         padding-left:25px;
         padding-left:25px;
     }
+
+    #bestsellings {
+        width:150px;
+    }
 }
   
 
@@ -140,9 +165,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .textt {
     font-family: 'Raleway', sans-serif;
-    font-weight: 600;
+    /* font-weight: 600; */
     text-transform: uppercase;
-    font-size:150%;
+    font-size:24px;
     color: white;
 }
 
@@ -182,6 +207,14 @@ html, body {
     width:50px;
     align-self: center;
     padding-bottom:10px;
+}
+
+#bottom {
+    text-transform: uppercase;
+}
+
+#bottominfo {
+    text-align: start;
 }
 
 #diypic {
@@ -265,21 +298,17 @@ html, body {
         justify-content: start;
     }
 
+    .text {
+        padding-left: 20px !important;
+        padding-right: 20px !important; 
+    }
+
     #checkoutform {
         display:block;
     }
 
     #diypic {
         width:330px;
-    }
-
-    #sticky-footer .bottom-menu ul li {
-        display: inline;
-    }
-
-    #sticky-footer .bottom-menu ul li::after {
-        content:"\a\a";
-        white-space: pre;
     }
 
     #columntext {
@@ -465,7 +494,7 @@ li {
 }
   
 #content-wrap {
-    padding-bottom:250px;
+    padding-bottom:300px;
 }
 
 #sticky-footer {
@@ -479,11 +508,9 @@ li {
     font-size: 1em;
     bottom: 0;
     width: 100%;
-    text-decoration: none;
-    text-align: center;
     height: 100%;
-    padding-top:10px;
-    padding-bottom:10px;
+    padding: 50px;
+    margin-top:20px;
     background-color: #f0ebeb;
 }
 
@@ -500,6 +527,7 @@ li {
 
 #title {
     text-align: center;
+    text-transform: uppercase;
     padding-top: 20px;
     color: #1a1919;
 }
@@ -564,7 +592,8 @@ li {
     font-family: 'Raleway', sans-serif;
     font-weight: 300;
     padding: 8px 8px 8px 32px;
-    font-size: 20px;
+    font-size: 18px;
+    text-transform: uppercase;
     color: #1a1919;
     display: block;
     transition: 0.5s;
