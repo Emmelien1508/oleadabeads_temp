@@ -10,25 +10,25 @@
                 <h4 id="title">Bestellingen</h4>
             </div>
         </div>
-        <div class="row">
-            <div class="col" id="orderinfo"><h6>Klant</h6></div>
-            <div class="col" id="orderinfo"><h6>Datum besteld</h6></div>
-            <div class="col" id="orderinfo"><h6>Verzendmethode</h6></div>
-            <div class="col" id="orderinfo"><h6>Status</h6></div>
+        <div class="row" style="text-align: center;">
+            <div class="col"><h6>Klant</h6></div>
+            <div class="col"><h6>Datum besteld</h6></div>
+            <div class="col"><h6>Verzendmethode</h6></div>
+            <div class="col"><h6>Status</h6></div>
         </div>
         {% for order in orders %}
         <a href="{% url 'order' order.id %}">
-            <div class="row">
-                <div class="col" id="orderinfo">
+            <div class="row" style="text-align: center;">
+                <div class="col">
                     {{ order.customer.firstname }} {{ order.customer.lastname }}
                 </div>
-                <div class="col" id="orderinfo">
+                <div class="col">
                     {{ order.date_ordered}}
                 </div>
-                <div class="col" id="orderinfo">
+                <div class="col">
                     {{ order.shipping }}
                 </div>
-                <div class="col" id="orderinfo">
+                <div class="col">
                     {{ order.status }}
                 </div>
             </div>

@@ -9,23 +9,30 @@
                 <h4 id="title">Samenvatting van bestelling #{{ order.id }}</h4>
             </div>
         </div>
-        <div class="row" style="margin:0; padding:10px;">
-            <div class="col" id="header">Product</div>
-            <div class="col" id="header">Prijs</div>
-            <div class="col" id="header">Totaal</div>
+        <div class="row" style="margin:0; border-bottom: 1px solid #D8CECE;">
+            <div class="col">Product</div>
+            <div class="col">Prijs</div>
+            <div class="col">Aantal</div>
+            <div class="col">Totaal</div>
         </div>
         {% for item in order.orderproduct.all %}
-            <div class="row" style="margin:0; padding:10px;">
+                <div class="row" style="margin:0; border-bottom: 1px solid #D8CECE; padding:10px;">
                 {% if item.product %}
-                <div class="col" id="orderinfo">
-                    <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
-                </div>
-                <div class="col" id="orderinfo">
-                    {{ item.quantity }} <img src="{% static 'images/Multiply.png' %}" width="20px"> €{{ item.product.price }}
-                </div>
-                <div class="col" id="orderinfo">
-                    €{{ item.total }}
-                </div>
+                    <div class="col">
+                        <a href="{% url 'product' item.product.name %}">
+                            <img src="{% static item.product.image.first.image.url %}" width='100px' style="padding-right:5px;">
+                            {{ item.product.name }}
+                        </a>
+                    </div>
+                    <div class="col" style="margin:auto;">
+                        €{{ item.product.price }}
+                    </div>
+                    <div class="col" style="margin:auto;">
+                        {{ item.quantity }}
+                    </div>
+                    <div class="col" style="margin:auto;">
+                        €{{ item.total }}
+                    </div>
                 {% endif %}
                 {% if item.diyproduct %}
                     <div class="col" id="orderinfo">
@@ -42,17 +49,20 @@
                 {% endif %}
             </div>
         {% endfor %}
-        <div class="row" id="overline" style="margin:0; padding:10px;">
+        <div class="row" style="margin:0; padding:10px;">
+            <div class="col"></div>
             <div class="col"></div>
             <div class="col" id="header">Subtotaal (incl. BTW)</div>
             <div class="col" id="header">€{{ order.subtotal }}</div>
         </div>
         <div class="row" style="margin:0; padding:10px;">
             <div class="col"></div>
+            <div class="col"></div>
             <div class="col" id="header">Verzendkosten</div>
             <div class="col" id="header">€{{ order.shipping_costs }}</div>
         </div>
         <div class="row" style="margin:0; padding:10px;">
+            <div class="col"></div>
             <div class="col"></div>
             <div class="col" id="header">Totaal (incl. BTW)</div>
             <div class="col" id="header">€{{ order.total }}</div>

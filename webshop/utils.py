@@ -286,11 +286,10 @@ def create_order(cust, cart, subtotal, payment_option, shipping_option, comment)
 
     return order
 
-def send_email(order, cust, shipping_option):
+def send_email(order, cust):
     context = {
         "order": order,
-        "customer": cust,
-        "shipping": shipping_option
+        "customer": cust
     }
 
     subject = f"Dankjewel voor je bestelling {cust.firstname}!"

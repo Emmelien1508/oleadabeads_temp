@@ -68,19 +68,21 @@
             <div class='row justify-content-end'>
                 <div class="col">
                     <h3 id="title">Bestaande klant?</h3>
+                    <p style="text-align: center; font-size:18px;">
+                        <a style="text-decoration: 2px underline pink;" href="{% url 'login' %}">
+                            log in
+                        </a>
+                    </p>
                 </div>
                 <div class="col">
                     <h3 id="title">Account aanmaken?</h3>
+                    <p style="text-align: center; font-size:18px;">
+                        <a style="text-decoration: 2px underline pink;" href="{% url 'register' %}">
+                            registreren
+                        </a>
+                    </p>
                 </div>
-            </div>
-            <div class='row'>
-                <div class="col">
-                    <a href="{% url 'login' %}"><button class="btn" id='buttonadd' id="bestelling" type="button">Log in</button></a>
-                </div>
-                <div class="col">
-                    <a href="{% url 'register' %}"><button class="btn" id='buttonadd' id="bestelling" type="button">Registreren</button></a>
-                </div>
-            </div>    
+            </div>  
         {% endif %}
     </div>
 </div>

@@ -30,8 +30,8 @@
     </head>
     
     <body>
-        <div class="page-container">
-            <div class="main" style="background-color: pink; text-align: center;">
+        <div class="page-container" style="min-height:100%; position:relative;">
+            <div class="main" style="background-color: pink; text-align: center; margin-bottom: 10px;">
                 Gratis verzenden bij orders vanaf €35!
             </div>
             <div class="sticky-top" style="background-color: white;">
@@ -44,17 +44,21 @@
                 </div>
                 <nav class="navbar navbar-expand-xl">
                     <div id="mySidebar" style="color:#1a1919" class="sidebar">
-                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                        <a href="{% url 'allproducts' 'nieuw' %}">Nieuw ></a>
-                        <a href="{% url 'allproducts' 'bestsellers' %}">Bestsellers ></a>
-                        <a href="{% url 'allproducts' 'kettingen'%}">Kettingen ></a>
-                        <a href="{% url 'allproducts' 'armbanden'%}">Armbanden ></a>
-                        <a href="{% url 'allproducts' 'oorbellen'%}">Oorbellen ></a>
-                        <a href="{% url 'allproducts' 'hangers'%}">Hangers ></a>
-                        <a href="{% url 'allproducts' 'limitededitions'%}">Limited Editions ></a>
-                        <a href="{% url 'diy' %}">DIY ></a>
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> 
+                        <a href="{% url 'allproducts' 'nieuw' %}">Nieuw</a>
+                        <a href="{% url 'allproducts' 'bestsellers' %}">Bestsellers</a>
+                        <a href="{% url 'allproducts' 'kettingen'%}">Kettingen</a>
+                        <a href="{% url 'allproducts' 'armbanden'%}">Armbanden</a>
+                        <a href="{% url 'allproducts' 'oorbellen'%}">Oorbellen</a>
+                        <a href="{% url 'allproducts' 'hangers'%}">Hangers</a>
+                        <a href="{% url 'allproducts' 'limitededitions'%}">Limited Editions</a>
+                        <a href="{% url 'diy' %}">DIY</a>
+                        <a></a>
                         {% if user.is_authenticated %}
-                            <a href="{% url 'logout' %}">Log uit</a>
+                            <a href="{% url 'profile' %}" style="font-size: 14px; text-decoration: 2px underline pink; text-transform: lowercase;">Mijn account</a>
+                            <a href="{% url 'logout' %}" style="font-size: 14px; text-decoration: 2px underline pink; text-transform: lowercase;">Log uit</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" style="font-size: 14px; text-decoration: 2px underline pink; text-transform: lowercase;">Log in</a>
                         {% endif %}
                     </div>
                     <button class="openbtn" onclick="openNav()">&#9776;</button>
@@ -98,7 +102,7 @@
                 </nav>
             </div>
 
-            <div id="content-wrap">
+            <div id="content-wrap" style="padding-bottom:350px;">
                 {% block body %}
                 {% endblock %}
             </div>

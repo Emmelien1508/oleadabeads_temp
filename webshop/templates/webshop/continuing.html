@@ -2,7 +2,7 @@
 
 {% block body %}
 {% load crispy_forms_tags %}
-<div class="main">
+<div class="main" style="padding-bottom: 50px;">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -11,29 +11,23 @@
         </div>
         <div class="row justify-content-start">
             <div class="col">
-                <h4 id="title">Bestaande klant?</h4>
+                <h5 id="title">Bestaande klant?</h5>
                 <p>Heb je al een account? Klik dan op de knop hier beneden en log in met je gegevens.</p>
             </div>
             <div class="col">
-                <h4 id="title">Geen account?</h4>
+                <h5 id="title">Geen account?</h5>
                 <p>Met een account kan je snel en simpel bestellen. 
                 Bovendien kan je je bestelgeschiedenis inzien!
                 Je kan er ook voor kiezen om zonder account door te gaan.</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
-                <a href="{% url 'login' %}"><button class="btn" id='buttonadd' id="bestelling" type="submit" type="button">Login</button></a>
+            <div class="col" style="text-align:center;">
+                <a style="font-size:14px;text-decoration: 2px underline pink;" href="{% url 'login' %}">Login</a>
             </div>
-            <div class="col-6">
-                <div class="row" style="margin-top:0px !important;">
-                    <div class="col">
-                        <a href="{% url 'register' %}"><button class="btn" id='buttonadd' id="bestelling" type="button">Account aanmaken</button></a>
-                    </div>
-                    <div class="col" id="belowbutton">
-                        <a href="{% url 'checkout' %}"><button class="btn" id='buttonadd' id="bestelling" type="button">Doorgaan <br>zonder account</button></a>
-                    </div>
-                </div>
+            <div class="col" style="text-align:center;">
+                <p><a style="font-size:14px;text-decoration: 2px underline pink;" href="{% url 'register' %}">Account aanmaken</a></p>
+                <p><a style="font-size:14px;text-decoration: 2px underline pink;" href="{% url 'checkout' %}">Doorgaan zonder account</a></p>
             </div>
         </div>
     </div>

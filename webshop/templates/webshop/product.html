@@ -6,12 +6,7 @@
 <div class="main" id="productcontent">
     <div class="container">
         <div class="row">
-            <div class="col">
-                <p id="output"></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
+            <div class="col" style="padding-bottom: 20px;">
                 <h3 id="title">
                     {{ product.name }}
                     {% if user.is_authenticated %}
@@ -91,7 +86,11 @@
                     <p>Materiaal: {{ product.metal_type }}</p>
                     <p style="font-weight: 600;">€{{ product.price }}</p>
                     {% if product.left < 5 %}
-                        <p>Er zijn nog {{ product.left }} stuks van dit product op voorraad!</p>
+                        {% if product.left == 1%}
+                        <p>Er is nog {{ product.left }} stuk van dit product op voorraad!</p>
+                        {% else %}
+                            <p>Er zijn nog {{ product.left }} stuks van dit product op voorraad!</p>
+                        {% endif %}
                     {% endif %}
                     <form action="{% url 'addtocart' product.name %}" method="post">
                         {% csrf_token %}

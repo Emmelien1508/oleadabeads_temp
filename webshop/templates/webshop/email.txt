@@ -126,6 +126,10 @@
             color: #1a1919;
         }
 
+        td, th {
+            border-bottom: 1px solid #1a1919;
+        }
+
     </style>
 </head>
 
@@ -140,120 +144,134 @@
     </div>
 
     <div class="main">
-        <div class="container">
+        <div class="container" style="padding-bottom:200px !important;">
             <div class="row">
-                <div class="col">
-                    <h3 id="title">Dankjewel voor je bestelling, {{ customer.firstname }}!</h3>
+                <div class="col" style="padding-bottom:20px;">
+                    <h4 id="title">Dankjewel voor je bestelling, {{ customer.firstname }}!</h4>
+                    <p id="title">Samenvatting van bestelling #{{ order.id }}</p>
                 </div>
             </div>
-            <div class="row">
-                <table class="center" style="width:90%">
-                    <tr id="lines" class="header">
-                        <th><h6>Ordernummer {{ order.id }}</h6></th>
-                        <th><h6>Product</h6></th>
-                        <th><h6>Prijs</h6></th>
-                        <th><h6>Totaal</h6></th>
+            <table style="border-collapse: collapse; width: 100%;">
+                <thead>
+                    <tr>
+                        <td>Product</td>
+                        <td>Prijs</td>
+                        <td>Totaal</td>
                     </tr>
+                </thead>
+                <tbody>
                     {% for item in order.orderproduct.all %}
-                        {% if item.product %}
-                            <tr>
-                                <td></td>
-                                <td>
-                                    <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
-                                </td>
-                                <td>
-                                    {{ item.quantity }} x €{{ item.product.price }}
-                                </td>
-                                <td>
-                                    €{{ item.total }}
-                                </td>
-                            </tr>
-                        {% endif %}
-                        {% if item.diyproduct %}
-                            <tr>
-                                <td></td>
-                                <td>
-                                    {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
-                                </td>
-                                <td>
-                                    {{ item.quantity }} x €{{ item.diyproduct.price }}
-                                </td>
-                                <td>
-                                    €{{ item.total }}
-                                </td>
-                            </tr>
-                        {% endif %}
+                        <tr>
+                            {% if item.product %}
+                                <td>{{ item.product.name }}</td>
+                                <td>{{ item.quantity }} x €{{ item.product.price }}</td>
+                            {% else %}
+                                <td>{{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}</td>
+                                <td>{{ item.quantity }} x €{{ item.diyproduct.price }}</td>
+                            {% endif %}
+                            <td>€{{ item.total }}</td>
+                        </tr>
                     {% endfor %}
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                     <tr id="overline">
-                        <td style="font-weight: 600;">Status verzending</td>
                         <td></td>
-                        <td style="font-weight: 600;">Totaal (incl. verzenden)</td>
-                        <td style="font-weight: 600;">€{{ order.total }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ order.status }}</td>
-                        {% if request.user.is_staff %}
-                            <td><a href="{% url 'changestatus' order.id %}">Status aanpassen</a></td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                        <td>Verzendmethode:</td>
-                        <td>{{ order.shipping }}</td>
+                        <td>Subtotaal (incl. BTW)</td>
+                        <td>€{{ order.subtotal }}</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr class="header">
-                        <th><h6>Contactgegevens</h6></th>
-                        <th></th>
-                        <th>Factuuradres</th>
-                        <th></th>
+                        <td>Verzendkosten</td>
+                        <td>€{{ order.shipping_costs }}</td>
                     </tr>
                     <tr>
-                        <td>Naam:</td>
-                        <td>{{ order.customer.firstname }} {{ order.customer.lastname }}</td>
-                        <td>Straat:</td>
-                        <td>{{ order.customer.streetname }} {{ order.customer.housenr }}</td>
-                    </tr>
-                    <tr>
-                        <td>E-mail:</td>
-                        <td>{{ order.customer.email }}</td>
-                        <td>Postcode:</td>
-                        <td>{{ order.customer.postalcode }}</td>
+                        <td></td>
+                        <td>Totaal (incl. BTW)</td>
+                        <td>€{{ order.total }}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td></td>
-                        <td>Stad:</td>
-                        <td>{{ order.customer.city }}</td>
+                        <td></td>
                     </tr>
-                </table>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col" style="font-weight:600;">
+                    <p>Contactgegevens</p>
+                </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <hr class="my-4">
+                    <p>{{ order.customer.firstname }} {{ order.customer.lastname }}</p>
+                    <p>{{ order.customer.email }}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col" id="title">
-                    Mocht je nog vragen over je bestelling hebben, stuur ons gerust een berichtje op Instagram @oleadabeads of stuur een e-mail naar oleadabeads@gmail.com!
+                <div class="col" style="font-weight:600;">
+                    <p>Factuuradres</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col" id="title">
-                    <h5>
-                        <p>Liefs,</p>
-                        <p>Emmelien & Cleo</p>
-                    </h5>
+                <div class="col">
+                    <p>{{ order.customer.streetname }} {{ order.customer.housenr }}</p>
+                    <p>{{ order.customer.postalcode }} {{ order.customer.city }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" style="font-weight:600;">
+                    <p>Status verzending</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>{{ order.status }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" style="font-weight:600;">
+                    <p>Verzendmethode</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>{{ order.shipping }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" style="font-weight:600;">
+                    <p>Betaalwijze</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>{{ order.payment_option }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" style="font-weight:600;">
+                    <p>Opmerkingen</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>"{{ order.comment }}"</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Mocht je nog vragen over je bestelling of iets anders hebben, dan horen wij het graag! Je kunt ons via dit e-mailadres, Instagram of Facebook bereiken!</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p style="text-align: center;">
+                        Liefs,
+                    </p>
+                    <p style="text-align: center;">
+                        Emmelien & Cleo 
+                    </p>
                 </div>
             </div>
         </div>

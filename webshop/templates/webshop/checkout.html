@@ -4,7 +4,7 @@
 {% load static %}
 <div class="main">
 
-    <div class="container">
+    <div class="container" style="padding-bottom:50px !important;">
         <form class="needs-validation" action="{% url 'checkout' %}" id="myform" method="post" novalidate>
             {% csrf_token %}
             <div class="row" id="checkoutform">

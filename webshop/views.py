@@ -123,6 +123,8 @@ def deletefromcart(request, naam):
     try:
         item = Product.objects.get(name = naam)
         cartitem = OrderProduct.objects.get(customer = cust, product = item, ordered=False)
+        item.left += cartitem.quantity
+        item.save(update_fields=['left'])
     except:
         item = Diy.objects.get(name = naam)
         cartitem = OrderProduct.objects.get(customer = cust, diyproduct = item, ordered=False)
@@ -145,7 +147,7 @@ def checkout(request):
         
         order = create_order(cust, cart, subtotal, payment_option, shipping_option, comments)
 
-        send_email(order, cust, shipping_option)
+        send_email(order, cust)
 
         return render(request, "webshop/orderconfirmation.html", {
             "cust": cust,

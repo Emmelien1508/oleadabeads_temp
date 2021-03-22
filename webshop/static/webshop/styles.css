@@ -15,13 +15,13 @@
          url('Chapaza.ttf')  format('truetype'), /* Safari, Android, iOS */
          url('Chapaza.svg#svgFontName') format('svg'); /* Legacy iOS */
 }
-
+    
 #overline {
     border-top: 1px solid #D8CECE;
 }
 
-#orderinfo, #header {
-    text-align: center;
+.tb {
+    padding:10px;
 }
 
 #header {
@@ -67,6 +67,10 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #1a1919;
     margin-bottom:30px;
     width:140px;
+}
+
+.container {
+    margin:0 !important;
 }
 
 .main h2 {
@@ -130,11 +134,17 @@ h1, h2, h3, h4, h5, h6 {
 
     @media screen and (max-width: 768px) {
         #columntext, #columnproduct {
-            padding-left: 50px;
-            padding-right:50px;
+            padding-left: 20px;
+            padding-right:20px;
         }
     }
 
+}
+
+@media screen and (min-width: 769px) {
+    #columnproduct {
+        text-align: left;
+    }
 }
 
 /* voor een telefoon */
@@ -218,7 +228,7 @@ html, body {
 }
 
 #bottom {
-    text-transform: uppercase;
+    text-transform: uppercase !important;
     font-size: 20px !important;
 }
 
@@ -305,14 +315,32 @@ html, body {
     }
 }
 
+#bottominfo p {
+    text-transform: lowercase;
+}
+
 @media screen and (min-width: 989px) {
     .carousel-control-next-icon {
-        margin-left:30px;
+        padding-left:30px;
     }
 
     .carousel-control-prev-icon {
-        margin-right:40px;
+        padding-right:80px;
     }
+}
+
+@media screen and (min-width: 769px) {
+    .price, .remove {
+        display: none
+    }
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border-bottom: 1px solid #e3e7e8;
 }
 
 @media screen and (max-width: 768px) {
@@ -330,6 +358,14 @@ html, body {
         padding-right: 20px !important; 
     }
 
+    .product-price, .product-subtotal, .product-total, .product-remove {
+        display: none;
+    }
+
+    .product-quantity {
+        text-align: right;
+    }
+
     #checkoutform {
         display:block;
     }
@@ -343,8 +379,16 @@ html, body {
     }
 
     #columnproduct {
-        padding-left: 50px;
-        padding-right:50px;
+        padding-left:0px;
+        padding-right:0px;
+    }
+
+    .carousel-control-next-icon {
+        margin-right: 150px;
+    }
+
+    .carousel-control-prev-icon {
+        margin-left: 130px;
     }
 
     #bottomrow {
@@ -373,7 +417,8 @@ html, body {
 }
 
 #productcontent {
-    padding-bottom: 150px;
+    padding-bottom: 200px;
+    margin: auto;
 }
 
 #buttonadding { 
@@ -433,7 +478,7 @@ html, body {
 }
 
 th, td {
-    padding-top:20px;
+    padding:20px;
 }
 
 th {
@@ -559,7 +604,7 @@ li {
 }
 
 .carousel-control-next-icon {
-    margin-right:30px;
+    padding-right:30px;
 }
 
 .carousel-control-prev-icon:after, .carousel-control-next-icon:after {
@@ -581,16 +626,26 @@ li {
 
 #columnproduct {
     text-align: center;
-    width:100%;
 }
 
 #terms {
     font-weight: 600;
 }
 
+#homebestsellers {
+    margin:0; 
+    position: relative; 
+    z-index: -1;
+    background-color: #f3f5f2;
+}
+
 #footer {
     background-color: #f0ebeb;
     padding:50px;
+    position: absolute;
+    bottom:0;
+    width:100%;
+    height:346px;
 }
 
 .bottom-menu {
@@ -628,10 +683,7 @@ li {
 }
 
 #Checkout {
-    /* display: flex;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    flex-direction: row; */
+    padding-top:20px;
     width: 100%;
     margin:0;
     justify-content: flex-end;
@@ -677,8 +729,8 @@ li {
     font-family: 'Raleway', sans-serif;
     font-weight: 300;
     padding: 8px 8px 8px 32px;
-    font-size: 18px;
-    text-transform: uppercase;
+    font-size: 20px;
+    text-transform: lowercase;
     color: #1a1919;
     display: block;
     transition: 0.5s;

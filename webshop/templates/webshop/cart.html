@@ -24,63 +24,98 @@
                 </div>
             {% endif %}
             {% if incart %}
-                <div class="row">
-                    <table class="center" style="width:80%">
-                        <tr id="lines" class="header" style="text-align: center;">
-                            <th><h6>Naam</h6></th>
-                            <th><h6>Hoeveelheid</h6></th>
-                            <th><h6>Totaal</h6></th>
-                            <th></th>
+                <table class="center" style="width:80%">
+                    <thead>
+                        <tr>
+                            <th class="product-thumbnail">
+                                Product
+                            </th>
+                            <th class="product-name"></th>
+                            <th class="product-price">
+                                Prijs
+                            </th>
+                            <th class="product-quantity">
+                                Aantal
+                            </th>
+                            <th class="product-subtotal">
+                                Totaal
+                            </th>
+                            <th class="product-remove"></th>
                         </tr>
+                    </thead>
+                    <tbody>
                         {% for item in normalproducts %}
-                            <tr style="text-align: center;">
-                                <td>
+                            <tr>
+                                <td class="product-thumbnail">
+                                    <a href="{% url 'product' item.product.name %}">
+                                        <img src="{% static item.product.image.first.image.url %}" width='100px'>
+                                    </a>
+                                </td>
+                                <td class="product-name">
                                     <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
+                                    <div class="price">{{ item.product.price }}</div>
+                                    <div class="remove">
+                                        <a href="{% url 'deletefromcart' item.product.name %}" style="text-transform: lowercase; font-size:12px;">
+                                            verwijderen
+                                        </a>
+                                    </div>
                                 </td>
-                                <td>
-                                    {{ item.quantity }} <img src="{% static 'images/Multiply.png' %}" width="20px"> €{{ item.product.price }}
+                                <td class="product-price">
+                                    {{ item.product.price }}
                                 </td>
-                                <td>
-                                    €{{ item.total }}
+                                <td class="product-quantity">
+                                    {{ item.quantity }}
                                 </td>
-                                <td class='alnright'>
+                                <td class="product-subtotal">
+                                    {{ item.total }}
+                                </td>
+                                <td class="product-remove">
                                     <a href="{% url 'deletefromcart' item.product.name %}">
                                         <button class="btn" id="deletebutton" type="button">
-                                            <img src="{% static 'images/Delete.png' %}" height="20px">
+                                            <img src="{% static 'images/Delete.png' %}" height="16px">
                                         </button>
                                     </a>
                                 </td>
                             </tr>
                         {% endfor %}
                         {% for item in diyproducts %}
-                            <tr style="text-align: center;">
-                                <td>
-                                    <a href="{% url 'diyproduct' item.diyproduct.id %}">
-                                        {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
+                            <tr>
+                                <td class="product-thumbnail">
+                                    <a href="{% url 'diyproduct' item.diyproduct.name %}">
+                                        <img src="{% static 'images/home1.jpg' %}" width='100px'>
                                     </a>
                                 </td>
-                                <td>
-                                    {{ item.quantity }} <img src="{% static 'images/Multiply.png' %}" width="20px"> €{{ item.diyproduct.price }}
+                                <td class="product-name">
+                                    <a href="{% url 'diyproduct' item.diyproduct.name %}">
+                                        {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
+                                    </a>
+                                    <div class="price">{{ item.diyproduct.price }}</div>
+                                    <div class="remove">
+                                        <a href="{% url 'deletefromcart' item.diyproduct.name %}" style="text-transform: lowercase; font-size:12px;">
+                                            verwijderen
+                                        </a>
+                                    </div>
                                 </td>
-                                <td>
-                                    €{{ item.total }}
+                                <td class="product-price">
+                                    {{ item.diyproduct.price }}
                                 </td>
-                                <td class='alnright'>
+                                <td class="product-quantity">
+                                    {{ item.quantity }}
+                                </td>
+                                <td class="product-subtotal">
+                                    {{ item.total }}
+                                </td>
+                                <td class="product-remove">
                                     <a href="{% url 'deletefromcart' item.diyproduct.name %}">
                                         <button class="btn" id="deletebutton" type="button">
-                                            <img src="{% static 'images/Delete.png' %}" height="20px">
+                                            <img src="{% static 'images/Delete.png' %}" height="16px">
                                         </button>
                                     </a>
                                 </td>
                             </tr>
                         {% endfor %}
-                    </table>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <hr class="my-4">
-                    </div>
-                </div>
+                    </tbody>
+                </table>
                 <div class="row" id="Checkout">
                     <div class="col text-left" style="width:100%;">
                         <form action="{% url 'discount' %}" method="post" class="form-inline">
