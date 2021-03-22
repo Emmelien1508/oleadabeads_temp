@@ -2,7 +2,7 @@
 
 {% block body %}
 {% load static %}
-    <div class="main">
+    <div class="main" id="content">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -55,7 +55,9 @@
                         {% for item in diyproducts %}
                             <tr style="text-align: center;">
                                 <td>
-                                    {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
+                                    <a href="{% url 'diyproduct' item.diyproduct.id %}">
+                                        {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
+                                    </a>
                                 </td>
                                 <td>
                                     {{ item.quantity }} <img src="{% static 'images/Multiply.png' %}" width="20px"> €{{ item.diyproduct.price }}

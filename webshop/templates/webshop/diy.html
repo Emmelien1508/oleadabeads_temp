@@ -2,7 +2,7 @@
 
 {% block body %}
 {% load static %}
-<div class="main">
+<div class="main" id="content">
     <div class="container"> 
         <div class="row">
             <div class="col">
@@ -11,7 +11,23 @@
         </div>
         <div class="row align-items-start" class="center">
             <div class="col" id="coll">
-                <img src="{% static 'images/DIY_inspo.jpeg' %}" id="diypic">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="{% static 'images/home1.jpg' %}" id="diypic">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="{% static 'images/home2.jpg' %}" id="diypic">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="{% static 'images/home3.jpg' %}" id="diypic">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="{% static 'images/home5.jpg' %}" id="diypic">
+                        </div>
+                    </div>
+                </div>
+                <!-- <img src="{% static 'images/DIY_inspo.jpeg' %}" id="diypic"> -->
                 <p>Aan de hand van je gekozen voorkeuren verandert de prijs.
                 Het standaardtarief voor het samenstellen is €5,00. Een ketting kost €2,00 meer.
                 Bij het kiezen van een schakelketting komt er een bedrag van €1,50 bij.

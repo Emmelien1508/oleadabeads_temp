@@ -26,15 +26,9 @@ def home(request):
 
     bestsellers, best = get_sorted_bestsellers()
 
-    df = DataFrame.from_dict({'hey': list(range(5, 10)), 'hoi': list(range(10, 15)), 'hi': list(range(30, 35))})
-    jsonn = df.reset_index().to_json(orient='records')
-    data = []
-    data = json.loads(jsonn)
-    print(data)
     return render(request, "webshop/home.html", {
         "bestsellers": bestsellers,
-        "best": best,
-        "df": data
+        "best": best
     })
 
 def logout_view(request):
@@ -144,12 +138,12 @@ def cont(request):
 
 def checkout(request):
     cust = get_customer_session(request)
-    diyproducts, normalproducts, _, total = get_all_cartitems(cust)
+    diyproducts, normalproducts, _, subtotal = get_all_cartitems(cust)
 
     if request.method == "POST":
         cart, payment_option, shipping_option, comments = save_checkout_data(request, cust)
         
-        order = create_order(cust, cart, total, payment_option, shipping_option, comments)
+        order = create_order(cust, cart, subtotal, payment_option, shipping_option, comments)
 
         send_email(order, cust, shipping_option)
 
@@ -160,14 +154,14 @@ def checkout(request):
         })
     
     freeshipping = False
-    if total > 35:
+    if subtotal > 35:
         freeshipping = True
 
     return render(request, "webshop/checkout.html", {
         "customer": cust,
         "normalproducts": normalproducts,
         "diyproducts": diyproducts,
-        "total": total,
+        "subtotal": subtotal,
         "freeshipping": freeshipping
     })
 
@@ -287,3 +281,25 @@ def changestatus(request, ordernummer):
     return render(request, "webshop/changestatus.html", {
         "order": order
     })
+
+def terms_conditions(request):
+    return render(request, "webshop/terms_and_conditions.html")
+
+def privacypolicy(request):
+    return render(request, "webshop/privacy_policy.html")
+
+def disclaimer(request):
+    return render(request, "webshop/disclaimer.html")
+
+def guarantee(request):
+    return render(request, "webshop/guarantee.html")
+
+def diyproduct(request, idnr):
+    product = Diy.objects.get(name = idnr)
+
+    return render(request, "webshop/diyproduct.html", {
+        "product": product
+    })
+
+def material(request):
+    return render(request, "webshop/material_info.html")

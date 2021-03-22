@@ -196,24 +196,24 @@ def create_diy_cartitem(diy, cust):
 def get_all_cartitems(cust):
     diyproducts, normalproducts = [], []
     
-    total = 0
+    subtotal = 0
     for item in OrderProduct.objects.filter(customer = cust, ordered = False):
         if item.product:
             if item.quantity > item.product.left:
                 item.quantity = item.product.left
                 item.total = item.quantity * item.product.price
-                item.save(update_fields=['quantity', 'total'])
+                item.save(update_fields=['quantity', 'subtotal'])
             normalproducts.append(item)
-            total += item.quantity * item.product.price
+            subtotal += item.quantity * item.product.price
         else:
             diyproducts.append(item)
-            total += item.quantity * item.diyproduct.price
+            subtotal += item.quantity * item.diyproduct.price
 
     incart = False
     if diyproducts or normalproducts:
         incart = True
 
-    return diyproducts, normalproducts, incart, total
+    return diyproducts, normalproducts, incart, subtotal
 
 def add_product_to_cart(request, cust, item):
     amount = int(request.POST["hoeveelheid"])
@@ -256,22 +256,28 @@ def save_checkout_data(request, cust):
     
     return OrderProduct.objects.filter(customer = cust, ordered = False), betaalwijze, verzendmethode, opmerkingen
 
-def create_order(cust, cart, total, payment_option, shipping_option, comment):
-    if total > 35:
+def create_order(cust, cart, subtotal, payment_option, shipping_option, comment):
+    if subtotal > 35:
         freeshipping = True
+        shipping_costs = 0
+        total = subtotal
     else:
         freeshipping = False
         if "Brievenbuspakketje" in shipping_option:
-            total += 2
+            shipping_costs = 2
+            total = subtotal + 2
         if "Met Track & Trace" in shipping_option:
-            total += 4
+            shipping_costs = 4
+            total = subtotal + 4
 
     for item in cart:
         if item.product:
             item.product.left -= item.quantity
-            item.product.save(update_fields=['left'])
+            if item.product.left == 0:
+                item.product.in_stock = False
+            item.product.save(update_fields=['left', 'in_stock'])
 
-    order = Order.objects.create(customer = cust, date_ordered = datetime.now(), status = "Ontvangen", total = total, shipping = shipping_option, free_shipping = freeshipping, payment_option = payment_option, comment = comment)
+    order = Order.objects.create(customer = cust, date_ordered = datetime.now(), status = "Ontvangen", subtotal = subtotal, total = total, shipping = shipping_option, free_shipping = freeshipping, shipping_costs = shipping_costs, payment_option = payment_option, comment = comment)
     order.save()
     for item in cart:
         item.ordered = True

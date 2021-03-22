@@ -154,7 +154,9 @@
                             {% for item in diyproducts %}
                                 <tr>
                                     <td class="alnleft">
-                                        <img src="{% static 'images/home1.jpg' %}" width="80px">
+                                        <a href="{% url 'diyproduct' item.id %}">
+                                            <img src="{% static 'images/home1.jpg' %}" width="80px">
+                                        </a>
                                     </td>
                                     <td>
                                         {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
@@ -170,15 +172,21 @@
                             <tr>
                                 <td></td>
                                 <td></td>
-                                <td><h6>Subtotaal</h6></td>
-                                <td><h6>€{{ total }}</h6></td>
+                                <td><h6>Subtotaal (incl. BTW)</h6></td>
+                                <td><h6>€{{ subtotal }}</h6></td>
                             </tr>
                             {% if freeshipping %}
                             <tr>
                                 <td></td>
                                 <td></td>
-                                <td><h5>Totaal</h5></td>
-                                <td><h5>€{{ total }}</h5></td>
+                                <td><h6>Subtotaal (incl. BTW)</h6></td>
+                                <td><h6>€{{ subtotal }}</h6></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><h5>Totaal (incl. BTW)</h5></td>
+                                <td><h5>€{{ subtotal }}</h5></td>
                             </tr>
                             {% endif %}
                         </table>

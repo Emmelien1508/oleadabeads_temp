@@ -29,7 +29,9 @@
                 {% endif %}
                 {% if item.diyproduct %}
                     <div class="col" id="orderinfo">
-                        {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
+                        <a href="{% url 'diyproduct' item.diyproduct.id %}">
+                            {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
+                        </a>
                     </div>
                     <div class="col" id="orderinfo">
                         {{ item.quantity }} <img src="{% static 'images/Multiply.png' %}" width="20px"> €{{ item.diyproduct.price }}
@@ -42,7 +44,17 @@
         {% endfor %}
         <div class="row" id="overline" style="margin:0; padding:10px;">
             <div class="col"></div>
-            <div class="col" id="header">Totaal (incl. verzenden)</div>
+            <div class="col" id="header">Subtotaal (incl. BTW)</div>
+            <div class="col" id="header">€{{ order.subtotal }}</div>
+        </div>
+        <div class="row" style="margin:0; padding:10px;">
+            <div class="col"></div>
+            <div class="col" id="header">Verzendkosten</div>
+            <div class="col" id="header">€{{ order.shipping_costs }}</div>
+        </div>
+        <div class="row" style="margin:0; padding:10px;">
+            <div class="col"></div>
+            <div class="col" id="header">Totaal (incl. BTW)</div>
             <div class="col" id="header">€{{ order.total }}</div>
         </div>
         <div class="row">
@@ -90,7 +102,7 @@
                 <p>Betaalwijze</p>
             </div>
             <div class="col">
-                <p>{{ payment_option }}</p>
+                <p>{{ order.payment_option }}</p>
             </div>
         </div>
         <div class="row">

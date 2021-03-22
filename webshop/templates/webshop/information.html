@@ -1,48 +1,59 @@
 {% extends "webshop/layout.html" %}
 
 {% block body %}
-<div class="main">
+<div class="main" id="content">
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3 id="title">Bestelinformatie</h3>
+                <h3 id="title">Verzenden & Retourneren</h3>
             </div>
         </div>
         <div class="row">
-            <div class="col" id="bestelinfo">
+            <div class="col">
                 <h5>Verzenden</h5>
-                <p>Wij verzenden onze pakketjes met PostNL en ze passen allemaal door de brievenbus. 
-                De verzendkosten voor buiten Nederland verschillen en zijn te zien tijdens het bestelproces, wanneer je het land waarin je woont aangeeft.
-                Alle bestellingen die voor 16:00 uur worden geplaatst worden diezelfde dag nog in behandeling genomen.
-                De levertijd is 1-2 werkdagen, maar in verband met de drukte bij PostNL zou dit iets langer kunnen zijn.</p>
+                <p>Wij verzenden onze pakketjes met PostNL en ze passen allemaal door de brievenbus. </p>
+                <p>Verzendkosten binnen Nederland bedragen €2 (zonder Track & Trace) of €4 (met Track & Trace)</p>
+                <p>Bij besteding van €35 of meer is verzending gratis.</p>
+                <p>Alle bestellingen die voor 16:00 uur worden geplaatst worden diezelfde dag nog in behandeling genomen.</p>
                 
-                <h5>Garantie</h5>
-                <p>Sieraden van Oleada Beads hebben twee maanden garantie vanaf de dag waarop de bestelling is geplaatst.
-                In de volgende gevallen heb je geen recht op garantie:</p>
-                
-                <div>
-                    - natuurlijke slijtage
-                </div>
-                <div>
-                    - vlekken veroorzaakt door parfum
-                </div>
-                <div>
-                    - beschadiging van kralen na contact met water
-                </div>
-                <div>
-                    - het afgeven van kralen na contact met water
-                </div>
-                <div>
-                    - klachten die zijn ontstaan na verkeerd gebruik van de sieraden
-                </div><br>
-
-                <p>Alle producten worden handgemaakt met natuurlijke materialen en kunnen hierdoor iets afwijken van de afbeeldingen op onze website.</p>
                 <h5>Retourneren</h5>
-                <p>Het is niet mogelijk sieraden te retourneren.</p>
-                <h5>Privacy policy</h5>
-                <p>Wanneer je een bestelling plaatst bij Oleada Beads vragen wij je volledige naam, adres en e-mailadres. 
-                Je gegevens worden uitsluitend gebruikt om contact te kunnen opnemen over je bestelling en zullen niet voor promotionele doeleinden worden gebruikt.
-                Je persoonlijke gegevens worden nooit verstrekt aan derden.</p>
+                <p>Wij hopen uiteraard dat uw aankoop naar wens is, mocht er toch iets niet naar wens zijn, dan is retourneren mogelijk binnen 14 dagen na ontvangst van de bestelling.</p>
+                <p id="terms">
+                    Om een product te retourneren, dient u voorafgaand aan de retourzending de volgende informatie te sturen per e-mail:
+                </p>
+                <p id="terms"> 
+                    - het ordernummer
+                </p>
+                <p id="terms">
+                    - het product dat u retour stuurt
+                </p>
+                <p id="terms">
+                    - de reden van retour
+                </p>
+                <p id="terms">
+                    Let op: deze email is noodzakelijk om het retourproces uit te kunnen voeren, retour pakketjes zonder aanmelding of begeleidend schrijven kunnen niet in behandeling genomen worden.
+                </p>
+
+                <p>
+                    Retouradres:
+                </p>
+
+                <p>
+                    Oleada Beads t.a.v. Retouren
+                    Sibogastraat 85, 1094SL Amsterdam
+                </p>
+                <p>
+                    Het product dient ongebruikt en onbeschadigd te zijn, 'wanneer redelijkerwijs mogelijk' in de originele verpakking verpakt te zijn en in deugdelijke verpakking te worden geretourneerd.
+                </p>
+                <p>
+                    Een retourzending geschiedt op eigen risico. De verzendkosten zijn voor uw rekening en La Tarifa is niet aansprakelijk voor het beschadigen of zoekraken van retour gestuurde producten. We adviseren daarom in ieder geval met track & trace te verzenden en het verzendbewijs te bewaren totdat u van ons een retourbevestiging heeft ontvangen. Indien het vermoeden bestaat dat retour gezonden artikelen gebruikt of beschadidigd zijn door koper behouden wij het recht deze artikelen te weigeren.
+                </p>
+                <p>
+                    Het aankoopbedrag van het artikel wordt binnen een termijn van 5 werkdagen teruggestort.
+                </p>
+                <p>
+                    Het is niet mogelijk producten in de sale te retourneren.
+                </p>
             </div>
         </div>
     </div>

@@ -202,9 +202,11 @@ class Order(models.Model):
     orderproduct = models.ManyToManyField(OrderProduct)
     date_ordered = models.DateField()
     status = models.CharField(max_length=30, choices=STATUS_CHOICES)
-    total = models.DecimalField(max_digits=5, decimal_places=2)
+    subtotal = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    total = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
     shipping = models.CharField(max_length=50, choices=SHIPPING_CHOICES)
+    shipping_costs = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     free_shipping = models.BooleanField(default=False)
     payment_option = models.CharField(max_length=30, blank=True)
 

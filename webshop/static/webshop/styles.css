@@ -83,6 +83,14 @@ h1, h2, h3, h4, h5, h6 {
     backface-visibility: hidden;
 }
 
+.darker-bg {
+    opacity: 1;
+    display: block;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
 .centered {
     transition: .5s ease;
     opacity: 0;
@@ -121,7 +129,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     @media screen and (max-width: 768px) {
-        #columntext {
+        #columntext, #columnproduct {
             padding-left: 50px;
             padding-right:50px;
         }
@@ -147,7 +155,7 @@ h1, h2, h3, h4, h5, h6 {
         width:300px;
     }
 
-    #columntext {
+    #columntext, #columnproduct {
         padding-bottom:25px;
         padding-left:25px;
         padding-left:25px;
@@ -211,6 +219,7 @@ html, body {
 
 #bottom {
     text-transform: uppercase;
+    font-size: 20px !important;
 }
 
 #bottominfo {
@@ -286,6 +295,24 @@ html, body {
     #bar, #acc {
         margin-top:15px;
     }
+
+    .carousel-control-next-icon {
+        margin-left:120px;
+    }
+
+    .carousel-control-prev-icon {
+        margin-right:130px;
+    }
+}
+
+@media screen and (min-width: 989px) {
+    .carousel-control-next-icon {
+        margin-left:30px;
+    }
+
+    .carousel-control-prev-icon {
+        margin-right:40px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -311,9 +338,42 @@ html, body {
         width:330px;
     }
 
-    #columntext {
+    #columntext, #columnproduct {
         padding-top:20px;
     }
+
+    #columnproduct {
+        padding-left: 50px;
+        padding-right:50px;
+    }
+
+    #bottomrow {
+        display: inline-block;
+    }
+
+    #bottomrow #bottominfo {
+        padding-bottom: 20px;
+    }
+
+    #productcontent, #content {
+        padding-bottom:100px !important;
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+}
+
+#material {
+    text-transform: uppercase; 
+    font-weight: 600;
+}
+
+#content {
+    padding-bottom: 50px;
+}
+
+#productcontent {
+    padding-bottom: 150px;
 }
 
 #buttonadding { 
@@ -493,15 +553,44 @@ li {
     min-height: 100vh;
 }
   
-#content-wrap {
-    padding-bottom:300px;
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    outline:#1a1919;
+    background-image: none;
 }
 
-#sticky-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: auto;
+.carousel-control-next-icon {
+    margin-right:30px;
+}
+
+.carousel-control-prev-icon:after, .carousel-control-next-icon:after {
+    background-size: 40px 10px;
+    display: inline-block;
+    width: 40px; 
+    height: 10px;
+    content:"";
+    color: #1a1919;
+}
+
+.carousel-control-prev-icon:after {
+    background-image: url("/static/images/pijl_links.png");
+}
+
+.carousel-control-next-icon:after {
+    background-image: url("/static/images/pijl_rechts.png");
+}
+
+#columnproduct {
+    text-align: center;
+    width:100%;
+}
+
+#terms {
+    font-weight: 600;
+}
+
+#footer {
+    background-color: #f0ebeb;
+    padding:50px;
 }
 
 .bottom-menu {
@@ -514,15 +603,8 @@ li {
     background-color: #f0ebeb;
 }
 
-.bottom-menu ul {
-    display:table;
-    table-layout:fixed;
-    width:100%;
-}
-
-.bottom-menu ul li {
-    display: table-cell;
-    color: #1a1919;
+.bottom-menu .row .col p {
+    font-size: 14px;
 }
 
 #title {
@@ -555,12 +637,15 @@ li {
     justify-content: flex-end;
 }
 
+.nav-item {
+    text-transform: uppercase;
+}
+
 #prof, #acc, #bar {
     display: inline-block;
 }
 
 #acc {
-    padding-top:10px;
     padding-right:15px;
     text-align: right;
 }
@@ -614,7 +699,7 @@ li {
     font-size: 36px;
     margin-left: 50px;
 }
-  
+
 /* The button used to open the sidebar */
 .openbtn {
     font-size: 20px;

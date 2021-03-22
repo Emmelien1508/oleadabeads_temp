@@ -2,107 +2,107 @@
 
 {% block body %}
 {% load static %}
-<div class="main">
-    <div class="container" style="position: relative; padding-top:30px; text-align: center;"> 
-        <div class="row" id="homedisplay">
-            <div class="col">
-                <a href="{% url 'allproducts' 'armbanden' %}">
-                    <div class="containerr">
-                        <img src="{% static 'images/home_armbanden.jpg'%}" class="image">
-                        <div class="centered">
-                            <div class="textt">
-                                Armbanden
+    <div class="main">
+        <div class="container" style="position: relative; padding-top:30px; text-align: center;"> 
+            <div class="row" id="homedisplay">
+                <div class="col">
+                    <a href="{% url 'allproducts' 'armbanden' %}">
+                        <div class="containerr">
+                            <img src="{% static 'images/home_armbanden.jpg'%}" class="image">
+                            <div class="centered">
+                                <div class="textt">
+                                    Armbanden
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col">
-                <a href="{% url 'allproducts' 'kettingen' %}">
-                    <div class="containerr">
-                        <img src="{% static 'images/home_kettingen.jpg'%}" class="image">
-                        <div class="centered">
-                            <div class="textt">
-                                Kettingen
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="{% url 'allproducts' 'kettingen' %}">
+                        <div class="containerr">
+                            <img src="{% static 'images/home_kettingen.jpg'%}" class="image">
+                            <div class="centered">
+                                <div class="textt">
+                                    Kettingen
+                                </div>
+                            </div>
+                        </div> 
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="{% url 'allproducts' 'oorbellen' %}">
+                        <div class="containerr">
+                            <img src="{% static 'images/home_oorbellen.jpg'%}" class="image">
+                            <div class="centered">
+                                <div class="textt">
+                                    Oorbellen
+                                </div>
                             </div>
                         </div>
-                    </div> 
-                </a>
-            </div>
-            <div class="col">
-                <a href="{% url 'allproducts' 'oorbellen' %}">
-                    <div class="containerr">
-                        <img src="{% static 'images/home_oorbellen.jpg'%}" class="image">
-                        <div class="centered">
-                            <div class="textt">
-                                Oorbellen
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="{% url 'allproducts' 'hangers' %}">
+                        <div class="containerr">
+                            <img src="{% static 'images/home_hangers.jpg'%}" class="image">
+                            <div class="centered">
+                                <div class="textt">
+                                    Hangers
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
-            <div class="col">
-                <a href="{% url 'allproducts' 'hangers' %}">
-                    <div class="containerr">
-                        <img src="{% static 'images/home_hangers.jpg'%}" class="image">
-                        <div class="centered">
-                            <div class="textt">
-                                Hangers
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col" style="padding-bottom:20px; text-align: center;">
-                <p>
-                    Oleada Beads is in april 2020 begonnen door twee vriendinnen, Cleo en Emmelien.
-                    Wij vinden het super leuk om creatief bezig te zijn, en samen kralen is natuurlijk ook gewoon heel gezellig!
-                    Al onze producten zijn handgemaakt met alleen gold/silver plated of rvs materialen.
-                    Happy shopping!
-                </p>
+            <div class="row">
+                <div class="col" style="padding-bottom:20px; text-align: center;">
+                    <p>
+                        Oleada Beads is in april 2020 begonnen door twee vriendinnen, Cleo en Emmelien.
+                        Wij vinden het super leuk om creatief bezig te zijn, en samen kralen is natuurlijk ook gewoon heel gezellig!
+                        Al onze producten zijn handgemaakt met alleen gold/silver plated of rvs materialen.
+                        Happy shopping!
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="main" style="display: inline-block; position: absolute; text-align: center;">
-    <span><h2>@oleadabeads</h2></span>
-</div>
-<div class="main" style="margin:0; position: relative; z-index: -1;background-color: #f3f5f2;">
-    <div class="container">
-        {% if best %}
-            <div class="row" style="padding-top:30px;" id="wrapp">
-                {% for product in bestsellers %}
-                    <div id="product">
-                        <a href="{% url 'product' product.name %}">
-                            <img id="bestsellings" src="{% static product.image.first.image.url %}">
-                            <p style="text-align: center; max-width: 100%;">
-                                {{ product.name }}
-                                €{{ product.price }}
-                            </p>
+    {% if best %}
+        <div class="main" style="display: inline-block; position: absolute; text-align: center;">
+            <span><h2>@oleadabeads</h2></span>
+        </div>
+        <div class="main" style="margin:0; position: relative; z-index: -1;background-color: #f3f5f2;">
+            <div class="container">
+                <div class="row" style="padding-top:30px;" id="wrapp">
+                    {% for product in bestsellers %}
+                        <div id="product">
+                            <a href="{% url 'product' product.name %}">
+                                <img id="bestsellings" src="{% static product.image.first.image.url %}">
+                                <p style="text-align: center; max-width: 100%;">
+                                    {{ product.name }}
+                                    €{{ product.price }}
+                                </p>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="main" id="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col" id="continuecheckout">
+                        <a href="{% url 'allproducts' 'bestsellers'%}">
+                            <button class="btn" id="buttonadd">
+                                <span class="text" id="bestellingplaatsen">
+                                    Bestsellers
+                                </span>
+                            </button>
                         </a>
                     </div>
-                {% endfor %}
+                    <div class="col"></div>
+                </div>
             </div>
-        {% endif %}
-    </div>
-</div>
-<div class="main">
-    <div class="container">
-        <div class="row">
-            <div class="col"></div>
-            <div class="col" id="continuecheckout">
-                <a href="{% url 'allproducts' 'bestsellers'%}">
-                    <button class="btn" id="buttonadd">
-                        <span class="text" id="bestellingplaatsen">
-                            Bestsellers
-                        </span>
-                    </button>
-                </a>
-            </div>
-            <div class="col"></div>
         </div>
-    </div>
-</div>
+    {% endif %}
 {% endblock %}
