@@ -30,115 +30,106 @@
     </head>
     
     <body>
-        <div class="page-container" style="min-height:100%; position:relative;">
-            <div class="main" style="background-color: pink; text-align: center; margin-bottom: 10px;">
-                Gratis verzenden bij orders vanaf €35!
-            </div>
-            <div class="sticky-top" style="background-color: white;">
-                <div id="topbar">
-                    <div class="col" class="center" id="prof">
-                        <a href="{% url 'home' %}" id="headlogo">
-                            Oleada Beads
-                        </a>
-                    </div>
-                </div>
-                <nav class="navbar navbar-expand-xl">
-                    <div id="mySidebar" style="color:#1a1919" class="sidebar">
-                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> 
-                        <a href="{% url 'allproducts' 'nieuw' %}">Nieuw</a>
-                        <a href="{% url 'allproducts' 'bestsellers' %}">Bestsellers</a>
-                        <a href="{% url 'allproducts' 'kettingen'%}">Kettingen</a>
-                        <a href="{% url 'allproducts' 'armbanden'%}">Armbanden</a>
-                        <a href="{% url 'allproducts' 'oorbellen'%}">Oorbellen</a>
-                        <a href="{% url 'allproducts' 'hangers'%}">Hangers</a>
-                        <a href="{% url 'allproducts' 'limitededitions'%}">Limited Editions</a>
-                        <a href="{% url 'diy' %}">DIY</a>
-                        <a></a>
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'profile' %}" style="font-size: 14px; text-decoration: 2px underline pink; text-transform: lowercase;">Mijn account</a>
-                            <a href="{% url 'logout' %}" style="font-size: 14px; text-decoration: 2px underline pink; text-transform: lowercase;">Log uit</a>
-                        {% else %}
-                            <a href="{% url 'login' %}" style="font-size: 14px; text-decoration: 2px underline pink; text-transform: lowercase;">Log in</a>
-                        {% endif %}
-                    </div>
-                    <button class="openbtn" onclick="openNav()">&#9776;</button>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav flex-fill justify-content-center">
-                            <li class="nav-item px-2">
-                                <a class="nav-link" href="{% url 'allproducts' 'nieuw' %}">Nieuw</a>
-                            </li>
-                            <li class="nav-item px-2">
-                                <a class="nav-link" href="{% url 'allproducts' 'bestsellers' %}">Bestsellers</a>
-                            </li>
-                            <li class="nav-item px-2">
-                                <a class="nav-link" href="{% url 'allproducts' 'kettingen' %}">Kettingen</a>
-                            </li>
-                            <li class="nav-item px-2">
-                                <a class="nav-link" href="{% url 'allproducts' 'armbanden' %}">Armbanden</a>
-                            </li>
-                            <li class="nav-item px-2">
-                                <a class="nav-link" href="{% url 'allproducts' 'oorbellen' %}">Oorbellen</a>
-                            </li>
-                            <li class="nav-item px-2">
-                                <a class="nav-link" href="{% url 'allproducts' 'hangers' %}">Hangers</a>
-                            </li>
-                            <li class="nav-item px-2">
-                                <a class="nav-link" href="{% url 'allproducts' 'limitededitions' %}">Limited Editions</a>
-                            </li>
-                            <li class="nav-item px-2">
-                                <a class="nav-link" href="{% url 'diy' %}">DIY</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="acc">
-                        <a href="{% url 'profile' %}">
-                            <img src="{% static 'images/Account.png' %}" style="color:#1a1919" width="20px">
-                        </a>
-                        <a href="{% url 'cart' %}">
-                            <img src="{% static 'images/Shopper.png' %}" style="color:#1a1919" width="16px">
-                            <span class="badge badge-dark badge-pill">{{ cartnumber }}</span>
-                        </a>
-                    </div>
-                </nav>
-            </div>
-
-            <div id="content-wrap" style="padding-bottom:350px;">
-                {% block body %}
-                {% endblock %}
-            </div>
-
-            <div id="footer">
-                <div class="row" id="bottomrow">
-                    <div class="col" id="bottominfo">
-                        <p id="bottom">Informatie</p>
-                        <p><a href="{% url 'info' %}">Verzenden en retourneren</a></p>
-                        <p><a href="{% url 'guarantee' %}">Garantie</a></p>
-                        <p><a href="{% url 'termsconditions' %}">Algemene voorwaarden</a></p>
-                        <p><a href="{% url 'privacypolicy' %}">Privacy verklaring</a></p>
-                        <p><a href="{% url 'disclaimer' %}">Disclaimer</a></p>
-                    </div>
-                    <div class="col" id="bottominfo">
-                        <p id="bottom">Over ons</p>
-                        <p>Oleada Beads</p>
-                        <p>KvK-nummer: 82217769</p>
-                        <p><a href="{% url 'about'%}">Wie zijn wij?</a></p>
-                        <p><a href="{% url 'contact' %}">Contact</a></p>
-                        <p><a href="{% url 'material' %}">Materialen</a></p>
-                    </div>
-                    <div class="col" id="bottominfo">
-                        <p id="bottom">Socials</p>
-                        <p><a href="https://www.instagram.com/oleadabeads/"><img src="{% static 'images/insta.png' %}" height="20" style="padding-right:3px;"> Instagram: @oleadabeads</a></p>
-                        <p><a href="https://www.facebook.com/OleadaBeads"><img src="{% static 'images/facebook.png' %}" height="20" style="padding-right:3px;"> Facebook: OleadaBeads</a></p>
-                        <p><a href="https://www.tiktok.com/@oleadabeads"><img src="{% static 'images/tiktok_logo.png' %}" height="20" style="padding-right:3px;"> TikTok: @oleadabeads</a></p>
-                    </div>
-                </div>
-            </div>
+        <div class="topbar">
+            Gratis verzenden bij orders vanaf €35!
         </div>
+        <div class="sticky-top">
+            <div class="header-logo">
+                <a href="{% url 'home' %}">Oleada Beads</a>
+            </div>
+            <nav class="navbar navbar-expand-xl">
+                <div id="mySidebar" class="sidebar">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> 
+                    <a href="{% url 'allproducts' 'nieuw' %}">Nieuw</a>
+                    <a href="{% url 'allproducts' 'bestsellers' %}">Bestsellers</a>
+                    <a href="{% url 'allproducts' 'kettingen'%}">Kettingen</a>
+                    <a href="{% url 'allproducts' 'armbanden'%}">Armbanden</a>
+                    <a href="{% url 'allproducts' 'oorbellen'%}">Oorbellen</a>
+                    <a href="{% url 'allproducts' 'hangers'%}">Hangers</a>
+                    <a href="{% url 'allproducts' 'limitededitions'%}">Limited Editions</a>
+                    <a href="{% url 'diy' %}">DIY</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}" style="font-size: 14px; text-decoration: 2px underline pink; text-transform: lowercase;">Mijn account</a>
+                        <a href="{% url 'logout' %}" style="font-size: 14px; text-decoration: 2px underline pink; text-transform: lowercase;">Log uit</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" style="font-size: 14px; text-decoration: 2px underline pink; text-transform: lowercase;">Log in</a>
+                    {% endif %}
+                </div>
+                <button class="openbtn" onclick="openNav()">&#9776;</button>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav flex-fill justify-content-center">
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="{% url 'allproducts' 'nieuw' %}">Nieuw</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="{% url 'allproducts' 'bestsellers' %}">Bestsellers</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="{% url 'allproducts' 'kettingen' %}">Kettingen</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="{% url 'allproducts' 'armbanden' %}">Armbanden</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="{% url 'allproducts' 'oorbellen' %}">Oorbellen</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="{% url 'allproducts' 'hangers' %}">Hangers</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="{% url 'allproducts' 'limitededitions' %}">Limited Editions</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="{% url 'diy' %}">DIY</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <a href="{% url 'profile' %}"><img src="{% static 'images/Account.png' %}" class="account-icon"></a>
+                    <a href="{% url 'cart' %}">
+                        <img src="{% static 'images/Shopper.png' %}" class="shopper-icon">
+                        <span class="badge badge-dark badge-pill">{{ cartnumber }}</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <div class="body-wrapper">
+            {% block body %}
+            {% endblock %}
+        </div>
+
+        <footer class="footer">
+            <div class="row">
+                <div class="col">
+                    <div class="upper">Informatie</div>
+                    <div class="tiny"><a href="{% url 'info' %}">Verzenden en retourneren</a></div>
+                    <div class="tiny"><a href="{% url 'guarantee' %}">Garantie</a></div>
+                    <div class="tiny"><a href="{% url 'termsconditions' %}">Algemene voorwaarden</a></div>
+                    <div class="tiny"><a href="{% url 'privacypolicy' %}">Privacy verklaring</a></div>
+                    <div class="tiny"><a href="{% url 'disclaimer' %}">Disclaimer</a></div>
+                </div>
+                <div class="col">
+                    <div class="upper">Over ons</div>
+                    <div class="tiny">Oleada Beads</div>
+                    <div class="tiny">KvK-nummer: 82217769</div>
+                    <div class="tiny"><a href="{% url 'about'%}">Wie zijn wij?</a></div>
+                    <div class="tiny"><a href="{% url 'contact' %}">Contact</a></div>
+                    <div class="tiny"><a href="{% url 'material' %}">Materialen</a></div>
+                </div>
+                <div class="col">
+                    <div class="upper">Socials</div>
+                    <div class="tiny"><a href="https://www.instagram.com/oleadabeads/"><img src="{% static 'images/insta.png' %}" height="20" style="padding-right:3px;"> Instagram: @oleadabeads</a></div>
+                    <div class="tiny"><a href="https://www.facebook.com/OleadaBeads"><img src="{% static 'images/facebook.png' %}" height="20" style="padding-right:3px;"> Facebook: OleadaBeads</a></div>
+                    <div class="tiny"><a href="https://www.tiktok.com/@oleadabeads"><img src="{% static 'images/tiktok_logo.png' %}" height="20" style="padding-right:3px;"> TikTok: @oleadabeads</a></div>
+                </div>
+            </div>
+        </footer>
 
         <script>
             function openNav() {
-                document.getElementById("mySidebar").style.width = "450px";
-                document.getElementById("main").style.marginLeft = "450px";
+                document.getElementById("mySidebar").style.width = "100%";
+                document.getElementById("main").style.marginLeft = "100%";
             }
 
                 /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */

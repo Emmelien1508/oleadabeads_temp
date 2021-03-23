@@ -3,38 +3,56 @@
 {% block body %}
 {% load static %}
 
-<div class="main" id="content">
-    <div class="container">
-        <div class="row" style="text-align: center;">
-            <div class="col" id="prof">
-                <h4 id="title">Bestellingen</h4>
-            </div>
+    <div class="row">
+        <div class="col">
+            <h4 class="title">Bestellingen</h4>
         </div>
-        <div class="row" style="text-align: center;">
-            <div class="col"><h6>Klant</h6></div>
-            <div class="col"><h6>Datum besteld</h6></div>
-            <div class="col"><h6>Verzendmethode</h6></div>
-            <div class="col"><h6>Status</h6></div>
-        </div>
-        {% for order in orders %}
-        <a href="{% url 'order' order.id %}">
-            <div class="row" style="text-align: center;">
-                <div class="col">
-                    {{ order.customer.firstname }} {{ order.customer.lastname }}
-                </div>
-                <div class="col">
-                    {{ order.date_ordered}}
-                </div>
-                <div class="col">
-                    {{ order.shipping }}
-                </div>
-                <div class="col">
-                    {{ order.status }}
-                </div>
-            </div>
-        </a>
-        {% endfor %}
     </div>
-</div>
+    <table class="order-information">
+        <thead>
+            <tr>
+                <th class="order-customer">
+                    <div class="customer-name">
+                        Klant
+                    </div>
+                    <div class="information">
+                        Order
+                    </div>
+                </th>
+                <th class="order-date">Datum besteld</th>
+                <th class="order-shipment">Verzendmethode</th>
+                <th class="order-status">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td class="order-customer">
+                        <a href="{% url 'order' order.id %}">
+                            {{ order.customer.firstname }} {{ order.customer.lastname }}
+                        </a>
+                        <a href="{% url 'order' order.id %}">
+                            <div class="date">{{ order.date_ordered}}</div>
+                        </a>
+                        <a href="{% url 'order' order.id %}">
+                            <div class="shipment">{{ order.shipping }}</div>
+                        </a>
+                        <a href="{% url 'order' order.id %}">
+                            <div class="status">{{ order.status }}</div>
+                        </a>
+                    </td>
+                    <td class="order-date">
+                        <a href="{% url 'order' order.id %}">{{ order.date_ordered}}</a>
+                    </td>
+                    <td class="order-shipment">
+                        <a href="{% url 'order' order.id %}">{{ order.shipping }}</a>
+                    </td>
+                    <td class="order-status">
+                        <a href="{% url 'order' order.id %}">{{ order.status }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
