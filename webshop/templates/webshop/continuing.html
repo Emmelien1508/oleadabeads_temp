@@ -1,9 +1,11 @@
 {% extends "webshop/layout.html" %}
 
-{% block body %}
 {% load crispy_forms_tags %}
-<div class="main" style="padding-bottom: 50px;">
-    <div class="container">
+
+{% block body %}
+{% load static %}
+    
+    <div class="body-wrapper">
         <div class="row">
             <div class="col">
                 <h3 id="title">Doorgaan met of zonder account</h3>
@@ -31,5 +33,5 @@
             </div>
         </div>
     </div>
-</div>
+
 {% endblock %}

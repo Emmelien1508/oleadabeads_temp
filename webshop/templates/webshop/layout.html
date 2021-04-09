@@ -21,6 +21,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="https://kit.fontawesome.com/02e6fcb69f.js" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     
@@ -30,113 +31,127 @@
     </head>
     
     <body>
-        <div class="topbar">
+        <!-- <div class="topbar">
             Gratis verzenden bij orders vanaf €35!
-        </div>
+        </div> -->
         <div class="sticky-top">
-            <div class="header-logo">
-                <a href="{% url 'home' %}">Oleada Beads</a>
+            <div class="left-top-menu">
+                <div class="sidebar">
+                    <div class="hamburger-button">
+                        <div id='top'></div>
+                        <div id='middle'></div>
+                        <div id='bottom'></div>
+                    </div>
+                    <div class="box">
+                        <div class="sidebar-items">
+                            <div class="input-search-icon">
+                                <form class="searching" action="#">
+                                    <input class="search-field" type="text" name="search" placeholder="Zoeken...">
+                                    <button type="submit">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </form>  
+                            </div>
+                            <a class="hover-underline" href="{% url 'allproducts' 'nieuw' %}">Nieuw</a>
+                            <a class="hover-underline" href="{% url 'allproducts' 'bestsellers' %}">Bestsellers</a>
+                            <a class="hover-underline" href="{% url 'allproducts' 'kettingen'%}">Kettingen</a>
+                            <a class="hover-underline" href="{% url 'allproducts' 'armbanden'%}">Armbanden</a>
+                            <a class="hover-underline" href="{% url 'allproducts' 'oorbellen'%}">Oorbellen</a>
+                            <a class="hover-underline" href="{% url 'allproducts' 'hangers'%}">Hangers</a>
+                            <a class="hover-underline" href="{% url 'allproducts' 'limitededitions'%}">Limited Editions</a>
+                            <a class="hover-underline" href="{% url 'diy' %}">Custom</a>
+                            {% if user.is_authenticated %}
+                                <a class="user-info" href="{% url 'profile' %}"><span class="underline--magical">Mijn account</span></a>
+                                <a class="user-info" href="{% url 'logout' %}"><span class="underline--magical">Log uit</span></a>
+                            {% else %}
+                                <a class="user-info" href="{% url 'login' %}"><span class="underline--magical">Log in</span></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <nav class="navbar navbar-expand-xl">
-                <div id="mySidebar" class="sidebar">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> 
-                    <a href="{% url 'allproducts' 'nieuw' %}">Nieuw</a>
-                    <a href="{% url 'allproducts' 'bestsellers' %}">Bestsellers</a>
-                    <a href="{% url 'allproducts' 'kettingen'%}">Kettingen</a>
-                    <a href="{% url 'allproducts' 'armbanden'%}">Armbanden</a>
-                    <a href="{% url 'allproducts' 'oorbellen'%}">Oorbellen</a>
-                    <a href="{% url 'allproducts' 'hangers'%}">Hangers</a>
-                    <a href="{% url 'allproducts' 'limitededitions'%}">Limited Editions</a>
-                    <a href="{% url 'diy' %}">DIY</a>
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'profile' %}" style="font-size: 14px; text-decoration: 2px underline pink; text-transform: lowercase;">Mijn account</a>
-                        <a href="{% url 'logout' %}" style="font-size: 14px; text-decoration: 2px underline pink; text-transform: lowercase;">Log uit</a>
-                    {% else %}
-                        <a href="{% url 'login' %}" style="font-size: 14px; text-decoration: 2px underline pink; text-transform: lowercase;">Log in</a>
-                    {% endif %}
-                </div>
-                <button class="openbtn" onclick="openNav()">&#9776;</button>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav flex-fill justify-content-center">
-                        <li class="nav-item px-2">
-                            <a class="nav-link" href="{% url 'allproducts' 'nieuw' %}">Nieuw</a>
-                        </li>
-                        <li class="nav-item px-2">
-                            <a class="nav-link" href="{% url 'allproducts' 'bestsellers' %}">Bestsellers</a>
-                        </li>
-                        <li class="nav-item px-2">
-                            <a class="nav-link" href="{% url 'allproducts' 'kettingen' %}">Kettingen</a>
-                        </li>
-                        <li class="nav-item px-2">
-                            <a class="nav-link" href="{% url 'allproducts' 'armbanden' %}">Armbanden</a>
-                        </li>
-                        <li class="nav-item px-2">
-                            <a class="nav-link" href="{% url 'allproducts' 'oorbellen' %}">Oorbellen</a>
-                        </li>
-                        <li class="nav-item px-2">
-                            <a class="nav-link" href="{% url 'allproducts' 'hangers' %}">Hangers</a>
-                        </li>
-                        <li class="nav-item px-2">
-                            <a class="nav-link" href="{% url 'allproducts' 'limitededitions' %}">Limited Editions</a>
-                        </li>
-                        <li class="nav-item px-2">
-                            <a class="nav-link" href="{% url 'diy' %}">DIY</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <a href="{% url 'profile' %}"><img src="{% static 'images/Account.png' %}" class="account-icon"></a>
-                    <a href="{% url 'cart' %}">
-                        <img src="{% static 'images/Shopper.png' %}" class="shopper-icon">
-                        <span class="badge badge-dark badge-pill">{{ cartnumber }}</span>
-                    </a>
-                </div>
-            </nav>
+            <div class="menu-item new-title custom-hover">
+                <a href="{% url 'allproducts' 'nieuw' %}">Nieuw</a>
+            </div>
+            <div class="menu-item jewelry-title custom-hover">
+                <a href="#">Sieraden</a>
+            </div>
+            <div class="header-logo">
+                <a href="{% url 'home' %}">Oleada<br>Beads</a>
+            </div>
+            <div class="menu-item about-us-title custom-hover">
+                <a href="{% url 'about'%}">Over ons</a>
+            </div>
+            <div class="menu-item contact-title custom-hover">
+                <a href="{% url 'contact' %}">Contact</a>
+            </div>
+            <div class="right-top-menu">
+                <a class="account-icon-link" href="{% url 'profile' %}">
+                    <img src="{% static 'images/AccountIcon.png' %}" class="account-icon">
+                </a>
+                <a class="wishlist-icon-link" href="#">
+                    <img src="{% static 'images/HeartWL.png' %}" class="wishlist-icon">
+                </a>
+                <a class="shopper-icon-link" href="{% url 'cart' %}">
+                    <img src="{% static 'images/ShopperBag.png' %}" class="shopper-icon">
+                </a>
+            </div>
         </div>
 
-        <div class="body-wrapper">
-            {% block body %}
-            {% endblock %}
-        </div>
+        
+        {% block body %}
+        {% endblock %}
 
         <footer class="footer">
             <div class="row">
-                <div class="col">
+                <div class="col footer-info">
                     <div class="upper">Informatie</div>
-                    <div class="tiny"><a href="{% url 'info' %}">Verzenden en retourneren</a></div>
-                    <div class="tiny"><a href="{% url 'guarantee' %}">Garantie</a></div>
-                    <div class="tiny"><a href="{% url 'termsconditions' %}">Algemene voorwaarden</a></div>
-                    <div class="tiny"><a href="{% url 'privacypolicy' %}">Privacy verklaring</a></div>
-                    <div class="tiny"><a href="{% url 'disclaimer' %}">Disclaimer</a></div>
+                    <div><a href="{% url 'info' %}"><span class="underline--magical">Verzenden en retourneren</span></a></div>
+                    <div><a href="{% url 'guarantee' %}"><span class="underline--magical">Garantie</span></a></div>
+                    <div><a href="{% url 'termsconditions' %}"><span class="underline--magical">Algemene voorwaarden</span></a></div>
+                    <div><a href="{% url 'privacypolicy' %}"><span class="underline--magical">Privacy verklaring</span></a></div>
+                    <div><a href="{% url 'disclaimer' %}"><span class="underline--magical"></span></a></div>
                 </div>
-                <div class="col">
+                <div class="col footer-about">
                     <div class="upper">Over ons</div>
-                    <div class="tiny">Oleada Beads</div>
-                    <div class="tiny">KvK-nummer: 82217769</div>
-                    <div class="tiny"><a href="{% url 'about'%}">Wie zijn wij?</a></div>
-                    <div class="tiny"><a href="{% url 'contact' %}">Contact</a></div>
-                    <div class="tiny"><a href="{% url 'material' %}">Materialen</a></div>
+                    <div>Oleada Beads</div>
+                    <div>KvK-nummer: 82217769</div>
+                    <div><a href="{% url 'about'%}"><span class="underline--magical">Wie zijn wij?</span></a></div>
+                    <div><a href="{% url 'contact' %}"><span class="underline--magical">Contact</span></a></div>
+                    <div><a href="{% url 'material' %}"><span class="underline--magical">Materialen</span></a></div>
                 </div>
-                <div class="col">
+                <div class="col footer-socials">
                     <div class="upper">Socials</div>
-                    <div class="tiny"><a href="https://www.instagram.com/oleadabeads/"><img src="{% static 'images/insta.png' %}" height="20" style="padding-right:3px;"> Instagram: @oleadabeads</a></div>
-                    <div class="tiny"><a href="https://www.facebook.com/OleadaBeads"><img src="{% static 'images/facebook.png' %}" height="20" style="padding-right:3px;"> Facebook: OleadaBeads</a></div>
-                    <div class="tiny"><a href="https://www.tiktok.com/@oleadabeads"><img src="{% static 'images/tiktok_logo.png' %}" height="20" style="padding-right:3px;"> TikTok: @oleadabeads</a></div>
+                    <div><a href="https://www.instagram.com/oleadabeads/"><span class="underline--magical">@oleadabeads</span>  <img class="socials-image" src="{% static 'images/insta.png' %}"></a></div>
+                    <div><a href="https://www.facebook.com/OleadaBeads"><span class="underline--magical">OleadaBeads</span>  <img class="socials-image" src="{% static 'images/facebook.png' %}"></a></div>
+                    <div><a href="https://www.tiktok.com/@oleadabeads"><span class="underline--magical">@oleadabeads</span>  <img class="socials-image" src="{% static 'images/tiktok_logo.png' %}"></a></div>
                 </div>
             </div>
         </footer>
 
         <script>
-            function openNav() {
-                document.getElementById("mySidebar").style.width = "100%";
-                document.getElementById("main").style.marginLeft = "100%";
-            }
+            const sidebarBox = document.querySelector('.box'),
+            sidebarBtn = document.querySelector('.hamburger-button'),
+            pageWrapper = document.querySelector('.body-wrapper');
 
-                /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
-            function closeNav() {
-                document.getElementById("mySidebar").style.width = "0";
-                document.getElementById("main").style.marginLeft = "0";
-            }
+            sidebarBtn.addEventListener('click', event => {
+                sidebarBtn.classList.toggle('active');
+                sidebarBox.classList.toggle('active');
+            });
+
+            pageWrapper.addEventListener('click', event => {
+                if (sidebarBox.classList.contains('active')) {
+                        sidebarBtn.classList.remove('active');
+                        sidebarBox.classList.remove('active');
+                }
+            });
+
+            window.addEventListener('keydown', event => {
+                if (sidebarBox.classList.contains('active') && event.keyCode === 27) {
+                        sidebarBtn.classList.remove('active');
+                        sidebarBox.classList.remove('active');
+                }
+            });
         </script>
     
     </body>

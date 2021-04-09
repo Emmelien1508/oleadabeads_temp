@@ -2,34 +2,37 @@
 
 {% block body %}
 {% load static %}
-    <div class="row">
-        <div class="col">
-            <h3 class="title">{{ name }}</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col subtext">
-            {{ text }}
-        </div>
-    </div>
-    {% if empty%}
+
+    <div class="body-wrapper">
         <div class="row">
-            <div class="col subtext">Sorry, we hebben even geen producten in deze categorie!</div>
+            <div class="col">
+                <h3 class="title">{{ name }}</h3>
+            </div>
         </div>
-    {% else %}
-        <div class="row all-products-wrapper">
-            {% for product in products %}
-                <div class="product">
-                    <a href="{% url 'product' product.name %}">
-                        <img src="{% static product.image.first.image.url %}">
-                        <div class="product-label">
-                            {{ product.name }}
-                            €{{ product.price }}
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
+        <div class="row">
+            <div class="col subtext">
+                {{ text }}
+            </div>
         </div>
-    {% endif %}
+        {% if empty%}
+            <div class="row">
+                <div class="col subtext">Sorry, we hebben even geen producten in deze categorie!</div>
+            </div>
+        {% else %}
+            <div class="row all-products-wrapper">
+                {% for product in products %}
+                    <div class="product">
+                        <a href="{% url 'product' product.name %}">
+                            <img src="{% static product.image.first.image.url %}">
+                            <div class="product-label">
+                                {{ product.name }}
+                                €{{ product.price }}
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 
 {% endblock %}

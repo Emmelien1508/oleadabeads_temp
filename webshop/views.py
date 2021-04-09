@@ -25,10 +25,13 @@ def home(request):
     cust = get_customer_session(request)
 
     bestsellers, best = get_sorted_bestsellers()
+    new_items, new = get_new_items()
 
     return render(request, "webshop/home.html", {
         "bestsellers": bestsellers,
-        "best": best
+        "best": best,
+        "newitems": new_items,
+        "new": new
     })
 
 def logout_view(request):

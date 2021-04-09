@@ -2,8 +2,8 @@
 
 {% block body %}
 {% load static %}
-<div class="main">
-    <div class="container">
+
+    <div class="body-wrapper">
         {% if user.is_authenticated %}
             <div class="row" style="text-align: center;">
                 <div class="col"id="prof">
@@ -85,5 +85,5 @@
             </div>  
         {% endif %}
     </div>
-</div>
+
 {% endblock %}

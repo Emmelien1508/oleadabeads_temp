@@ -71,6 +71,19 @@ def get_sorted_bestsellers():
 
     return bestsellers, best
 
+def get_new_items():
+    sorted_products = list(Product.objects.all().order_by("-date_added"))
+    new_items = [product for product in sorted_products]
+    
+    if len(new_items) > 5:
+        new_items = new_items[0:5]
+
+    new = True
+    if not new_items:
+        new = False
+
+    return new_items, new
+
 def get_all_products(soort):
     if soort == 'nieuw':
         orderedproducts = list(Product.objects.all().order_by("-date_added"))

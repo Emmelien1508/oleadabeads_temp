@@ -3,45 +3,47 @@
 {% block body %}
 {% load static %}
 
-    <div class="row">
-        <div class="col">
-            <h4 class="title">Bestelling #{{ order.id }} van {{ order.customer.firstname }} {{ order.customer.lastname }}</h4>
-        </div>  
-    </div>
-    {% if message %}
-        <div class="row" style="text-align: center;">
+    <div class="body-wrapper">
+        <div class="row">
             <div class="col">
-                <div class="alert alert-custom alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
+                <h4 class="title">Bestelling #{{ order.id }} van {{ order.customer.firstname }} {{ order.customer.lastname }}</h4>
+            </div>  
+        </div>
+        {% if message %}
+            <div class="row" style="text-align: center;">
+                <div class="col">
+                    <div class="alert alert-custom alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
-    <table class="change-status">
-        <tr>
-            <th>Huidige status</th>
-            <th>Opties</th>
-            <th>Wijzigingen opslaan</th>
-        </tr>
-        <tr>
-            <form action="{% url 'changestatus' order.id %}" method="post">
-                {% csrf_token %}
-                <td>{{ order.status }}</td>
-                <td>
-                    <select class="custom-select" name="orderstatus">
-                        <option value="Ontvangen">Ontvangen</option>
-                        <option value="In behandeling">In behandeling</option>
-                        <option value="Verzonden">Verzonden</option>
-                    </select>
-                </td>
-                <td>
-                    <button class="btn status-button" type="submit">Wijzig</button>
-                </td>
-            </form>
-        </tr>
-    </table>
+        {% endif %}
+        <table class="change-status">
+            <tr>
+                <th>Huidige status</th>
+                <th>Opties</th>
+                <th>Wijzigingen opslaan</th>
+            </tr>
+            <tr>
+                <form action="{% url 'changestatus' order.id %}" method="post">
+                    {% csrf_token %}
+                    <td>{{ order.status }}</td>
+                    <td>
+                        <select class="custom-select" name="orderstatus">
+                            <option value="Ontvangen">Ontvangen</option>
+                            <option value="In behandeling">In behandeling</option>
+                            <option value="Verzonden">Verzonden</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="btn status-button" type="submit">Wijzig</button>
+                    </td>
+                </form>
+            </tr>
+        </table>
+    </div>
 
 {% endblock %}

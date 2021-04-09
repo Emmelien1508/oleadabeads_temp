@@ -3,8 +3,7 @@
 {% block body %}
 {% load static %}
 
-<div class="main" id="productcontent">
-    <div class="container">
+    <div class="body-wrapper">
         <div class="row">
             <div class="col" style="padding-bottom: 20px;">
                 <h3 id="title">
@@ -111,55 +110,54 @@
             </div>
         </div>
     </div>
-<div>
 
-<script>
-    $(document).ready(function(){  
+    <script>
+        $(document).ready(function(){  
 
-        var checkField;
-        var left ="{{product.left}}"
-        var input = document.getElementById("inputnumber");
-        input.setAttribute("max", left);
-        //checking the length of the value of message and assigning to a variable(checkField) on load
-        checkField = $("input#inputnumber").val().length;  
+            var checkField;
+            var left ="{{product.left}}"
+            var input = document.getElementById("inputnumber");
+            input.setAttribute("max", left);
+            //checking the length of the value of message and assigning to a variable(checkField) on load
+            checkField = $("input#inputnumber").val().length;  
 
-        var enableDisableButton = function(){         
-        if(checkField > 0){
-            $('#buttonadd').removeAttr("disabled");
-        } 
-        else {
-            $('#buttonadd').attr("disabled","disabled");
-        }
-        }        
+            var enableDisableButton = function(){         
+            if(checkField > 0){
+                $('#buttonadd').removeAttr("disabled");
+            } 
+            else {
+                $('#buttonadd').attr("disabled","disabled");
+            }
+            }        
 
-        //calling enableDisableButton() function on load
-        enableDisableButton();            
+            //calling enableDisableButton() function on load
+            enableDisableButton();            
 
-        $('input#inputnumber').keyup(function(){ 
-        //checking the length of the value of message and assigning to the variable(checkField) on keyup
-        checkField = $("input#inputnumber").val().length;
-        //calling enableDisableButton() function on keyup
-        enableDisableButton();
+            $('input#inputnumber').keyup(function(){ 
+            //checking the length of the value of message and assigning to the variable(checkField) on keyup
+            checkField = $("input#inputnumber").val().length;
+            //calling enableDisableButton() function on keyup
+            enableDisableButton();
+            });
         });
-    });
 
-    var slideIndex = 1;
-    showDivs(slideIndex);
+        var slideIndex = 1;
+        showDivs(slideIndex);
 
-    function plusSlides(n) {
-    showDivs(slideIndex += n);
-    }
+        function plusSlides(n) {
+        showDivs(slideIndex += n);
+        }
 
-    function showDivs(n) {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    if (n > x.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = x.length} ;
-    for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-    }
-    x[slideIndex-1].style.display = "block";
-    }
-</script>
+        function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        if (n > x.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = x.length} ;
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        x[slideIndex-1].style.display = "block";
+        }
+    </script>
 
 {% endblock %}
