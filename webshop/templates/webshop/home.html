@@ -4,125 +4,94 @@
 {% load static %}
 
     <div class="home-wrapper">
+        <div class="row home-introduction">
+            <div class="col home-overlapping-pictures">
+                <div class="home-surfers-image">
+                    <img src="{% static 'images/Home-Surfers.jpeg' %}" class="surfers-image">
+                </div>
+                <div class="home-us">
+                    <img src="{% static 'images/Home-About-Us.JPG' %}" class="about-us">
+                </div>
+            </div>
+            <div class="col home-text-about-us">
+                <p class="big-text">Cleo & Emmelien</p>
+                <p class="about-us-text statement">The girls behind the brand</p>
+                <p>
+                    Wij zijn beste vriendinnen die er tijdens de lockdown een hobby bij hebben gekregen: kralen.
+                </p>
+                <p>Hopelijk zien we je terug in de webshop. Happy shopping!</p>
+            </div>
+        </div>
         <div class="row home-products">
-            <div class="col home-products-items">
-                <a href="{% url 'allproducts' 'armbanden' %}">
-                    <img class="home-product-images" src="{% static 'images/Home-Armbanden.jpeg' %}">
-                    <button class="btn small-home-button small-button-bracelet" type="button">Armbanden</button>
-                </a>
-                <a href="{% url 'allproducts' 'oorbellen' %}">
-                    <img class="home-product-images" src="{% static 'images/Home-Earrings.JPG' %}">
-                    <button class="btn small-home-button small-button-earring" type="button">Oorbellen</button>
-                </a>
-                <a href="{% url 'allproducts' 'kettingen' %}">
-                    <img class="home-product-images" src="{% static 'images/Home-Kettingen.jpeg' %}">
-                    <button class="btn small-home-button small-button-necklace" type="button">Kettingen</button>
-                </a>
+            <div class="col-2 vertical-text statement">
+                <p>Shop the latest</p>
+            </div>
+            <div class="col products">
+                {% for item in newitems %}
+                    <div class="product-box">
+                        <a href="{% url 'product' item.name %}">
+                            <img class="product-image" src="{% static item.image.first.image.url %}">
+                            <div class="product-info">
+                                {{ item.name }}
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
-        <div class="row">
-            <div class="col home-products-items">
-                <a href="{% url 'allproducts' 'armbanden' %}">
-                    <button class="btn home-button button-bracelet" type="button">Armbanden</button>
-                </a>
-                <a href="{% url 'allproducts' 'oorbellen' %}">
-                    <button class="btn home-button button-earring" type="button">Oorbellen</button>
-                </a>
-                <a href="{% url 'allproducts' 'kettingen' %}">
-                    <button class="btn home-button button-necklace" type="button">Kettingen</button>
-                </a>
-            </div>
-        </div>
-        <div class="row home-about-us">
-            <div class="picture-overlap">
-                <div class="outline-au"></div>
-                <div class="picture-au-box">
-                    <img class="picture-au" src="{% static 'images/Home-About-Us.JPG' %}">
-                </div>
-            </div>
-            <div class="au-text">
-                <h4 class="home-text-statement">The girls behind the concept</h4>
-                <p>
-                    Sinds groep 1 zijn wij al beste vriendinnen.
-                    We vinden het mega gezellig om samen te wandelen, koken, kletsen en nu ook kralen!
-                    Sinds april 2020 zijn we bezig met het Oleada Beads concept:
-                    een bedrijf die handgemaakte sieraden verkoopt. 
-                    We zijn continu op zoek naar de beste materialen: 14 of 24kt goud, stainless steel, mooie edelstenen, Miyuki kralen, noem maar op!
-                    Creatief bezig zijn hebben we ontdekt tijdens de lockdown en we vinden het fantastisch!
-                    Sieraden maken is voor ons de ultieme self-care, even lekker niks aan ons hoofd en gewoon gezellig samen zijn.
-                    Hopelijk zien we je terug in onze webshop of op de socials. Happy shopping!
+        <div class="row home-explanation">
+            <div class="col more-about-us">
+                <p class="big-text">Met liefde handgemaakt</p>
+                <p class="statement">
+                    Support your local 
+                    <p class="small-text statement">girlbosses</p>
                 </p>
-                <p class="text-au-love">Cleo & <p class="large-au-text">Emmelien</p></p>
-            </div>
-            <div class="mobile-screen-au-picture">
-                <h4 class="home-text-statement">The girls behind the concept</h4>
-                <img class="mobile-picture-au" src="{% static 'images/Home-About-Us.JPG' %}">
-            </div>
-            <div class="mobile-screen-au-text">
                 <p>
-                    Sinds groep 1 zijn wij al beste vriendinnen.
-                    We vinden het mega gezellig om samen te wandelen, koken, kletsen en nu ook kralen!
-                    Sinds april 2020 zijn we bezig met het Oleada Beads concept:
-                    een bedrijf die handgemaakte sieraden verkoopt. 
-                    We zijn continu op zoek naar de beste materialen: 14 of 24kt goud, stainless steel, mooie edelstenen, Miyuki kralen, noem maar op!
-                    Sieraden maken is voor ons de ultieme self-care, even lekker niks aan ons hoofd en gewoon gezellig samen zijn.
-                    Hopelijk zien we je terug in onze webshop of op de socials. Happy shopping!
+                    Sinds groep één zijn wij al beste vriendinnen!
                 </p>
-                <p class="text-au-love">Cleo & Emmelien</p>
+                <p>
+                    Sieraden maken is voor ons de ultieme self-care, even lekker niks aan ons hoofd en gewoon gezellig samen zijn.
+                </p>
+                <p>
+                    We zijn continu op zoek naar de beste materialen: 14/24kt goud, stainless steel, mooie edelstenen, Miyuki kralen, noem maar op.
+                    Daarmee gaan onze sieraden lang mee!
+                </p>
+                <a href="#">
+                    <button class="btn">Leer ons kennen</button>
+                </a>
+            </div>
+            <div class="col more-pictures-overlapping">
+                <div class="home-picture-wearing-it">
+                    <img src="{% static 'images/Home-Eden.JPG' %}" class="wearing-it">
+                </div>
+                <div class="home-picture-background">
+                    <img src="{% static 'images/Home-PalmTrees3.jpeg' %}" class="background">
+                </div>
             </div>
         </div>
-        {% if new %}
-            <div class="new-items-box">
-                <div class="new-items">
-                    <h2 class="home-text-statement">New <div class="white-text">items</div></h2>
+        <div class="row home-categories">
+            <div class="col">
+                <div class="row image-categories">
+                    <img src="{% static 'images/Home-Armbanden.jpg' %}">
+                    <img src="{% static 'images/Home-Kettingen.jpg' %}">
+                    <img src="{% static 'images/Home-Oorbellen.jpg' %}">
                 </div>
-                <div class="row home-new-items">
-                    {% for item in newitems %}
-                        <div class="home-new-item-box">
-                            <a href="{% url 'product' item.name %}">
-                                <img class="home-new-item-image" src="{% static item.image.first.image.url %}">
-                                <div class="home-new-item-info">
-                                    <span class="underline-product">
-                                        {{ item.name }}
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    {% endfor %}
+                <div class="row button-categories">
+                    <button class="btn bracelet-btn">Shop<br>Armbanden</button>
+                    <button class="btn">Shop<br>Kettingen</button>
+                    <button class="btn earring-btn">Shop<br>Oorbellen</button>
                 </div>
-            </div>
-        {% endif %}
-        <div class="row explanation">
-            <div class="col logo-dictionary-text">
-                <div class="logo-name">
-                    Oleada
-                </div>
-                <div class="logo-pronounciation">
-                    [o-lé-a-da] <p class="text-it">noun</p> 
-                </div>
-                <div class="logo-explanation">
-                    wave <p class="tiny">(Spanish)</p><br>
-                    "go with the flow, just like the waves in the ocean"
-                </div>
-            </div>
-            <div class="turtle-palm-overlap">
-                <img src="{% static 'images/Home-Turtle.jpeg' %}" class="photo-turtle">
-                <img src="{% static 'images/Home-PalmTrees3.jpeg' %}" class="photo-palmtrees">
-            </div>
-            <div class="surfers-image">
-                <img src="{% static 'images/Home-Surfers.jpeg' %}" class="photo-surfers" ALIGN="right">
             </div>
         </div>
-        <div class="row lorem">
-            <div class="col">Lorem ipsum dolor sit amet.
-            Explicabo cupiditate incidunt nesciunt et.
-            Possimus inventore fuga tempora fugiat.
-            Odit in quibusdam fuga numquam?
-            Quos, temporibus alias? Assumenda, quos.</div>
-            <div class="col">Lorem ipsum dolor sit.
-            Enim quia optio eum.
-            Quasi nemo eveniet vitae.
-            Iusto aspernatur magni itaque!</div>
+        <div class="row instagram">
+            <p class="insta statement">@oleadabeads</p>
+        </div>
+        <div class="home-instagram-images">
+            <img src="{% static 'images/Home-1.png' %}">
+            <img src="{% static 'images/Home-2.png' %}">
+            <img src="{% static 'images/Home-3.png' %}">
+            <img src="{% static 'images/Home-4.png' %}">
+            <img src="{% static 'images/Home-5.png' %}">
         </div>
     </div>
 

@@ -75,8 +75,8 @@ def get_new_items():
     sorted_products = list(Product.objects.all().order_by("-date_added"))
     new_items = [product for product in sorted_products]
     
-    if len(new_items) > 5:
-        new_items = new_items[0:5]
+    if len(new_items) > 4:
+        new_items = new_items[0:4]
 
     new = True
     if not new_items:
