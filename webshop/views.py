@@ -322,11 +322,21 @@ def sort(request):
     # return JsonResponse({product.name: product for product in products})
     print([product.name for product in products])
 
+    empty = False
+    for item in products:
+        if item.jewelry_type == "Armband":
+            name = "Oorbellen"
+        elif item.jewelry_type == "Ketting":
+            name = "Kettingen"
+        else:
+            name = "Armbanden"
+        break
+    
     if request.is_ajax:
         # print(" IN THE AJAX")
         t = loader.get_template('webshop/allproducts.html')
         # print(f'this is t: {t}')
-        html = t.render({'products': products})
+        html = t.render({'products': products, "empty": empty, "name": name})
         # print(type(html))
         # print('____________________________')
         # print(' now comes the return bro')
