@@ -316,17 +316,20 @@ def sort(request):
     else:
         products = list(Product.objects.all().order_by(f"{passedValue}"))
 
+    if not products:
+        products = list(Product.objects.all())
+        
     # return JsonResponse({product.name: product for product in products})
     print([product.name for product in products])
 
     if request.is_ajax:
-        print(" IN THE AJAX")
+        # print(" IN THE AJAX")
         t = loader.get_template('webshop/allproducts.html')
-        print(f'this is t: {t}')
+        # print(f'this is t: {t}')
         html = t.render({'products': products})
-        print(type(html))
-        print('____________________________')
-        print(' now comes the return bro')
+        # print(type(html))
+        # print('____________________________')
+        # print(' now comes the return bro')
         return HttpResponse(json.dumps({'html': html}))
     else:
         return HttpResponse("<h1>HELLO</h1>")
