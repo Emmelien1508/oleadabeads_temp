@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 from django.views import generic
+from django.template import loader, RequestContext
 
 from pandas import DataFrame
 import json
@@ -24,12 +25,9 @@ class RegisterView(generic.CreateView):
 def home(request):
     cust = get_customer_session(request)
 
-    bestsellers, best = get_sorted_bestsellers()
     new_items, new = get_new_items()
 
     return render(request, "webshop/home.html", {
-        "bestsellers": bestsellers,
-        "best": best,
         "newitems": new_items,
         "new": new
     })
@@ -39,22 +37,31 @@ def logout_view(request):
     return redirect(home)
 
 def allproducts(request, soort):
-    products, text, name, empty = get_all_products(soort)
+    products, name, empty = get_all_products(soort)
 
     return render(request, "webshop/allproducts.html", {
         "products": products,
         "empty": empty,
-        "text": text,
         "name": name
     })
+
+def showcategories(request):
+    return render(request, "webshop/showcategories.html")
 
 def product(request, naam):
     cust = get_customer_session(request)  
 
     item, outofstock, added, incart, images = get_product_info(cust, naam)
 
+    recommended = get_random_products(item)
+
+    if item.jewelry_type == 'Armband':
+        sizes = [15, 16, 17, 18, 19, 20]
+    else:
+        sizes = None
+
     message = ""
-    if item.left == 0:
+    if item.in_stock == False:
         message = "Dit product is uitverkocht!" 
 
     return render(request, "webshop/product.html", {
@@ -63,22 +70,10 @@ def product(request, naam):
         "added": added, 
         "incart": incart,
         "images": images,
-        "message": message
+        "message": message,
+        "sizes": sizes,
+        "recommended": recommended
     })
-
-def diy(request):
-    if request.method == 'POST':
-        cust = get_customer_session(request)
-
-        jewelrytype, look, chosencolors, metaltype = save_diy_data(request)
-
-        diy = create_diy_product(jewelrytype, look, chosencolors, metaltype)
-
-        create_diy_cartitem(diy, cust)
-
-        return redirect(cart)
-
-    return render(request, "webshop/diy.html")
 
 def about(request):
     return render(request, "webshop/aboutus.html")
@@ -86,51 +81,53 @@ def about(request):
 def cart(request):
     cust = get_customer_session(request)
 
-    diyproducts, normalproducts, incart, total = get_all_cartitems(cust)
+    products, incart, total, messages = get_all_cartitems(cust)
 
     return render(request, "webshop/cart.html", {
-        "diyproducts": diyproducts,
-        "normalproducts": normalproducts,
+        "products": products,
         "total": total,
         "incart": incart,
-        "customer": cust
+        "customer": cust,
+        "messages": messages
     })
 
 def addtocart(request, naam):
     
     item = Product.objects.get(name = naam)
     cust = get_customer_session(request)
+    recommended = get_random_products(item)
+
+    if item.jewelry_type == 'Armband':
+        sizes = [15, 16, 17, 18, 19, 20]
+    else:
+        sizes = None
+
+    message = ""
+    if item.left == 0:
+        message = "Dit product is uitverkocht!" 
 
     if request.method == "POST":
         add_product_to_cart(request, cust, item)
 
         _, outofstock, added, incart, images = get_product_info(cust, naam)
 
-        message = ""
-        if item.left == 0:
-            message = "Dit product is uitverkocht!" 
-
         return render(request, "webshop/product.html", {
             "product": item,
             "outofstock": outofstock,
             "added": added, 
+            "sizes": sizes,
             "incart": incart,
             "images": images,
             "message": message,
+            "recommended": recommended,
             "addedtocart": f"{item.name.capitalize()} is aan je winkelmandje toegevoegd!"
         })
 
 def deletefromcart(request, naam):
     cust = get_customer_session(request)
 
-    try:
-        item = Product.objects.get(name = naam)
-        cartitem = OrderProduct.objects.get(customer = cust, product = item, ordered=False)
-        item.left += cartitem.quantity
-        item.save(update_fields=['left'])
-    except:
-        item = Diy.objects.get(name = naam)
-        cartitem = OrderProduct.objects.get(customer = cust, diyproduct = item, ordered=False)
+    item = Product.objects.get(name = naam)
+    cartitem = OrderProduct.objects.get(customer = cust, product = item, ordered=False)
 
     cartitem.delete()
 
@@ -231,7 +228,7 @@ def info(request):
 
 def discount(request):
     cust = get_customer_session(request)
-    diyproducts, normalproducts, incart, total = get_all_cartitems(cust)
+    products, incart, total, _ = get_all_cartitems(cust)
 
     if request.method == "POST":
         code = request.POST["korting"]
@@ -247,8 +244,7 @@ def discount(request):
             total_after_discount = total
 
     return render(request, "webshop/cart.html", {
-        "diyproducts": diyproducts,
-        "normalproducts": normalproducts,
+        "products": products,
         "total": total_after_discount,
         "incart": incart,
         "customer": cust,
@@ -308,3 +304,30 @@ def diyproduct(request, idnr):
 
 def material(request):
     return render(request, "webshop/material_info.html")
+
+def sort(request):
+
+    passedValue = dict(request.GET)["passedValue"][0]
+    print(request.method)
+    print(request.is_ajax)
+    print(passedValue)
+    if passedValue == "bestsellers":
+        products, _ = get_sorted_bestsellers()
+    else:
+        products = list(Product.objects.all().order_by(f"{passedValue}"))
+
+    # return JsonResponse({product.name: product for product in products})
+    print([product.name for product in products])
+
+    if request.is_ajax:
+        print(" IN THE AJAX")
+        t = loader.get_template('webshop/allproducts.html')
+        print(f'this is t: {t}')
+        html = t.render({'products': products})
+        print(type(html))
+        print('____________________________')
+        print(' now comes the return bro')
+        return HttpResponse(json.dumps({'html': html}))
+    else:
+        return HttpResponse("<h1>HELLO</h1>")
+

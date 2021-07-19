@@ -6,8 +6,7 @@
     <div class="body-wrapper">
         {% if message %}
         <div class="row">
-            <div class="col"></div>
-            <div class="col">
+            <div class="col message-button">
                 <div class="alert alert-custom alert-dismissible fade show" role="alert">
                     {{ message }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -15,18 +14,17 @@
                     </button>
                 </div>
             </div>
-            <div class="col"></div>
         </div>
         {% endif %}
         <form action="{% url 'changeinfo' %}" method="post">
             {% csrf_token %}
             <div class="row">
-                <div class="col">
-                    <h3 class="title">Persoonsgegevens</h3>
+                <div class="col register-title">
+                    <p class="underline-statement statement">Persoonsgegevens</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
+            <div class="row change-info-form">
+                <div class="col-6">
                     <label>Voornaam</label>
                     {% if customer.firstname %}
                         <input type='text' value='{{ customer.firstname }}' id="voornaam" name='voornaam' class='form-control' required>
@@ -34,7 +32,7 @@
                         <input type='text' name='voornaam' id="voornaam" class='form-control' required>
                     {% endif %}
                 </div>
-                <div class="col">
+                <div class="col-6">
                     <label>Achternaam</label>
                     {% if customer.lastname %}
                         <input type='text' id="achternaam" value='{{ customer.lastname }}' name='achternaam' class='form-control' required>
@@ -43,8 +41,8 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-8">
+            <div class="row change-info-form">
+                <div class="col-6">
                     <label>Straatnaam</label>
                     {% if customer.streetname %}
                         <input type='text' id="straatnaam" value="{{ customer.streetname }}" name='streetname' class='form-control'>
@@ -52,7 +50,7 @@
                         <input type='text' id="straatnaam" value="" name='streetname' class='form-control'>
                     {% endif %}
                 </div>
-                <div class="col-4">
+                <div class="col-2">
                     <label>Huisnummer</label>
                     {% if customer.housenr %}
                         <input type='text' id="huisnummer" value="{{ customer.housenr }}" name='housenr' class='form-control'>
@@ -60,9 +58,7 @@
                         <input type='text' id="huisnummer" name='housenr' class='form-control'>     
                     {% endif %}
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
+                <div class="col-4">
                     <label>Postcode</label>
                     {% if customer.postalcode %}
                         <input type='text' id="postcode" value="{{ customer.postalcode}}" name='postalcode' class='form-control'>
@@ -71,8 +67,8 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
+            <div class="row change-info-form">
+                <div class="col-12">
                     <label>Stad</label>
                     {% if customer.city %}
                         <input type='text' id="stad" value="{{ customer.city }}" name='city' class='form-control'>
@@ -81,8 +77,8 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
+            <div class="row change-info-form">
+                <div class="col-12">
                     <label>E-mail</label>
                     {% if customer.email %}
                         <input type='text' id="email" value='{{ customer.email}}'name='email' class='form-control' required>
@@ -91,9 +87,9 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="row change-information-button">
-                <div class="col">
-                    <button class="btn change-info" type="submit">
+            <div class="row change-info-form">
+                <div class="col change-info-button">
+                    <button class="btn" type="submit">
                         Gegevens opslaan
                     </button>
                 </div>

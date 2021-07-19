@@ -75,27 +75,6 @@ class Customer(AbstractBaseUser, PermissionsMixin):
             return self.email
         return f'Anonymous user'
 
-class Color(models.Model):
-
-    COLOR_CHOICES = (
-        ('Wit', 'Wit'), 
-        ('Blauw', 'Blauw'), 
-        ('Oranje', 'Oranje'), 
-        ('Paars', 'Paars'), 
-        ('Roze', 'Roze'), 
-        ('Rood', 'Rood'), 
-        ('Parel', 'Parel'), 
-        ('Edelsteen', 'Edelsteen'), 
-        ('Beige', 'Beige'),
-        ('Groen', 'Groen'),
-        ('Geel', 'Geel')
-    )
-
-    color = models.CharField(max_length=30, choices=COLOR_CHOICES)
-
-    def __str__(self):
-        return self.color
-
 class Photo(models.Model):
     image = models.ImageField(upload_to='product_images/')
 
@@ -107,8 +86,7 @@ class Product(models.Model):
     JEWELRY_CHOICES = (
         ('Armband', 'Armband'),
         ('Ketting', 'Ketting'),
-        ('Oorbel', 'Oorbel'),
-        ('Hanger', 'Hanger')
+        ('Oorbel', 'Oorbel')
     )
 
     LOOK_CHOICES = (
@@ -117,8 +95,8 @@ class Product(models.Model):
     )
 
     METAL_CHOICES = (
-        ('RVS Goud', 'RVS Goud'),
-        ('RVS Zilver', 'RVS Zilver'),
+        ('Stainless steel goud', 'Stainless steel goud'),
+        ('Stainless steel zilver', 'Stainless steel zilver'),
         ('Gold plated', 'Gold plated'),
         ('Silver plated', 'Silver plated')
     )
@@ -126,64 +104,31 @@ class Product(models.Model):
     name = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     in_stock = models.BooleanField(default=True)
-    color = models.ManyToManyField(Color, blank=True)
     image = models.ManyToManyField(Photo)
     description = models.TextField()
-    limited_edition = models.BooleanField(default=False)
+    information = models.TextField(blank=True, null=True)
     jewelry_type = models.CharField(max_length=30, choices=JEWELRY_CHOICES)
     look = models.CharField(max_length=30, choices=LOOK_CHOICES, blank=True, null=True)
     metal_type = models.CharField(max_length=30, choices=METAL_CHOICES)
     date_added = models.DateTimeField(default=now)
-    size = models.IntegerField(blank=True, null=True)
     left = models.IntegerField()
     sale = models.BooleanField(default=False)
+    sale_price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
 
-class Diy(models.Model):
-
-    JEWELRY_CHOICES = (
-        ('Armband', 'Armband'),
-        ('Ketting', 'Ketting'),
-        ('Oorbellen', 'Oorbellen')
-    )
-
-    LOOK_CHOICES = (
-        ('Kralen', 'Kralen'),
-        ('Schakelketting', 'Schakelketting')
-    )
-
-    METAL_CHOICES = (
-        ('RVS Goud', 'RVS Goud'),
-        ('RVS Zilver', 'RVS Zilver'),
-        ('Gold plated', 'Gold plated'),
-        ('Silver plated', 'Silver plated')
-    )
-
-    name = models.CharField(max_length=30)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    color = models.ManyToManyField(Color)
-    description = models.TextField()
-    jewelry_type = models.CharField(max_length=30, choices=JEWELRY_CHOICES)
-    look = models.CharField(max_length=30, choices=LOOK_CHOICES)
-    metal_type = models.CharField(max_length=30, choices=METAL_CHOICES)
-
-    def __str__(self):
-        return f'{self.id}'
-
 class OrderProduct(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
-    diyproduct = models.OneToOneField(Diy, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     total = models.DecimalField(max_digits=6, decimal_places=2)
     ordered = models.BooleanField(default=False)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    size = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        if self.product:
-            return f'{self.product.name}'
-        return f'{self.diyproduct.id}'
+        return f'{self.product.name}'
 
 class Order(models.Model):
 
@@ -198,15 +143,15 @@ class Order(models.Model):
         ('Met Track & Trace', 'Met Track & Trace')
     )
 
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     orderproduct = models.ManyToManyField(OrderProduct)
     date_ordered = models.DateField()
     status = models.CharField(max_length=30, choices=STATUS_CHOICES)
-    subtotal = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    total = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    subtotal = models.DecimalField(max_digits=5, decimal_places=2)
+    total = models.DecimalField(max_digits=5, decimal_places=2)
     comment = models.TextField(null=True, blank=True)
     shipping = models.CharField(max_length=50, choices=SHIPPING_CHOICES)
-    shipping_costs = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    shipping_costs = models.DecimalField(max_digits=5, decimal_places=2)
     free_shipping = models.BooleanField(default=False)
     payment_option = models.CharField(max_length=30, blank=True)
 

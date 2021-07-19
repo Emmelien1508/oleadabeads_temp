@@ -1,0 +1,34 @@
+{% extends "webshop/layout.html" %}
+
+{% block body %}
+{% load static %}
+
+    <div class="body-wrapper">
+        <div class="row all-categories">
+            <a href="{% url 'allproducts' 'kettingen' %}">
+                <div class="category-necklaces">
+                    <img src="{% static 'images/Shadow1.jpg' %}">
+                    <p class="title">
+                        Kettingen
+                    </p>
+                </div>
+            </a>
+            <a href="{% url 'allproducts' 'oorbellen' %}">
+                <div class="category-earrings">
+                    <img src="{% static 'images/Shadow2.jpg' %}">
+                    <p class="title">
+                        Oorbellen
+                    </p>
+                </div>
+            </a>
+            <a href="{% url 'allproducts' 'armbanden' %}">
+                <div class="category-bracelets">
+                    <img src="{% static 'images/Shadow3.jpg' %}">
+                    <p class="title">
+                        Armbanden
+                    </p>
+                </div>
+            </a>
+        </div>
+    </div>
+{% endblock %}

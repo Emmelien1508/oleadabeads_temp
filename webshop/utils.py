@@ -1,5 +1,6 @@
 from datetime import datetime 
 from operator import itemgetter
+from random import sample
 
 from .models import *
 
@@ -61,9 +62,6 @@ def get_sorted_bestsellers():
 
     sorted_bestsellers = dict(sorted(products.items(), key=itemgetter(1),reverse=True))
     bestsellers = [product for title in sorted_bestsellers.keys() for product in Product.objects.all() if product.name == title]
-
-    if len(bestsellers) > 4:
-        bestsellers = bestsellers[0:4]
     
     best = True
     if not bestsellers:
@@ -74,7 +72,7 @@ def get_sorted_bestsellers():
 def get_new_items():
     sorted_products = list(Product.objects.all().order_by("-date_added"))
     new_items = [product for product in sorted_products]
-    
+
     if len(new_items) > 4:
         new_items = new_items[0:4]
 
@@ -85,61 +83,21 @@ def get_new_items():
     return new_items, new
 
 def get_all_products(soort):
-    if soort == 'nieuw':
-        orderedproducts = list(Product.objects.all().order_by("-date_added"))
-        products = [product for product in orderedproducts]
-        text = "Hieronder staan alle producten die nieuw zijn toegevoegd!"
-        name = "Nieuw"
-
-        if len(products) > 20:
-            products = products[0:20]
-
-    if soort == "bestsellers":
-        sold_items = OrderProduct.objects.filter(ordered=True).order_by("product")
-        bestsellers = {}
-        for item in sold_items:
-            try:
-                bestsellers[item.product.name] += item.quantity
-            except:
-                bestsellers[item.product.name] = item.quantity    
-        sorted_bestsellers = dict(sorted(bestsellers.items(), key=itemgetter(1),reverse=True))
-        products = [product for title in sorted_bestsellers.keys() for product in Product.objects.all() if product.name == title]
-        text = "Al onze bestsellers zijn op deze pagina te vinden!"
-        name = "Bestsellers"
-
-        if len(products) > 20:
-            products = products[0:20]
-    
-    if soort == "limitededitions":
-        products = [product for product in Product.objects.all() if product.limited_edition == True]
-        text = "Je vindt hieronder al onze limited edition producten. Op = op!"
-        name = "Limited Editions"
-
     if soort == "kettingen":
         products = [product for product in Product.objects.all() if product.jewelry_type == "Ketting"]
-        text = "Op deze pagina vindt je onze handgemaakte kettingen. Deze zijn super leuk om te combineren met onze hangers, go check it out!"
         name = "Kettingen"
-
-    if soort == "armbanden":
+    elif soort == "armbanden":
         products = [product for product in Product.objects.all() if product.jewelry_type == "Armband"]
-        text = "Deze zelfgemaakte armbandjes zijn perfect om te combineren!"
         name = "Armbanden"
-
-    if soort == "oorbellen":
+    else:
         products = [product for product in Product.objects.all() if product.jewelry_type == "Oorbel"]
-        text = "De oorbellen op deze pagina staan heel leuk samen, dus lekker mixen & matchen! De prijzen zijn per stuk."
         name = "Oorbellen"
-
-    if soort == 'hangers':
-        products = [product for product in Product.objects.all() if product.jewelry_type == 'Hanger']
-        text = "De hangers op deze pagina zijn bedoeld om te combineren met onze leuke kettingen!"
-        name = "Hangers"
 
     empty = False
     if not products:
         empty = True
 
-    return products, text, name, empty
+    return products, name, empty
 
 def get_product_info(cust, naam):
     item = Product.objects.get(name=naam)
@@ -163,84 +121,66 @@ def get_product_info(cust, naam):
 
     return item, outofstock, added, incart, images
 
-def save_diy_data(request):
-    jewelrytype = request.POST['jewelrytype']
-    look = request.POST['look']
-    color = request.POST.getlist('color[]')
-    colors = []
-    for c in color:
-        if '€' in c:
-            colors.append(c[:-10])
-        else:
-            colors.append(c)
-    chosencolors = [Color.objects.get(color = col) for col in colors]
-    metaltype = request.POST['metaltype']
-
-    return jewelrytype, look, chosencolors, metaltype
-
-def create_diy_product(jewelrytype, look, colors, metaltype):
-    price = 5
-    if "Ketting" in jewelrytype:
-        price += 2
-    if "Schakelketting" in look:
-        price += 1.50
-    if "Edelsteen" in colors:
-        price += 1.50
-    if "Parel" in colors:
-        price += 1
-    if "Goud" in metaltype:
-        price += 0.5
-
-    diy = Diy.objects.create(price = price, jewelry_type = jewelrytype, look = look, metal_type = metaltype)
-    diy.name = str(diy.id)
-    diy.save(update_fields=['name'])
-    diy.color.set(colors)
-
-    return diy
-
-def create_diy_cartitem(diy, cust):
-    cartproduct = OrderProduct()
-    cartproduct.diyproduct = diy
-    cartproduct.customer = cust
-    cartproduct.total = cartproduct.diyproduct.price
-    cartproduct.quantity = 1
-    cartproduct.save()
-
 def get_all_cartitems(cust):
-    diyproducts, normalproducts = [], []
+    products = []
     
     subtotal = 0
+    messages = []
     for item in OrderProduct.objects.filter(customer = cust, ordered = False):
-        if item.product:
-            if item.quantity > item.product.left:
-                item.quantity = item.product.left
+        if item.quantity > item.product.left:
+            messages.append(f"Sorry, er zijn maar {item.product.left} stuk(s) beschikbaar van {item.product.name}!")
+            item.quantity = item.product.left
+            if item.product.sale:
+                item.total = item.quantity * item.product.sale_price
+            else:
                 item.total = item.quantity * item.product.price
-                item.save(update_fields=['quantity', 'subtotal'])
-            normalproducts.append(item)
-            subtotal += item.quantity * item.product.price
+            item.save(update_fields=['quantity', 'total'])
+        products.append(item)
+        if item.product.sale:
+            subtotal += item.quantity * item.product.sale_price
         else:
-            diyproducts.append(item)
-            subtotal += item.quantity * item.diyproduct.price
+            subtotal += item.quantity * item.product.price
 
     incart = False
-    if diyproducts or normalproducts:
+    if products:
         incart = True
 
-    return diyproducts, normalproducts, incart, subtotal
+    return products, incart, subtotal, messages
 
 def add_product_to_cart(request, cust, item):
     amount = int(request.POST["hoeveelheid"])
     try:
+        size = request.POST["size"]
+    except:
+        size = False
+
+    try:
         cartproduct = OrderProduct.objects.get(customer = cust, product = item, ordered = False)
         cartproduct.quantity += amount
-        cartproduct.total += amount * cartproduct.product.price
-        cartproduct.save(update_fields=['quantity', 'total'])
+        if size:
+            cartproduct.size = size
+
+        if cartproduct.product.sale:
+            cartproduct.total += amount * cartproduct.product.sale_price
+        else:
+            cartproduct.total += amount * cartproduct.product.price
+        
+        if size:
+            cartproduct.save(update_fields=['quantity', 'total', 'size'])
+        else:
+            cartproduct.save(update_fields=['quantity', 'total'])
     except:
         cartproduct = OrderProduct()
         cartproduct.customer = cust
         cartproduct.product = item
         cartproduct.quantity = amount
-        cartproduct.total = amount * cartproduct.product.price
+        if size:
+            cartproduct.size = size
+
+        if cartproduct.product.sale:
+            cartproduct.total = amount * cartproduct.product.sale_price
+        else:
+            cartproduct.total = amount * cartproduct.product.price
         cartproduct.save()
         
 def save_checkout_data(request, cust):
@@ -378,3 +318,8 @@ def send_update_email(order):
         html_message=msg_html,
         fail_silently=True,
     )
+
+def get_random_products(item):
+    products = list(Product.objects.exclude(id=item.id))
+    random_products = sample(products, 4)
+    return random_products

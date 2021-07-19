@@ -7,38 +7,24 @@
 
     <div class="body-wrapper">
         <div class="row">
-            <div class="col">
-                <div id="title">
-                    <h3>Registreren</h3>
-                </div>
+            <div class="col register-title">
+                <p class="underline-statement statement">Registreren</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col">
-                {% if message %}
-                    <div>{{ message }}</div>
-                {% endif %}
-            </div>
-            <div class="col"></div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-8">
+        <div class="row register-form">
+            <div class="col-6">
                 <form action="{% url 'register' %}" method="post">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <button class="btn" type="submit" id="buttonadd" id="submit">
-                        <span class="text" id="bestellingplaatsen">
-                            Registeren
-                        </span>
+                    <button class="btn" type="submit">
+                        Registeren
                     </button>
                 </form>
             </div>
         </div>
-        <div class="row justify-content-end">
-            <div class="col d-flex justify-content-center" style="padding-bottom: 20px;">
-                <p>Heb je al een account? <a style="text-decoration: 2px underline pink;" href="{% url 'login' %}" id="reg">Klik hier</a>.</p>
+        <div class="row register-last-row">
+            <div class="col already-account">
+                <p>Heb je al een account? <a class="underline-statement" href="{% url 'login' %}">Klik hier</a>.</p>
             </div>
         </div>
     </div>

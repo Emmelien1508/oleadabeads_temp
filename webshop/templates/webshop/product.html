@@ -3,59 +3,53 @@
 {% block body %}
 {% load static %}
 
-    <div class="body-wrapper">
+    <div class="body-wrapper product-image-carousel">
         <div class="row">
-            <div class="col" style="padding-bottom: 20px;">
-                <h3 id="title">
-                    {{ product.name }}
-                    {% if user.is_authenticated %}
-                        {% if added %}
-                            <a href="{% url 'fav' product.name %}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                                </svg>
-                            </a>
-                        {% else %}
-                            <a href="{% url 'fav' product.name %}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                    <path d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                                </svg>
-                            </a>
-                        {% endif %}
-                    {% endif %}
-                </h3>
-            </div>
-        </div>
-        <div class="row" style="text-align: center; margin:0;">
-            <div class="col" id="columnproduct" style="width:100% !important;">
-                <div id="carouselExampleControls"class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
+            <div class="col">
+                <div class="row image-product-display big-image-wrapper">
+                    <div class="col">
                         {% for image in product.image.all %}
                             {% if forloop.counter == 1 %}
-                                <div class="carousel-item active">
-                                    <img id="productpic" src="{% static image.image.url%}">
+                                <div id="{{ forloop.counter }}" class="picture">
+                                    <img class="img-fluid" src="{% static image.image.url%}" alt="Lotus">
                                 </div>
                             {% else %}
-                                <div class="carousel-item">
-                                    <img id="productpic" src="{% static image.image.url%}">
+                                <div id="{{ forloop.counter }}" class="picture not-first-picture">
+                                    <img class="img-fluid" src="{% static image.image.url%}" alt="Boat">
                                 </div>
                             {% endif %}
                         {% endfor %}
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls"role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true" style="color:magenta"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                </div>
+                <div class="row image-product-display lower-images">
+                    {% for image in product.image.all %}
+                        {% if forloop.first %}
+                            <div class="col first-image">
+                                <a href="javascript:void(0)" class="myhover" onclick="openImg('{{ forloop.counter }}');">
+                                    <img class="img-fluid" src="{% static image.image.url%}" alt="">
+                                </a>
+                            </div>
+                        {% elif forloop.last %}
+                            <div class="col last-image">
+                                <a href="javascript:void(0)" class="myhover" onclick="openImg('{{ forloop.counter }}');">
+                                    <img class="img-fluid" src="{% static image.image.url%}" alt="">
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="col">
+                                <a href="javascript:void(0)" class="myhover" onclick="openImg('{{ forloop.counter }}');">
+                                    <img class="img-fluid" src="{% static image.image.url%}" alt="">
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
-            <div class="col" id="columntext" style="text-align: left !important;">
+            <div class="col">
+                <p class="statement">{{ product.name }}</p>
                 {% if addedtocart %}
-                    <div class="row" style="text-align: center;">
-                        <div class="col">
+                    <div class="row">
+                        <div class="col alert-message">
                             <div class="alert alert-custom alert-dismissible fade show" role="alert">
                                 {{ addedtocart }}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -65,49 +59,129 @@
                         </div>
                     </div>
                 {% endif %}
-                {% if message %}
-                    <p style="font-weight: 600;">{{ message }}</p>
-                    <p>{{ product.description }}</p>
-                    <p>Kleuren:<br>
-                    {% for color in product.color.all %}
-                        - {{ color }}<br>
-                    {% endfor %}
-                    </p>
-                    <p>Materiaal: {{ product.metal_type }}</p>
-                    <p style="font-weight: 600;">€{{ product.price }}</p>
+                {% if product.sale %}
+                    <div class="sale-section">
+                        <p class="not-sale-price">{{ product.price }}</p>
+                        {{ product.sale_price }}
+                    </div>
                 {% else %}
-                    <p>{{ product.description }}</p>
-                    <p>Kleuren:<br>
-                    {% for color in product.color.all %}
-                        - {{ color }}<br>
-                    {% endfor %}
-                    </p>
-                    <p>Materiaal: {{ product.metal_type }}</p>
-                    <p style="font-weight: 600;">€{{ product.price }}</p>
+                    <p>€{{ product.price }}</p>
+                {% endif %}
+                <div>
+                    <p class="big-text product-info-text">Productbeschrijving</p>
+                    <p class="product-description">{{ product.description }}</p>
+                </div>
+                {% if message %}
+                    <p class="bold product-info-text">{{ message }}</p>
+                {% else %}
                     {% if product.left < 5 %}
                         {% if product.left == 1%}
-                        <p>Er is nog {{ product.left }} stuk van dit product op voorraad!</p>
+                            <p class="product-info-text">Er is nog {{ product.left }} stuk van dit product op voorraad!</p>
                         {% else %}
-                            <p>Er zijn nog {{ product.left }} stuks van dit product op voorraad!</p>
+                            <p class="product-info-text">Er zijn nog {{ product.left }} stuks van dit product op voorraad!</p>
                         {% endif %}
                     {% endif %}
-                    <form action="{% url 'addtocart' product.name %}" method="post">
+                    <form class="product-info-text" action="{% url 'addtocart' product.name %}" method="post">
                         {% csrf_token %}
-                        <div class="row" style="text-align: center; margin:auto;">
-                            <input class="form-control" type="number" id="inputnumber" placeholder="Aantal" name="hoeveelheid" min="1" max="*left*"><br>
-                        </div>
-                        <div class="row" style="text-align: center; margin:auto;">
-                            <button type="submit" data-testid="add-to-cart-button-enabled" class="btn" style="margin:auto; margin-top:10px;" id="buttonadd" name="addtocart">
-                                <p></p>
-                                <span class="text">
-                                    <img src="{% static 'images/Shopper.png' %}" height="20px">
-                                    In winkelmand
-                                </span>
-                            </button>
+                        <div class="row add-to-cart">
+                            <div class="col number-input">
+                                <label class="tiny" for="inputnumber">Aantal</label>
+                                <input class="form-control" type="number" id="inputnumber" name="hoeveelheid" min="1" max="{{ product.left }}">
+                            </div>
+                            {% if sizes %}
+                                <div class="col size-input">
+                                    <label class="tiny" for="inputnumber">Maat (cm)</label>
+                                    <select class="form-select" name="size">
+                                        {% for size in sizes %}
+                                            <option value="{{ size }}">{{ size }}</option>
+                                        {% endfor %}
+                                    </select>    
+                                </div>
+                            {% endif %}
+                            <div class="col-10">
+                                <button type="submit" data-testid="add-to-cart-button-enabled" class="btn" id="buttonadd" name="addtocart">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                                        </svg>
+                                        In winkelmand
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                     </form>
                 {% endif %}
+                <div id="accordion" class="extra-product-info">
+                    <div class="card">
+                        <div class="card-header first-heading" id="headingOne">
+                            <p class="big-text">Product informatie</p>
+                            <button class="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <p>Materiaal: {{ product.metal_type }}</p>
+                                <p class="product-information">{{ product.information }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header first-heading" id="headingTwo">
+                            <p class="big-text">Retourneren</p>
+                            <button class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                                Wij hopen natuurlijk dat je blij bent met je aankoop, maar mocht er toch iets niet naar wens zijn, dan is retourneren mogelijk binnen 14 dagen na ontvangst van de bestelling.
+                                <a href="{% url 'info' %}" class="in-text-underline">Check hier</a> hoe je het product retourneert. Het aankoopbedrag wordt binnen 5 werkdagen teruggestort.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card last-item">
+                        <div class="card-header" id="headingThree">
+                            <p class="big-text">Verzending</p>
+                            <button class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="card-body">
+                                Wij verzenden onze pakketjes met PostNL en ze passen allemaal door de brievenbus.
+                                Verzendkosten binnen Nederland bedragen €2 (zonder Track & Trace) of €4 (met Track & Trace).
+                                Bij besteding van €35 of meer is verzending gratis.
+                                Alle bestellingen die voor 16:00 uur worden geplaatst worden diezelfde dag nog in behandeling genomen.    
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="row recommended-section">
+            <p class="statement">Misschien vind je dit ook leuk...</p>
+        </div>
+        <div class="col products-recommended">
+            {% for item in recommended %}
+                <div class="product-box">
+                    <a href="{% url 'product' item.name %}">
+                        <img class="product-image" src="{% static item.image.first.image.url %}">
+                        <div class="product-info">
+                            {{ item.name }}
+                        </div>
+                        <div class="product-price">
+                            {{ item.price }}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
     </div>
 
@@ -157,6 +231,17 @@
             x[i].style.display = "none";
         }
         x[slideIndex-1].style.display = "block";
+        }
+
+        openImg("lotus");
+
+        function openImg(imgName) {
+            var i, x;
+            x = document.getElementsByClassName("picture");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(imgName).style.display = "block";
         }
     </script>
 

@@ -10,8 +10,8 @@ urlpatterns = [
     path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name = "webshop/password_reset_form.html"), name ='password_reset_confirm'),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name = "webshop/password_reset_done.html"), name ='password_reset_complete'),
     path("producten/<str:soort>", views.allproducts, name="allproducts"),
+    path("categorieen", views.showcategories, name="showcategories"),
     path("product/<str:naam>", views.product, name="product"),
-    path("DIY", views.diy, name="diy"),
     path("over-ons", views.about, name="about"),
     path("winkelwagen", views.cart, name="cart"),
     path("doorgaan-als-klant", views.cont, name="cont"),
@@ -20,7 +20,6 @@ urlpatterns = [
     path("profiel", views.profile, name="profile"),
     path("verzenden-retourneren", views.info, name="info"),
     path("garantie", views.guarantee, name="guarantee"),
-    path("DIY/<str:idnr>", views.diyproduct, name="diyproduct"),
     path("favorieten/<str:naam>", views.fav, name="fav"),
     path("verwijderen/<str:naam>", views.deletefromprofile, name="deletefromprofile"),
     path("toevoegen-aan-winkelwagen/<str:naam>", views.addtocart, name="addtocart"),
@@ -33,5 +32,6 @@ urlpatterns = [
     path("algemene-voorwaarden", views.terms_conditions, name="termsconditions"),
     path("privacy-verklaring", views.privacypolicy, name="privacypolicy"),
     path("disclaimer", views.disclaimer, name="disclaimer"),
-    path("materialen", views.material, name="material")
+    path("materialen", views.material, name="material"),
+    path("sorteer-producten", views.sort, name="sort")
 ]

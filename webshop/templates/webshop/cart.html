@@ -3,16 +3,12 @@
 {% block body %}
 {% load static %}
 
-    <div class="body-wrapper">
-        <div class="row">
-            <div class="col">
-                <h3 class="title">Winkelwagen</h3>
-            </div>
-        </div>
+    <div class="body-wrapper cart-content">
+        <p class="statement">Winkelwagen</p>
         {% if message %}
-            <div class="row discount-code-message">
-                <div class="col">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="row">
+                <div class="col discount-alert">
+                    <div class="alert alert-custom alert-dismissible fade show" role="alert">
                         {{ message }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -20,6 +16,20 @@
                     </div>
                 </div>
             </div>
+        {% endif %}
+        {% if messages %}
+            {% for message in messages%}
+                <div class="row">
+                    <div class="col discount-alert">
+                        <div class="alert alert-custom alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         {% endif %}
         {% if incart %}
             <table class="cart-information">
@@ -29,7 +39,7 @@
                             Product
                         </th>
                         <th class="product-name"></th>
-                        <th class="product-price">
+                        <th class="product-price-table">
                             Prijs
                         </th>
                         <th class="product-quantity">
@@ -42,7 +52,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in normalproducts %}
+                    {% for item in products %} 
                         <tr>
                             <td class="product-thumbnail">
                                 <a href="{% url 'product' item.product.name %}">
@@ -51,15 +61,27 @@
                             </td>
                             <td class="product-name">
                                 <a href="{% url 'product' item.product.name %}">{{ item.product.name }}</a>
-                                <div class="price">{{ item.product.price }}</div>
+                                {% if item.product.sale %}
+                                    <div class="sale-section price">
+                                        <p class="not-sale-price">{{ item.product.price }}</p>
+                                        {{ item.product.sale_price }}
+                                    </div>
+                                {% else %}
+                                    <div class="price">{{ item.product.price }}</div>
+                                {% endif %}
                                 <div class="remove">
                                     <a href="{% url 'deletefromcart' item.product.name %}">
                                         verwijderen
                                     </a>
                                 </div>
                             </td>
-                            <td class="product-price">
-                                {{ item.product.price }}
+                            <td class="product-price-table">
+                                {% if item.product.sale %}
+                                    <p class="not-sale-price">{{ item.product.price }}</p>
+                                    {{ item.product.sale_price }}
+                                {% else %}
+                                    <div>{{ item.product.price }}</div>
+                                {% endif %}
                             </td>
                             <td class="product-quantity">
                                 {{ item.quantity }}
@@ -68,63 +90,31 @@
                                 {{ item.total }}
                             </td>
                             <td class="product-remove">
-                                <a href="{% url 'deletefromcart' item.product.name %}">
-                                    <button class="delete-button">
-                                        <img src="{% static 'images/Delete.png' %}">
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    {% for item in diyproducts %}
-                        <tr>
-                            <td class="product-thumbnail">
-                                <a href="{% url 'diyproduct' item.diyproduct.name %}">
-                                    <img src="{% static 'images/home1.jpg' %}">
-                                </a>
-                            </td>
-                            <td class="product-name">
-                                <a href="{% url 'diyproduct' item.diyproduct.name %}">
-                                    {{ item.customer.firstname }} DIY #{{ item.diyproduct.name }}
-                                </a>
-                                <div class="price">{{ item.diyproduct.price }}</div>
-                                <div class="remove">
-                                    <a href="{% url 'deletefromcart' item.diyproduct.name %}">
-                                        verwijderen
+                                <button class="delete-button">
+                                    <a href="{% url 'deletefromcart' item.product.name %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                        </svg>
                                     </a>
-                                </div>
-                            </td>
-                            <td class="product-price">
-                                {{ item.diyproduct.price }}
-                            </td>
-                            <td class="product-quantity">
-                                {{ item.quantity }}
-                            </td>
-                            <td class="product-subtotal">
-                                {{ item.total }}
-                            </td>
-                            <td class="product-remove">
-                                <a href="{% url 'deletefromcart' item.diyproduct.name %}">
-                                    <button class="delete-button">
-                                        <img src="{% static 'images/Delete.png' %}">
-                                    </button>
-                                </a>
+                                </button>
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <div class="row discount-subtotal">
-                <div class="col text-left">
+            <div class="row">
+                <div class="col">
                     <form action="{% url 'discount' %}" method="post" class="form-inline">
                         {% csrf_token %}
-                        <div class="flexing">
-                            <div>
+                        <div class="discount-input-button">
+                            <div class="discount-input">
                                 <input class="form-control" type="text" id="Korting" name="korting" placeholder="Kortingscode"> 
                             </div>
                             <div>
-                                <button type="submit" id="Voegtoe" style="display:none; height:38px;" class="btn" id='buttonadd' type="button">
-                                    <img src="{% static 'images/Plus.png' %}" height="16px;" style="padding-bottom: 4px;">
+                                <button type="submit" id="Voegtoe" class="btn button-discount" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
                                 </button>
                             </div>
                         </div>
@@ -134,16 +124,16 @@
                     <p class="subtotal-cart">Subtotaal €{{ total }}</p>
                 </div>
             </div>
-            <div class="row cart-button">
-                <div class="col">
+            <div class="row">
+                <div class="col cart-button">
                     <a href="{% url 'cont' %}">
                         <button class="btn continue-order" type="button">Bestelling afronden</button>
                     </a>
                 </div>
             </div>
         {% else %}
-        <div class="row align-items-center">
-            <div class="col" id="continuecheckout">Je hebt geen producten in je winkelwagen!</div>
+        <div class="row">
+            <div class="col register-title">Je hebt geen producten in je winkelwagen!</div>
         </div>
         {% endif %}
     

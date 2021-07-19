@@ -6,16 +6,14 @@
     <div class="home-wrapper">
         <div class="row home-introduction">
             <div class="col home-overlapping-pictures">
-                <div class="home-surfers-image">
-                    <img src="{% static 'images/Home-Surfers.jpeg' %}" class="surfers-image">
-                </div>
+                <div class="home-surfers-image"></div>
                 <div class="home-us">
-                    <img src="{% static 'images/Home-About-Us.JPG' %}" class="about-us">
+                    <img src="{% static 'images/Home-About-Us.jpg' %}" class="about-us">
                 </div>
             </div>
             <div class="col home-text-about-us">
                 <p class="big-text">Cleo & Emmelien</p>
-                <p class="about-us-text statement">The girls behind the brand</p>
+                <p class="underline-statement statement">The girls behind the brand</p>
                 <p>
                     Wij zijn beste vriendinnen die er tijdens de lockdown een hobby bij hebben gekregen: kralen.
                 </p>
@@ -34,6 +32,9 @@
                             <div class="product-info">
                                 {{ item.name }}
                             </div>
+                            <div class="product-price">
+                                {{ item.price }}
+                            </div>
                         </a>
                     </div>
                 {% endfor %}
@@ -42,10 +43,7 @@
         <div class="row home-explanation">
             <div class="col more-about-us">
                 <p class="big-text">Met liefde handgemaakt</p>
-                <p class="statement">
-                    Support your local 
-                    <p class="small-text statement">girlbosses</p>
-                </p>
+                <p class="underline-statement statement">Support your local girlbosses</p>
                 <p>
                     Sinds groep één zijn wij al beste vriendinnen!
                 </p>
@@ -56,32 +54,42 @@
                     We zijn continu op zoek naar de beste materialen: 14/24kt goud, stainless steel, mooie edelstenen, Miyuki kralen, noem maar op.
                     Daarmee gaan onze sieraden lang mee!
                 </p>
-                <a href="#">
-                    <button class="btn">Leer ons kennen</button>
+                <a href="{% url 'about' %}">
+                    <button class="btn get-to-know">Leer ons kennen</button>
                 </a>
             </div>
             <div class="col more-pictures-overlapping">
                 <div class="home-picture-wearing-it">
-                    <img src="{% static 'images/Home-Eden.JPG' %}" class="wearing-it">
+                    <img src="{% static 'images/Home-Smile.jpg' %}" class="wearing-it">
                 </div>
-                <div class="home-picture-background">
-                    <img src="{% static 'images/Home-PalmTrees3.jpeg' %}" class="background">
-                </div>
+                <div class="home-picture-background"></div>
             </div>
         </div>
-        <div class="row home-categories">
-            <div class="col">
-                <div class="row image-categories">
-                    <img src="{% static 'images/Home-Armbanden.jpg' %}">
-                    <img src="{% static 'images/Home-Kettingen.jpg' %}">
-                    <img src="{% static 'images/Home-Oorbellen.jpg' %}">
+        <div class="row home-categories all-categories">
+            <a href="{% url 'allproducts' 'kettingen' %}">
+                <div class="category-necklaces">
+                    <img src="{% static 'images/Shadow1.jpg' %}">
+                    <p class="title">
+                        Kettingen
+                    </p>
                 </div>
-                <div class="row button-categories">
-                    <button class="btn bracelet-btn">Shop<br>Armbanden</button>
-                    <button class="btn">Shop<br>Kettingen</button>
-                    <button class="btn earring-btn">Shop<br>Oorbellen</button>
+            </a>
+            <a href="{% url 'allproducts' 'oorbellen' %}">
+                <div class="category-earrings">
+                    <img src="{% static 'images/Shadow2.jpg' %}">
+                    <p class="title">
+                        Oorbellen
+                    </p>
                 </div>
-            </div>
+            </a>
+            <a href="{% url 'allproducts' 'armbanden' %}">
+                <div class="category-bracelets">
+                    <img src="{% static 'images/Shadow3.jpg' %}">
+                    <p class="title">
+                        Armbanden
+                    </p>
+                </div>
+            </a>
         </div>
         <div class="row instagram">
             <p class="insta statement">@oleadabeads</p>

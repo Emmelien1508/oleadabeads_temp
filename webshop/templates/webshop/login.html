@@ -7,42 +7,29 @@
 
     <div class="body-wrapper">
         <div class="row">
-            <div class="col"></div>
+            <div class="col register-title">
+                <p class="underline-statement statement">Inloggen</p>
+            </div>
+        </div>
+        <div class="row register-form">
             <div class="col-6">
-                {% if message %}
-                    <div>{{ message }}</div>
-                {% endif %}
-            </div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div id="title">
-                    <h3>Log in</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-8">
                 <form action="{% url 'login' %}" method="post">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <button class="btn" type="submit" id="buttonadd" id="submit">
-                        <span class="text" id="bestellingplaatsen">
-                            Login
-                        </span>
+                    <button class="btn" type="submit">
+                        Inloggen
                     </button>
                 </form>
             </div>
         </div>
-        <div class="row justify-content-end">
-            <div class="col d-flex justify-content-center">
-                <p>Heb je nog geen account? <a style="text-decoration: 2px underline pink;" href="{% url 'register' %}" id="reg">Registreer hier</a>.</p>
+        <div class="row register-last-row">
+            <div class="col already-account">
+                <p>Heb je nog geen account? <a class="underline-statement" href="{% url 'register' %}">Registreer hier</a>.</p>
             </div>
         </div>
-        <div class="row justify-content-end" style="padding-bottom: 20px;">
-            <div class="col d-flex justify-content-center">
-                <p><a style="text-decoration: 2px underline pink;" href="{% url 'reset_password'%}" id="reg">Wachtwoord vergeten?</a></p>
+        <div class="row">
+            <div class="col already-account">
+                <p><a class="underline-statement" href="{% url 'reset_password'%}">Wachtwoord vergeten?</a></p>
             </div>
         </div>
     </div>

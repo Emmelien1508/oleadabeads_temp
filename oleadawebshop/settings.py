@@ -58,8 +58,10 @@ SESSION_ENGINE = 'webshop.session_backend'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': '/usr/local/bin/my.cnf',
+        },
     }
 }
 
@@ -85,6 +87,19 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_L10N = True
+
+DATE_INPUT_FORMATS = (
+    '%d %B %Y'
+)
+
+DATE_FORMAT = 'j F Y'
+TIME_FORMAT = 'H:i'
+DATETIME_FORMAT = 'j F Y H:i'
+YEAR_MONTH_FORMAT = 'F Y'
+MONTH_DAY_FORMAT = 'j F'
+SHORT_DATE_FORMAT = 'j N Y'
+SHORT_DATETIME_FORMAT = 'j N Y H:i'
+FIRST_DAY_OF_WEEK = 1
 
 USE_TZ = True
 

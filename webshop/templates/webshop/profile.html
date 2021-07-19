@@ -5,82 +5,109 @@
 
     <div class="body-wrapper">
         {% if user.is_authenticated %}
-            <div class="row" style="text-align: center;">
-                <div class="col"id="prof">
-                    <h3 id="title">Hi, {{ info.firstname }}!</h3>
-                    {% if message %}
-                        <p>{{ message }}</p>
-                    {% endif %}
+            <div class="row">
+                <div class="col register-title">
+                    <p class="underline-statement statement">Hey, {{ info.firstname }}!</p>
                 </div>
             </div>
-            <div class="row" style="text-align: center;">
-                <div class="col" id="prof">
-                    <h4 id="title">Persoonsgegevens</h4>
-                    <p>E-mailadres: {{ info.email }}</p>
-                    <p>Naam: {{ info.firstname }} {{ info.lastname }}</p>
+            <div class="row personal-info">
+                <div class="col">
+                    <p class="big-text">Persoonsgegevens</p>
+                </div>
+            </div>
+            <div class="row personal-info pers-information">
+                <div class="col customer-information">
+                    <p>{{ info.firstname }} {{ info.lastname }}</p>
                     {% if info.streetname %}
-                        <p>Adres: {{ info.streetname }} {{ info.housenr }} <br> 
-                        {{ info.postalcode }} {{ info.city }} {{ info.country }}</p>
+                        <p>{{ info.streetname }} {{ info.housenr }}</p>
+                        <p>{{ info.postalcode }} {{ info.city }} {{ info.country }}</p>
                     {% endif %}
-                    <p>
-                        <a href="{% url 'change' %}"><button class="btn" id='buttonadd' id="bestelling" type="button">Gegevens wijzigen</button></a>
+                    <p>{{ info.email }}</p>
+                </div>
+                <div class="col">
+                    <p class="underline-statement2">
+                        <a href="{% url 'logout' %}">Uitloggen</a>
+                    </p>
+                    <p class="underline-statement2">
+                        <a href="{% url 'reset_password' %}">Wachtwoord wijzigen</a>
+                    </p>
+                    <p class="underline-statement2">
+                        <a href="{% url 'change' %}">Gegevens wijzigen</a>
                     </p>
                 </div>
-                <div class="col" id="prof">
-                    <h4 id="title">Bestelgeschiedenis</h4>
-                    {% if orders %}
-                        {% for item in orders.all %}
-                            <p>Ordernummer: <a href="{% url 'order' item.id %}">{{ item.id }}</a></p>
-                            <p>Status: {{ item.status }}</p>
-                            <p>Totaal: €{{ item.total }}</p>
-                            {% if forloop.last %}
-                                <br>
-                            {% else %}
-                                <hr class="my-4">
-                            {% endif %}
-                        {% endfor %}
-                    {% else %}
-                        Je hebt nog geen bestellingen geplaatst.
-                    {% endif %}
+            </div>
+            <div class="row wishlist">
+                <div class="col"></div>
+                <div class="col">
+                    <p class="big-text">Favorieten</p>
                 </div>
-                <div class="col" id="prof">
-                    <h4 id="title">Favorieten</h4>
+            </div>
+            <div class="row wishlist wishlist-items">
+                <div class="col">
                     {% if favitems %}
                         {% for item in favorites %}
-                            <div class="row" id="favos">
-                                <a href="{% url 'deletefromprofile' item.name %}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                                    </svg>
-                                </a>
-                                <p style="margin-right:10px;"></p>
+                            <div class="row">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                </svg>
                                 <a href="{% url 'product' item.name %}">
                                     {{ item.name }}
                                 </a>
                             </div>
                         {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="col">
+                    {% if not favitems %}
+                        Je hebt nog geen producten aan je wishlist toegevoegd!
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row order-history">
+                <div class="col">
+                    <p class="big-text">Bestellingen</p>
+                </div>
+            </div>
+            <div class="row order-history order-history-items">
+                <div class="col">
+                    {% if orders %}
+                        <a href="#">
+                            Check hier je uitgebreide bestelgeschiedenis
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                            </svg>
+                        </a>
                     {% else %}
-                        Je hebt geen producten op je favorieten staan!
+                        Je hebt nog geen bestellingen geplaatst.
+                    {% endif %}
+                </div>
+                <div class="col">
+                    {% if orders %}
+                        {% for order in orders %} 
+                            {{ order.date_ordered }}
+                        {% endfor %}
                     {% endif %}
                 </div>
             </div>
         {% else %}
-            <div class='row justify-content-end'>
-                <div class="col">
-                    <h3 id="title">Bestaande klant?</h3>
-                    <p style="text-align: center; font-size:18px;">
-                        <a style="text-decoration: 2px underline pink;" href="{% url 'login' %}">
-                            log in
-                        </a>
-                    </p>
+            <div class='row login-register'>
+                <div class="col customer-question">
+                    <p class="underline-statement statement">Bestaande klant?</p>
                 </div>
-                <div class="col">
-                    <h3 id="title">Account aanmaken?</h3>
-                    <p style="text-align: center; font-size:18px;">
-                        <a style="text-decoration: 2px underline pink;" href="{% url 'register' %}">
-                            registreren
-                        </a>
-                    </p>
+                <div class="col customer-question">
+                    <p class="underline-statement statement">Account aanmaken?</p>
+                </div>
+            </div>  
+            <div class='row login-register'>
+                <div class="col customer-question">
+                    <a href="{% url 'login' %}">
+                        <p class="big-text">Log in</p>
+                    </a>
+                </div>
+                <div class="col customer-question">
+                    <a href="{% url 'register' %}">
+                        <p class="big-text">Registreren</p>
+                    </a>
                 </div>
             </div>  
         {% endif %}

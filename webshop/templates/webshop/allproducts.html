@@ -4,35 +4,94 @@
 {% load static %}
 
     <div class="body-wrapper">
-        <div class="row">
+        <div class="row all-products-wrapper">
             <div class="col">
-                <h3 class="title">{{ name }}</h3>
+                <p class="statement jewelry-title-name">{{ name }}</p>
+            </div>
+            <div class="col filter-option">
+                <p class="statement filter-icon">
+                    <p>Sorteer op</p>
+                    <select name="orderSection" id="orderSelection">
+                        <option value="bestsellers">Populariteit</option>
+                        <option value="price">Laagste prijs</option>
+                        <option value="-price">Hoogste prijs</option>
+                        <option value="name">A - Z</option>
+                        <option value="-name">Z - A</option>
+                        <option value="-date_added">Nieuwste</option>
+                        <option value="date_added">Oudste</option>
+                    </select>
+                </p>
             </div>
         </div>
-        <div class="row">
-            <div class="col subtext">
-                {{ text }}
-            </div>
-        </div>
-        {% if empty%}
+        {% if empty %}
             <div class="row">
                 <div class="col subtext">Sorry, we hebben even geen producten in deze categorie!</div>
             </div>
         {% else %}
-            <div class="row all-products-wrapper">
+            <div class="row all-products-wrapper" id="results-div">
                 {% for product in products %}
+                    {% if product.in_stock %}
+                        {% if product.sale %}
+                            <div class="product">
+                                <a href="{% url 'product' product.name %}">
+                                    <img src="{% static product.image.first.image.url %}">
+                                    <div class="top-right">Sale!</div>
+                                    <div class="product-info">
+                                        {{ product.name }}
+                                    </div>
+                                    <div class="product-price">
+                                        <p class="not-sale-price">{{ product.price }}</p>
+                                        {{ product.sale_price }}
+                                    </div>
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="product">
+                                <a href="{% url 'product' product.name %}">
+                                    <img src="{% static product.image.first.image.url %}">
+                                    <div class="product-info">
+                                        {{ product.name }}
+                                    </div>
+                                    <div class="product-price">
+                                        {{ product.price }}
+                                    </div>
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% else %}
                     <div class="product">
                         <a href="{% url 'product' product.name %}">
                             <img src="{% static product.image.first.image.url %}">
-                            <div class="product-label">
+                            <div class="top-right">Uitverkocht</div>
+                            <div class="product-info">
                                 {{ product.name }}
-                                €{{ product.price }}
+                            </div>
+                            <div class="product-price">
+                                {{ product.price }}
                             </div>
                         </a>
                     </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         {% endif %}
     </div>
+
+    <script>
+        const resultsDiv = document.querySelector("#results-div")
+        const productCards = document.querySelectorAll('.product')
+        console.log(resultsDiv)
+        $('select').on('change', function() {
+                let passedValue = this.value;
+                $.ajax({
+                    type: "GET",
+                    url: "/sorteer-producten",
+                    data: {passedValue: passedValue},
+                }).done(function(data){
+                    // $('#results-div').html(data.html);
+                    resultsDiv.innerHTML = data;
+                });
+            });
+    </script>
 
 {% endblock %}
