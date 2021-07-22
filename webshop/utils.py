@@ -50,8 +50,8 @@ def get_customer_session(request):
 
     return cust
 
-def get_sorted_bestsellers():
-    sold_items = OrderProduct.objects.filter(ordered=True).order_by("product")
+def get_sorted_bestsellers(jewelrytype):
+    sold_items = OrderProduct.objects.filter(ordered=True, jewelry_type = jewelrytype).order_by("product")
     products = {}
 
     for item in sold_items:
@@ -83,15 +83,8 @@ def get_new_items():
     return new_items, new
 
 def get_all_products(soort):
-    if soort == "kettingen":
-        products = [product for product in Product.objects.all() if product.jewelry_type == "Ketting"]
-        name = "Kettingen"
-    elif soort == "armbanden":
-        products = [product for product in Product.objects.all() if product.jewelry_type == "Armband"]
-        name = "Armbanden"
-    else:
-        products = [product for product in Product.objects.all() if product.jewelry_type == "Oorbel"]
-        name = "Oorbellen"
+    products = [product for product in Product.objects.all() if product.jewelry_type == f"{soort.capitalize()}"]
+    name = soort.capitalize()
 
     empty = False
     if not products:

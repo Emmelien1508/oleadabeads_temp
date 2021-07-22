@@ -6,6 +6,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.utils import timezone
 from django.contrib.sessions.models import Session
 from django.utils.timezone import now
+from django.forms.models import model_to_dict
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, firstname, lastname, password=None):
@@ -84,9 +85,9 @@ class Photo(models.Model):
 class Product(models.Model):
 
     JEWELRY_CHOICES = (
-        ('Armband', 'Armband'),
-        ('Ketting', 'Ketting'),
-        ('Oorbel', 'Oorbel')
+        ('Armbanden', 'Armbanden'),
+        ('Kettingen', 'Kettingen'),
+        ('Oorbellen', 'Oorbellen')
     )
 
     LOOK_CHOICES = (
@@ -116,7 +117,13 @@ class Product(models.Model):
     sale_price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     active = models.BooleanField(default=True)
 
-    def __str__(self):
+
+    def to_JSON(self):
+        x = model_to_dict(self)    
+        x['image'] = x['image'][0].image.url 
+        return x
+    
+    def __str__(self):        
         return self.name
 
 class OrderProduct(models.Model):

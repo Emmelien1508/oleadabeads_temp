@@ -5,6 +5,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 from django.views import generic
 from django.template import loader, RequestContext
+from django.http import JsonResponse
 
 from pandas import DataFrame
 import json
@@ -306,41 +307,15 @@ def material(request):
     return render(request, "webshop/material_info.html")
 
 def sort(request):
-
     passedValue = dict(request.GET)["passedValue"][0]
-    print(request.method)
-    print(request.is_ajax)
-    print(passedValue)
+    jewelryType = dict(request.GET)["jewelryType"][0]
+    
     if passedValue == "bestsellers":
-        products, _ = get_sorted_bestsellers()
+        products, _ = get_sorted_bestsellers(jewelryType)
     else:
-        products = list(Product.objects.all().order_by(f"{passedValue}"))
+        products = list(Product.objects.filter(jewelry_type = jewelryType).order_by(f"{passedValue}"))
 
     if not products:
-        products = list(Product.objects.all())
+        products = list(Product.objects.filter(jewelry_type = jewelryType))
         
-    # return JsonResponse({product.name: product for product in products})
-    print([product.name for product in products])
-
-    empty = False
-    for item in products:
-        if item.jewelry_type == "Armband":
-            name = "Oorbellen"
-        elif item.jewelry_type == "Ketting":
-            name = "Kettingen"
-        else:
-            name = "Armbanden"
-        break
-    
-    if request.is_ajax:
-        # print(" IN THE AJAX")
-        t = loader.get_template('webshop/allproducts.html')
-        # print(f'this is t: {t}')
-        html = t.render({'products': products, "empty": empty, "name": name})
-        # print(type(html))
-        # print('____________________________')
-        # print(' now comes the return bro')
-        return HttpResponse(json.dumps({'html': html}))
-    else:
-        return HttpResponse("<h1>HELLO</h1>")
-
+    return JsonResponse({i: product.to_JSON() for i, product in enumerate(products)})

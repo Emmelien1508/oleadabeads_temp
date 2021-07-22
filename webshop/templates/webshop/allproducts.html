@@ -28,7 +28,7 @@
                 <div class="col subtext">Sorry, we hebben even geen producten in deze categorie!</div>
             </div>
         {% else %}
-            <div class="row all-products-wrapper" id="results-div">
+            <div class="row all-products-wrapper" id="results-div" data-jewelry-type="{{ name }}">
                 {% for product in products %}
                     {% if product.in_stock %}
                         {% if product.sale %}
@@ -80,16 +80,49 @@
     <script>
         const resultsDiv = document.querySelector("#results-div")
         const productCards = document.querySelectorAll('.product')
-        console.log(resultsDiv)
+        const jewelryType = resultsDiv.dataset.jewelryType
         $('select').on('change', function() {
                 let passedValue = this.value;
                 $.ajax({
                     type: "GET",
                     url: "/sorteer-producten",
-                    data: {passedValue: passedValue},
+                    data: {
+                        "passedValue": passedValue, 
+                        "jewelryType": jewelryType
+                    },
                 }).done(function(data){
-                    // $('#results-div').html(data.html);
-                    resultsDiv.innerHTML = data;
+                    for (const [i, product] of Object.entries(data)) {
+                        let productCard = productCards[i]
+                        text = ` 
+                            <a href="/product/${product.name}">
+                            <img src="/static/${product.image}">
+                        `
+                        if (!product.in_stock) {
+                            text += `<div class="top-right">Uitverkocht</div>`
+                        }
+                        text += `
+                            <div class="product-info">
+                                ${product.name}
+                            </div>
+                        `
+                        if (product.sale) {
+                            text += `
+                                <div class="product-price">
+                                <p class="not-sale-price">${product.price}</p>
+                                ${product.sale_price}
+                                </div>
+                                </a>
+                            `
+                        } else {
+                            text += `
+                            <div class="product-price">
+                                ${product.price}
+                            </div>
+                            </a>
+                            `
+                        }
+                        productCard.innerHTML = text;
+                    }
                 });
             });
     </script>
