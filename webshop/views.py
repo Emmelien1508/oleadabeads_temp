@@ -312,10 +312,10 @@ def sort(request):
     
     if passedValue == "bestsellers":
         products, _ = get_sorted_bestsellers(jewelryType)
+        if not products:
+            products = list(Product.objects.filter(jewelry_type = jewelryType))
     else:
         products = list(Product.objects.filter(jewelry_type = jewelryType).order_by(f"{passedValue}"))
 
-    if not products:
-        products = list(Product.objects.filter(jewelry_type = jewelryType))
         
     return JsonResponse({i: product.to_JSON() for i, product in enumerate(products)})
