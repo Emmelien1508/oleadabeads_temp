@@ -1,3 +1,87 @@
+:root {
+    --dark: #252c2c;
+    --light: #887973;
+    --c1: #5e5053;
+    --c2: #866a5d;
+    --c3: #5b453d;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--light);
+}
+
+.wrapper {
+    background: var(--dark);
+    overflow: hidden;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.coming-soon-image {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    opacity: 0.3;
+}
+
+.coming-soon-logo {
+    font-family: 'NY';
+    letter-spacing: -5px;
+    font-size: 400%;
+    top: 1%;
+}
+
+.star {
+    width: 32px;
+    height: 32px;
+    filter: opacity(0.5) drop-shadow(0 0 0 var(--dark));
+}
+/* .coming-soon-wave-image {
+    top: 2%;
+    width: 7.5vw;
+} */
+
+.coming-soon-wave-image,
+.coming-soon-logo,
+.coming-soon-text,
+.subtext-logo {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.coming-soon-text {
+    font-family: 'Okemo';
+    font-size: 400%;
+}
+
+@font-face {
+    font-family: 'NY';
+    src: url('NewYork.otf'); /* IE9 Compat Modes */
+    src: url('NewYork.otf?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('NewYork.otf') format('woff'), /* Modern Browsers */
+         url('NewYork.otf')  format('truetype'), /* Safari, Android, iOS */
+         url('NewYork.otf#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'Okemo';
+    src: url('okemo.otf'); /* IE9 Compat Modes */
+    src: url('okemo.otf?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('okemo.otf') format('woff'), /* Modern Browsers */
+         url('okemo.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('okemo.otf#svgFontName') format('svg'); /* Legacy iOS */
+}
+
 /* GENERAL */
 @font-face {
     font-family: 'Chapaza';
