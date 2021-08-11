@@ -22,18 +22,18 @@ class RegisterView(generic.CreateView):
     template_name = 'webshop/register.html'
     success_url = reverse_lazy('login')
 
-# def home(request):
-#     cust = get_customer_session(request)
-
-#     new_items, new = get_new_items()
-
-#     return render(request, "webshop/home.html", {
-#         "newitems": new_items,
-#         "new": new
-#     })
-
 def home(request):
-    return render(request, "webshop/comingsoon.html")
+    cust = get_customer_session(request)
+
+    new_items, new = get_new_items()
+
+    return render(request, "webshop/home.html", {
+        "newitems": new_items,
+        "new": new
+    })
+
+# def home(request):
+    # return render(request, "webshop/comingsoon.html")
 
 def logout_view(request):
     django_logout(request)

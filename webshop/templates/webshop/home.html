@@ -1,106 +1,93 @@
-{% extends "webshop/layout.html" %}
+{% extends "webshop/layout1.html" %}
 
 {% block body %}
 {% load static %}
 
-    <div class="home-wrapper">
-        <div class="row home-introduction">
-            <div class="col home-overlapping-pictures">
-                <div class="home-surfers-image"></div>
-                <div class="home-us">
-                    <img src="{% static 'images/Home-About-Us.jpg' %}" class="about-us">
-                </div>
-            </div>
-            <div class="col home-text-about-us">
-                <p class="big-text">Cleo & Emmelien</p>
-                <p class="underline-statement statement">The girls behind the brand</p>
-                <p>
-                    Wij zijn beste vriendinnen die er tijdens de lockdown een hobby bij hebben gekregen: kralen.
-                </p>
-                <p>Hopelijk zien we je terug in de webshop. Happy shopping!</p>
-            </div>
-        </div>
-        <div class="row home-products">
-            <div class="col-2 vertical-text statement">
-                <p>Shop the latest</p>
-            </div>
-            <div class="col products">
-                {% for item in newitems %}
-                    <div class="product-box">
-                        <a href="{% url 'product' item.name %}">
-                            <img class="product-image" src="{% static item.image.first.image.url %}">
-                            <div class="product-info">
-                                {{ item.name }}
-                            </div>
-                            <div class="product-price">
-                                {{ item.price }}
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="row home-explanation">
-            <div class="col more-about-us">
-                <p class="big-text">Met liefde handgemaakt</p>
-                <p class="underline-statement statement">Support your local girlbosses</p>
-                <p>
-                    Sinds groep één zijn wij al beste vriendinnen!
-                </p>
-                <p>
-                    Sieraden maken is voor ons de ultieme self-care, even lekker niks aan ons hoofd en gewoon gezellig samen zijn.
-                </p>
-                <p>
-                    We zijn continu op zoek naar de beste materialen: 14/24kt goud, stainless steel, mooie edelstenen, Miyuki kralen, noem maar op.
-                    Daarmee gaan onze sieraden lang mee!
-                </p>
-                <a href="{% url 'about' %}">
-                    <button class="btn get-to-know">Leer ons kennen</button>
-                </a>
-            </div>
-            <div class="col more-pictures-overlapping">
-                <div class="home-picture-wearing-it">
-                    <img src="{% static 'images/Home-Smile.jpg' %}" class="wearing-it">
-                </div>
-                <div class="home-picture-background"></div>
-            </div>
-        </div>
-        <div class="row home-categories all-categories">
-            <a href="{% url 'allproducts' 'kettingen' %}">
-                <div class="category-necklaces">
-                    <img src="{% static 'images/Shadow1.jpg' %}">
-                    <p class="title">
-                        Kettingen
-                    </p>
-                </div>
-            </a>
-            <a href="{% url 'allproducts' 'oorbellen' %}">
-                <div class="category-earrings">
-                    <img src="{% static 'images/Shadow2.jpg' %}">
-                    <p class="title">
-                        Oorbellen
-                    </p>
-                </div>
-            </a>
-            <a href="{% url 'allproducts' 'armbanden' %}">
-                <div class="category-bracelets">
-                    <img src="{% static 'images/Shadow3.jpg' %}">
-                    <p class="title">
-                        Armbanden
-                    </p>
-                </div>
-            </a>
-        </div>
-        <div class="row instagram">
-            <p class="insta statement">@oleadabeads</p>
-        </div>
-        <div class="home-instagram-images">
-            <img src="{% static 'images/Home-1.png' %}">
-            <img src="{% static 'images/Home-2.png' %}">
-            <img src="{% static 'images/Home-3.png' %}">
-            <img src="{% static 'images/Home-4.png' %}">
-            <img src="{% static 'images/Home-5.png' %}">
-        </div>
+<div class="headline centered">
+    <p class="md-header thin">
+        Trendy sieraden, met liefde handgemaakt
+    </p>
+    <p class="lg-size">
+        "It's OK to be a little obsessed with jewelry"
+    </p>
+</div>
+<div class="categories">
+    <div class="dark-overlay">
+        <img src="{% static 'images/Home-Kettingen.jpg' %}">
+        <p class="white-text overlay-text centered">Kettingen</p>
     </div>
+    <div class="dark-overlay">
+        <img src="{% static 'images/Home-Oorbellen.jpg' %}">
+        <p class="white-text overlay-text centered">Oorbellen</p>
+    </div>
+    <div class="dark-overlay">
+        <img src="{% static 'images/Home-Armbanden.jpg' %}">
+        <p class="white-text overlay-text centered">Armbanden</p>
+    </div>
+</div>
+<div class="story pink-div">
+    <p class="md-header thick dark-text centered space-below">
+        Ons verhaal
+    </p>
+    <p class="md-size centered">
+        Wij zijn twee beste vriendinnen met een passie voor creativiteit. Samen ontwerpen en maken we oorbellen, armbanden en kettingen met het idee dat andere meiden net zo veel van onze sieraden kunnen genieten. 
+    </p>
+    <p class="md-size centered">
+        Wij zijn altijd op zoek naar unieke edelstenen, kleuren en materialen. Op die manier bieden wij sieraden met zorg gemaakt en van hoge kwaliteit!
+    </p>
+</div>
+<div class="md-header thin centered space-below">
+    Shop the latest
+</div>
+<div class="latest-products">
+    <div class="latest-product centered">
+        <img class="sm-photo" src="{% static 'images/Home-Kettingen.jpg' %}">
+        <p>Yara</p>
+        <p>€5,95</p>
+    </div>
+    <div class="latest-product centered">
+        <img class="sm-photo" src="{% static 'images/Home-Oorbellen.jpg' %}">
+        <p>Yara</p>
+        <p>€5,95</p>
+    </div>
+    <div class="latest-product centered">
+        <img class="sm-photo" src="{% static 'images/Home-Armbanden.jpg' %}">
+        <p>Yara</p>
+        <p>€5,95</p>
+    </div>
+</div>
+<div class="about">
+    <div class="about-text">
+        <p class="md-header thin space-below">
+            Over ons
+        </p>
+        <p class="md-size">
+            Wij zijn beste vriendinnen die er tijdens de lockdown een hobby bij hebben gekregen: kralen. 
+            Sieraden maken is voor ons de ultieme self-care, even lekker niks aan ons hoofd en gewoon gezellig samen zijn.
+        </p>
+        <p class="md-size space-below">
+            Wij kennen elkaar inmiddels bijna 20 jaar en hebben veel meegemaakt. 
+            Ondanks dat we allebei een andere studierichting hebben gekozen, hebben we elkaar in de creativiteit gevonden. 
+        </p>
+        <button class="btn-blue space-above">
+            Leer ons kennen
+        </button>
+    </div>
+    <div class="about-image">
+        <img src="{% static 'images/Home-Eden.JPG' %}" class="lg-photo">
+    </div>
+</div>
+<div class="instagram">
+    <div class="md-header thick dark-text centered space-below">
+        @oleadabeads
+    </div>
+    <div class="instagram-pictures">
+        <img src="{% static 'images/Home-1.png' %}" class="md-photo-square">
+        <img src="{% static 'images/Home-2.png' %}" class="md-photo-square">
+        <img src="{% static 'images/Home-3.png' %}" class="md-photo-square">
+        <img src="{% static 'images/Home-4.png' %}" class="md-photo-square">
+        <img src="{% static 'images/Home-5.png' %}" class="md-photo-square">
+    </div>
+</div>
 
 {% endblock %}
