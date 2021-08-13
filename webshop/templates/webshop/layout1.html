@@ -49,20 +49,26 @@
                                 Shop
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">Armbanden</a></li>
-                                <li><a class="dropdown-item" href="#">Kettingen</a></li>
-                                <li><a class="dropdown-item" href="#">Oorbellen</a></li>
+                                <li><a class="dropdown-item" href="{% url 'allproducts' 'armbanden' %}">Armbanden</a></li>
+                                <li><a class="dropdown-item" href="{% url 'allproducts' 'kettingen' %}">Kettingen</a></li>
+                                <li><a class="dropdown-item" href="{% url 'allproducts' 'oorbellen' %}">Oorbellen</a></li>
                                 <li><a class="dropdown-item" href="#">Nieuw</a></li>
                                 <li><a class="dropdown-item" href="#">Sale</a></li>
                             </ul>
                         </div>
                         <div class="dropdown">
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                About
+                                Informatie
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">Over ons</a></li>
-                                <li><a class="dropdown-item" href="#">Contact</a></li>
+                                <li><a class="dropdown-item" href="{% url 'about' %}">Over ons</a></li>
+                                <li><a class="dropdown-item" href="{% url 'contact' %}">Contact</a></li>
+                                <li><a class="dropdown-item" href="{% url 'profile' %}">Account</a></li>
+                                {% if request.user.is_authenticated %}
+                                    <li><a class="dropdown-item" href="{% url 'logout' %}">Uitloggen</a></li>
+                                {% else %}
+                                <li><a class="dropdown-item" href="{% url 'login' %}">Inloggen</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                         <li class="nav-item">

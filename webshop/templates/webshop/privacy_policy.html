@@ -1,277 +1,91 @@
-{% extends "webshop/layout.html" %}
+{% extends "webshop/layout1.html" %}
 
 {% block body %}
 {% load static %}
 
-    <div class="body-wrapper">
-        <p class="terms-conditions statement">Privacy verklaring</p>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p>Oleada Beads respecteert de privacy van de bezoekers van haar website, 
-                    in het bijzonder de rechten van bezoekers met betrekking tot de 
-                    geautomatiseerde verwerking van persoonsgegevens. Vanwege volledige 
-                    transparantie met onze klanten hebben wij daarom een beleid geformuleerd 
-                    en geïmplementeerd met betrekking tot deze verwerkingen zelf, het doel ervan 
-                    alsook de mogelijkheden voor betrokkenen om hun de rechten zo goed mogelijk 
-                    te kunnen uitoefenen.
-                </p>
-                <p>
-                    Voor alle aanvullende informatie over de bescherming van persoonsgegevens 
-                    kunt u terecht op de website van de Autoriteit persoonsgegevens: 
-                    https://autoriteitpersoonsgegevens.nl/nl.
-                </p>
-                <p>
-                    Totdat u op de website het gebruik van cookies en andere tracking 
-                    systems accepteert, plaatsen wij geen niet-geanonimiseerde analytische 
-                    cookies en/of tracking cookies op uw computer, mobiele telefoon of tablet.
-                </p>
-                <p>
-                    Met het voortzetten van het bezoek van deze website accepteert u de volgende gebruikersvoorwaarden.  
-                </p>
-                <p>
-                    De huidige op de website beschikbare versie van de privacy policy is de enige versie die van toepassing 
-                    is zolang u de website bezoekt, totdat een nieuwe versie de huidige versie vervangt.
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 1: Wettelijke bepalingen</p>
-                <p>
-                    1. Website (hierna ook “De website”): oleadabeads.nl
-                </p>
-                <p>
-                    2. Verantwoordelijke voor de verwerking van persoonsgegevens (Hierna ook: “De beheerder”): Oleada Beads, KvK-nummer: 82217769.
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 2: Toegang tot de website</p>
-                <p>
-                    De toegang tot de website en het gebruik is strikt persoonlijk. 
-                    U zult deze website alsook de gegevens en informatie die daarop 
-                    verstrekt worden niet gebruiken voor commerciële, politieke of 
-                    publicitaire doeleinden, dan wel voor enige commerciële aanbiedingen 
-                    en in het bijzonder niet gebruiken voor ongevraagde elektronische aanbiedingen.  
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 3: De content van de website</p>
-                <p>
-                    Alle merken, afbeeldingen, teksten, commentaren, illustraties, 
-                    (animatie)plaatjes, videobeelden, geluiden, alsook alle technische 
-                    applicaties die gebruikt kunnen worden om de website te laten 
-                    functioneren en meer in het algemeen alle onderdelen die op deze 
-                    site zijn gebruikt, zijn beschermd bij wet door intellectuele 
-                    eigendomsrechten. Iedere reproductie, herhaling, gebruik of aanpassing, 
-                    op welke wijze dan ook, van het geheel of slechts een onderdeel ervan, 
-                    met inbegrip van de technische applicaties, zonder voorafgaande schriftelijke 
-                    toestemming van de verantwoordelijke, is ten strengste verboden. 
-                    Indien de beheerder niet meteen actie onderneemt tegen enig inbreuk, 
-                    kan dat niet worden opgevat als stilzwijgende toestemming dan wel het 
-                    afzien van rechtsvervolging.
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 4: Het beheer van de website</p>
-                <p>
-                    Voor het goede beheer van de website kan de beheerder op ieder moment:
-                </p>
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-record-fill contact" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
-                    </svg>
-                    de toegang aan een bepaalde categorie bezoekers schorsen, onderbreken of beperken tot de gehele of een gedeelte van de website
-                </p>
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-record-fill contact" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
-                    </svg>
-                    alle informatie verwijderen die het functioneren van de website kan verstoren of in strijd is met nationale of internationale wetgeving of in strijd is met internet-etiquette
-                </p>
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-record-fill contact" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
-                    </svg>
-                    de website tijdelijk niet beschikbaar hebben teneinde updates uit te kunnen voeren 
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 5: Verantwoordelijkheden</p>
-                <p>
-                    De beheerder is in geen geval verantwoordelijk voor falen, storingen, 
-                    moeilijkheden of onderbrekingen van het functioneren van de website, 
-                    waardoor de website of een van zijn functionaliteiten niet toegankelijk is. 
-                    De wijze waarop u verbinding zoekt met de website is uw eigen verantwoordelijkheid. 
-                    U dient zelf alle geschikte maatregelen te treffen om uw apparatuur en uw gegevens 
-                    te beschermen tegen onder andere virusaanvallen op het internet. U bent bovendien 
-                    zelf verantwoordelijk voor de websites en de gegevens die u op internet raadpleegt.
-                </p>
-                <p>
-                    De beheerder is niet aansprakelijk voor juridische procedures die tegen u worden gevoerd:
-                </p>
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-record-fill contact" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
-                    </svg>
-                    vanwege het gebruik van de website of diensten toegankelijk via internet
-                </p>
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-record-fill contact" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
-                    </svg>
-                    vanwege het schenden van de voorwaarden van deze privacy policy
-                </p>
-                <p>
-                    De beheerder is niet verantwoordelijk voor enige schade die u zelf oploopt, 
-                    dan wel derden of uw apparatuur oplopen als gevolg van uw verbinding met of 
-                    het gebruik van de website. U zult zich onthouden van iedere actie tegen de 
-                    beheerder als gevolg hiervan.
-                </p>
-                <p>
-                    Indien de beheerder betrokken raakt bij een geschil als gevolg van uw gebruik 
-                    van deze website, is hij gerechtigd alle schade die hij dientengevolge lijdt 
-                    en nog zal lijden op u te verhalen. 
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 6: Het verzamelen van gegevens</p>
-                <p>
-                    Uw gegevens worden verzameld door Oleada Beads. Onder persoonsgegevens worden 
-                    verstaan: alle informatie over een geïdentificeerde of identificeerbare 
-                    natuurlijke persoon; als identificeerbaar wordt beschouwd een natuurlijke 
-                    persoon die direct of indirect kan worden geïdentificeerd, met name aan de 
-                    hand van een identificator zoals een naam, een identificatienummer, 
-                    locatiegegevens, een online identificator of een of meer elementen die 
-                    kenmerkend zijn voor de fysieke, fysiologische, genetische, psychische, 
-                    economische, culturele of sociale identiteit.
-                </p>
-                <p>
-                    De persoonsgegevens die op de website worden verzameld worden hoofdzakelijk 
-                    gebruikt door de beheerder voor het onderhouden van relaties met u en indien 
-                    aan de orde voor het verwerken van uw bestellingen.  
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 7: Uw rechten met betrekking tot uw gegevens</p>
-                <p>
-                    Op grond van artikel 13 lid 2 sub b AVG heeft eenieder recht op inzage van 
-                    en rectificatie of wissing van zijn persoonsgegevens of beperking van de hem 
-                    betreffende verwerking, alsmede het recht tegen de verwerking bezwaar te maken 
-                    en het recht op gegevensoverdraagbaarheid. U kunt deze rechten uitoefenen door 
-                    contact met ons op te nemen via oleadabeads@gmail.com. 
-                </p>
-                <p>
-                    Ieder verzoek daartoe dient te worden vergezeld van een kopie van een geldig 
-                    identiteitsbewijs, waarop u uw handtekening heeft gezet en onder vermelding 
-                    van het adres waarop er met u contact kan worden opgenomen. Binnen 1 maand na 
-                    het ingediende verzoek, krijgt u antwoord op uw verzoek. Afhankelijk van de 
-                    complexiteit van de verzoeken en het aantal van de verzoeken kan deze termijn 
-                    indien nodig met 2 maanden worden verlengd.
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 8: Verwerking van persoonsgegevens</p>
-                <p>
-                    In geval van schending van enige wet- of regelgeving, waarvan de bezoeker wordt verdacht en waarvoor de autoriteiten persoonsgegevens nodig hebben die de beheerder heeft verzameld, worden deze aan hen verstrekt na een uitdrukkelijk en gemotiveerd verzoek van die autoriteiten, waarna deze persoonsgegevens mitsdien niet meer onder de bescherming van de bepalingen van deze privacyverklaring vallen. 
-                </p>
-                <p>
-                    Indien bepaalde informatie noodzakelijk is om toegang te krijgen tot bepaalde functionaliteiten van de website, zal de verantwoordelijke het verplichte karakter van deze informatie aangeven op het moment van het vragen van de gegevens.
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 9: Commerciële aanbiedingen</p>
-                <p>
-                    U kunt commerciële aanbiedingen krijgen van de beheerder. Indien u deze niet (meer) wenst te ontvangen, stuurt u een mail naar het volgende adres: oleadabeads@gmail.com.
-                </p>
-                <p>
-                    Indien u tijdens het bezoek van de website enige persoonsgegevens tegenkomt, dient u zich te onthouden van het verzamelen ervan of van enig ander ongeoorloofd gebruik alsook van iedere daad die een inbreuk op de persoonlijke levenssfeer van die perso(o)n(en) oplevert. De beheerder is in geen geval verantwoordelijk in bovengenoemde situaties. 
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 10: Bewaartermijn gegevens</p>
-                <p>
-                    De door de beheerder van website verzamelde gegevens worden gebruikt en bewaard voor de duur zoals deze bij wet is bepaald. 
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 11: Cookies</p>
-                <p>
-                    1. Een cookie is een klein tekstbestand dat bij bezoek aan onze website geplaatst wordt op de harde schijf van uw computer. Een cookie bevat gegevens zodat u bij elk bezoek aan onze website als bezoeker kan worden herkend. Het is dan mogelijk om onze website speciaal op u in te stellen en het inloggen te vergemakkelijken.  
-                </p>
-                <p>
-                    2. Wij gebruiken de volgende soorten cookies op onze website:
-                </p>
-                <p>- Functionele cookies: zoals sessie- en login cookies voor het bijhouden van sessie- en inloginformatie. </p>
-                <p>
-                    3. Meer specifiek gebruiken wij de volgende cookies:
-                </p>
-                <p>- Geen overige cookies</p>
-                <p>
-                    4. Wanneer u onze website bezoekt kunnen cookies afkomstig van de verantwoordelijke en/of derden op uw apparatuur worden geïnstalleerd. 
-                </p>
-                <p>
-                    5. Voor meer informatie over het gebruik, het beheer en het verwijderen van cookies voor elk besturingstype, nodigen wij u uit om de volgende link te raadplegen: https://autoriteitpersoonsgegevens.nl/nl/onderwerpen/internet-telefoon-tv-en-post/cookies#faq
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 12: Beeldmateriaal en aangeboden producten</p>
-                <p>
-                    Aan het beeldmateriaal dat behoort bij de aangeboden producten op de website kunnen geen rechten worden ontleend.
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 13: Toepasselijk recht</p>
-                <p>
-                    Op deze voorwaarden is Nederlands Recht van toepassing. De rechtbank van de vestigingsplaats van de beheerder is exclusief bevoegd bij eventuele geschillen omtrent deze voorwaarden, behoudens wanneer hierop een wettelijke uitzondering van toepassing is. 
-                </p>
-
-            </div>
-        </div>
-        <div class="row terms-conditions">
-            <div class="col">
-                <p class="big-text">Artikel 14: Contact</p>
-                <p>
-                    Voor vragen, productinformatie of informatie over de website zelf, kunt u zich richten tot: Emmelien Schiet, oleadabeads@gmail.com.
-                </p>
-            </div>
-        </div>
+<div class="centered lg-header thin space-above">Privacy verklaring</div>
+<div class="information">
+    <div>
+        Oleada Beads respecteert de privacy van de bezoekers van haar website, in het bijzonder de rechten van bezoekers met betrekking tot de geautomatiseerde verwerking van persoonsgegevens. Vanwege volledige transparantie met onze klanten hebben wij daarom een beleid geformuleerd en geïmplementeerd met betrekking tot deze verwerkingen zelf, het doel ervan alsook de mogelijkheden voor betrokkenen om hun de rechten zo goed mogelijk te kunnen uitoefenen. <br>
+        Voor alle aanvullende informatie over de bescherming van persoonsgegevens kunt u terecht op de website van de Autoriteit persoonsgegevens: <a href="https://autoriteitpersoonsgegevens.nl/nl.">https://autoriteitpersoonsgegevens.nl/nl.</a><br>
+        Totdat u op de website het gebruik van cookies en andere tracking systems accepteert, plaatsen wij geen niet-geanonimiseerde analytische cookies en/of tracking cookies op uw computer, mobiele telefoon of tablet.<br>
+        Met het voortzetten van het bezoek van deze website accepteert u de volgende gebruikersvoorwaarden.<br>
+        De huidige op de website beschikbare versie van de privacy policy is de enige versie die van toepassing is zolang u de website bezoekt, totdat een nieuwe versie de huidige versie vervangt.
     </div>
+    <div class="uppercase space-above">ARTIKEL 1: WETTELIJKE BEPALINGEN</div>
+    <div>
+        1. Website (hierna ook “De website”): oleadabeads.nl<br>
+        2. Verantwoordelijke voor de verwerking van persoonsgegevens (Hierna ook: “De beheerder”): Oleada Beads, KvK-nummer: 82217769.
+    </div>
+    <div class="uppercase space-above">ARTIKEL 2: TOEGANG TOT DE WEBSITE</div>
+    <div>
+        De toegang tot de website en het gebruik is strikt persoonlijk. U zult deze website alsook de gegevens en informatie die daarop verstrekt worden niet gebruiken voor commerciële, politieke of publicitaire doeleinden, dan wel voor enige commerciële aanbiedingen en in het bijzonder niet gebruiken voor ongevraagde elektronische aanbiedingen.
+    </div>
+    <div class="uppercase space-above">ARTIKEL 3: DE CONTENT VAN DE WEBSITE</div>
+    <div>
+        Alle merken, afbeeldingen, teksten, commentaren, illustraties, (animatie)plaatjes, videobeelden, geluiden, alsook alle technische applicaties die gebruikt kunnen worden om de website te laten functioneren en meer in het algemeen alle onderdelen die op deze site zijn gebruikt, zijn beschermd bij wet door intellectuele eigendomsrechten. Iedere reproductie, herhaling, gebruik of aanpassing, op welke wijze dan ook, van het geheel of slechts een onderdeel ervan, met inbegrip van de technische applicaties, zonder voorafgaande schriftelijke toestemming van de verantwoordelijke, is ten strengste verboden. Indien de beheerder niet meteen actie onderneemt tegen enig inbreuk, kan dat niet worden opgevat als stilzwijgende toestemming dan wel het afzien van rechtsvervolging.
+    </div>
+    <div class="uppercase space-above">ARTIKEL 4: HET BEHEER VAN DE WEBSITE</div>
+    <div>
+        Voor het goede beheer van de website kan de beheerder op ieder moment: <br>
+        - de toegang aan een bepaalde categorie bezoekers schorsen, onderbreken of beperken tot de gehele of een gedeelte van de website alle informatie verwijderen die het functioneren van de website kan verstoren of in strijd is met nationale of internationale wetgeving of in strijd is met internet-etiquette <br>
+        - de website tijdelijk niet beschikbaar hebben teneinde updates uit te kunnen voeren
+    </div>
+    <div class="uppercase space-above">ARTIKEL 5: VERANTWOORDELIJKHEDEN</div>
+    <div>
+        De beheerder is in geen geval verantwoordelijk voor falen, storingen, moeilijkheden of onderbrekingen van het functioneren van de website, waardoor de website of een van zijn functionaliteiten niet toegankelijk is. De wijze waarop u verbinding zoekt met de website is uw eigen verantwoordelijkheid. U dient zelf alle geschikte maatregelen te treffen om uw apparatuur en uw gegevens te beschermen tegen onder andere virusaanvallen op het internet. U bent bovendien zelf verantwoordelijk voor de websites en de gegevens die u op internet raadpleegt.<br>
+        De beheerder is niet aansprakelijk voor juridische procedures die tegen u worden gevoerd:<br>
+        - vanwege het gebruik van de website of diensten toegankelijk via internet<br>
+        - vanwege het schenden van de voorwaarden van deze privacy policy<br>
+        De beheerder is niet verantwoordelijk voor enige schade die u zelf oploopt, dan wel derden of uw apparatuur oplopen als gevolg van uw verbinding met of het gebruik van de website. U zult zich onthouden van iedere actie tegen de beheerder als gevolg hiervan.<br>
+        Indien de beheerder betrokken raakt bij een geschil als gevolg van uw gebruik van deze website, is hij gerechtigd alle schade die hij dientengevolge lijdt en nog zal lijden op u te verhalen.
+    </div>
+    <div class="uppercase space-above">ARTIKEL 6: HET VERZAMELEN VAN GEGEVENS</div>
+    <div>
+        Uw gegevens worden verzameld door Oleada Beads. Onder persoonsgegevens worden verstaan: alle informatie over een geïdentificeerde of identificeerbare natuurlijke persoon; als identificeerbaar wordt beschouwd een natuurlijke persoon die direct of indirect kan worden geïdentificeerd, met name aan de hand van een identificator zoals een naam, een identificatienummer, locatiegegevens, een online identificator of een of meer elementen die kenmerkend zijn voor de fysieke, fysiologische, genetische, psychische, economische, culturele of sociale identiteit.<br>
+        De persoonsgegevens die op de website worden verzameld worden hoofdzakelijk gebruikt door de beheerder voor het onderhouden van relaties met u en indien aan de orde voor het verwerken van uw bestellingen.
+    </div>
+    <div class="uppercase space-above">ARTIKEL 7: UW RECHTEN MET BETREKKING TOT UW GEGEVENS</div>
+    <div>
+        Op grond van artikel 13 lid 2 sub b AVG heeft eenieder recht op inzage van en rectificatie of wissing van zijn persoonsgegevens of beperking van de hem betreffende verwerking, alsmede het recht tegen de verwerking bezwaar te maken en het recht op gegevensoverdraagbaarheid. U kunt deze rechten uitoefenen door contact met ons op te nemen via oleadabeads@gmail.com.<br>
+        Ieder verzoek daartoe dient te worden vergezeld van een kopie van een geldig identiteitsbewijs, waarop u uw handtekening heeft gezet en onder vermelding van het adres waarop er met u contact kan worden opgenomen. Binnen 1 maand na het ingediende verzoek, krijgt u antwoord op uw verzoek. Afhankelijk van de complexiteit van de verzoeken en het aantal van de verzoeken kan deze termijn indien nodig met 2 maanden worden verlengd.
+    </div>
+    <div class="uppercase space-above">ARTIKEL 8: VERWERKING VAN PERSOONSGEGEVENS</div>
+    <div>
+        In geval van schending van enige wet- of regelgeving, waarvan de bezoeker wordt verdacht en waarvoor de autoriteiten persoonsgegevens nodig hebben die de beheerder heeft verzameld, worden deze aan hen verstrekt na een uitdrukkelijk en gemotiveerd verzoek van die autoriteiten, waarna deze persoonsgegevens mitsdien niet meer onder de bescherming van de bepalingen van deze privacyverklaring vallen.<br>
+        Indien bepaalde informatie noodzakelijk is om toegang te krijgen tot bepaalde functionaliteiten van de website, zal de verantwoordelijke het verplichte karakter van deze informatie aangeven op het moment van het vragen van de gegevens.
+    </div>
+    <div class="uppercase space-above">ARTIKEL 9: COMMERCIËLE AANBIEDINGEN</div>
+    <div>
+        U kunt commerciële aanbiedingen krijgen van de beheerder. Indien u deze niet (meer) wenst te ontvangen, stuurt u een mail naar het volgende adres: oleadabeads@gmail.com.<br>
+        Indien u tijdens het bezoek van de website enige persoonsgegevens tegenkomt, dient u zich te onthouden van het verzamelen ervan of van enig ander ongeoorloofd gebruik alsook van iedere daad die een inbreuk op de persoonlijke levenssfeer van die perso(o)n(en) oplevert. De beheerder is in geen geval verantwoordelijk in bovengenoemde situaties.
+    </div>
+    <div class="uppercase space-above">ARTIKEL 10: BEWAARTERMIJN GEGEVENS</div>
+    <div>
+        De door de beheerder van website verzamelde gegevens worden gebruikt en bewaard voor de duur zoals deze bij wet is bepaald.
+    </div>
+    <div class="uppercase space-above">ARTIKEL 11: COOKIES</div>
+    <div>
+        1. Een cookie is een klein tekstbestand dat bij bezoek aan onze website geplaatst wordt op de harde schijf van uw computer. Een cookie bevat gegevens zodat u bij elk bezoek aan onze website als bezoeker kan worden herkend. Het is dan mogelijk om onze website speciaal op u in te stellen en het inloggen te vergemakkelijken.<br>
+        2. Wij gebruiken de volgende soorten cookies op onze website:<br>
+        Functionele cookies: zoals sessie- en login cookies voor het bijhouden van sessie- en inloginformatie.<br>
+        3. Meer specifiek gebruiken wij de volgende cookies:<br>
+        Geen overige cookies<br>
+        4. Wanneer u onze website bezoekt kunnen cookies afkomstig van de verantwoordelijke en/of derden op uw apparatuur worden geïnstalleerd.<br>
+        5. Voor meer informatie over het gebruik, het beheer en het verwijderen van cookies voor elk besturingstype, nodigen wij u uit om de volgende link te raadplegen: <a href="https://autoriteitpersoonsgegevens.nl/nl/onderwerpen/internet-telefoon-tv-en-post/cookies#faq">https://autoriteitpersoonsgegevens.nl/nl/onderwerpen/internet-telefoon-tv-en-post/cookies#faq</a>
+    </div>
+    <div class="uppercase space-above">ARTIKEL 12: BEELDMATERIAAL EN AANGEBODEN PRODUCTEN</div>
+    <div>
+        Aan het beeldmateriaal dat behoort bij de aangeboden producten op de website kunnen geen rechten worden ontleend.
+    </div>
+    <div class="uppercase space-above">ARTIKEL 13: TOEPASSELIJK RECHT</div>
+    <div>
+        Op deze voorwaarden is Nederlands Recht van toepassing. De rechtbank van de vestigingsplaats van de beheerder is exclusief bevoegd bij eventuele geschillen omtrent deze voorwaarden, behoudens wanneer hierop een wettelijke uitzondering van toepassing is.
+    </div>
+    <div class="uppercase space-above">ARTIKEL 14: CONTACT</div>
+    <div class="last">
+        Voor vragen, productinformatie of informatie over de website zelf, kunt u zich richten tot: Emmelien Schiet, oleadabeads@gmail.com.
+    </div>
+</div>
 
 {% endblock %}

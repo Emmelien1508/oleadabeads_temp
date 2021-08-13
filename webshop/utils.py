@@ -69,7 +69,7 @@ def get_sorted_bestsellers():
 
     return bestsellers, best
 
-def get_new_items():
+def get_new_products():
     sorted_products = list(Product.objects.all().order_by("-date_added"))
     new_items = [product for product in sorted_products]
 
@@ -83,15 +83,8 @@ def get_new_items():
     return new_items, new
 
 def get_all_products(soort):
-    if soort == "kettingen":
-        products = [product for product in Product.objects.all() if product.jewelry_type == "Ketting"]
-        name = "Kettingen"
-    elif soort == "armbanden":
-        products = [product for product in Product.objects.all() if product.jewelry_type == "Armband"]
-        name = "Armbanden"
-    else:
-        products = [product for product in Product.objects.all() if product.jewelry_type == "Oorbel"]
-        name = "Oorbellen"
+    products = [product for product in Product.objects.all() if product.jewelry_type == f"{soort.capitalize()}"]
+    name = soort.capitalize()
 
     empty = False
     if not products:

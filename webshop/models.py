@@ -73,10 +73,19 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         if self.email:
             return self.email
-        return f'Anonymous user'
+        return f'Anonymous user {self.id}'
+
+class InventoryProduct(models.Model):
+    productcode = models.CharField(max_length=10)
+    description = models.CharField(max_length=100)
+    units_left = models.IntegerField()
+
+    def __str__(self):
+        return self.productcode
 
 class Photo(models.Model):
     image = models.ImageField(upload_to='product_images/')
+    first_item = models.BooleanField(default=False)
 
     def __str__(self):
         return self.image.url  
@@ -84,9 +93,9 @@ class Photo(models.Model):
 class Product(models.Model):
 
     JEWELRY_CHOICES = (
-        ('Armband', 'Armband'),
-        ('Ketting', 'Ketting'),
-        ('Oorbel', 'Oorbel')
+        ('Armbanden', 'Armbanden'),
+        ('Kettingen', 'Kettingen'),
+        ('Oorbellen', 'Oorbellen')
     )
 
     LOOK_CHOICES = (
@@ -106,15 +115,18 @@ class Product(models.Model):
     in_stock = models.BooleanField(default=True)
     image = models.ManyToManyField(Photo)
     description = models.TextField()
+    size = models.IntegerField()
     information = models.TextField(blank=True, null=True)
     jewelry_type = models.CharField(max_length=30, choices=JEWELRY_CHOICES)
     look = models.CharField(max_length=30, choices=LOOK_CHOICES, blank=True, null=True)
     metal_type = models.CharField(max_length=30, choices=METAL_CHOICES)
     date_added = models.DateTimeField(default=now)
-    left = models.IntegerField()
+    items_left = models.IntegerField()
     sale = models.BooleanField(default=False)
     sale_price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     active = models.BooleanField(default=True)
+    data = models.JSONField(null=True)
+    raw_materials = models.ManyToManyField(InventoryProduct)
 
     def __str__(self):
         return self.name
@@ -125,7 +137,6 @@ class OrderProduct(models.Model):
     total = models.DecimalField(max_digits=6, decimal_places=2)
     ordered = models.BooleanField(default=False)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    size = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.product.name}'

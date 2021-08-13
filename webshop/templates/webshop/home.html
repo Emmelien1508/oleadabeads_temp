@@ -36,26 +36,28 @@
         Wij zijn altijd op zoek naar unieke edelstenen, kleuren en materialen. Op die manier bieden wij sieraden met zorg gemaakt en van hoge kwaliteit!
     </p>
 </div>
-<div class="md-header thin centered space-below">
-    Shop the latest
-</div>
-<div class="latest-products">
-    <div class="latest-product centered">
-        <img class="sm-photo" src="{% static 'images/Home-Kettingen.jpg' %}">
-        <p>Yara</p>
-        <p>€5,95</p>
+{% if new %}
+    <div class="new-products blue-div centered">
+        <div class="md-header thin space-below">
+            Shop the latest
+        </div>
+        <div class="latest-products">
+            {% for product in new_products %}
+                <div class="latest-product centered">
+                    {% for img in product.image.all %}
+                        {% if img.first_item %}
+                            <img class="sm-photo" src="{% static img.image.url %}">
+                        {% endif %}
+                    {% endfor %}
+                    <p class="space-above">
+                        {{ product.name }} <br>
+                        €{{ product.price }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    <div class="latest-product centered">
-        <img class="sm-photo" src="{% static 'images/Home-Oorbellen.jpg' %}">
-        <p>Yara</p>
-        <p>€5,95</p>
-    </div>
-    <div class="latest-product centered">
-        <img class="sm-photo" src="{% static 'images/Home-Armbanden.jpg' %}">
-        <p>Yara</p>
-        <p>€5,95</p>
-    </div>
-</div>
+{% endif %}
 <div class="about">
     <div class="about-text">
         <p class="md-header thin space-below">

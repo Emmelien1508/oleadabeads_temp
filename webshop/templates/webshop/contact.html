@@ -1,42 +1,22 @@
-{% extends "webshop/layout.html" %}
+{% extends "webshop/layout1.html" %}
 
 {% block body %}
 {% load static %}
         
-    <div class="body-wrapper">
-        <div class="row contact-list">
-            <div class="col">
-                <p class="statement">Contact informatie</p>
-                <p>Voor opmerkingen, complimenten, klachten, etc. kun je ons op de volgende manieren bereiken:</p>
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-record-fill contact" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
-                    </svg> 
-                    Stuur een e-mail naar oleadabeads@gmail.com
-                </p>
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-record-fill contact" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
-                    </svg> 
-                    Stuur een privébericht naar @oleadabeads op Instagram
-                </p>
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-record-fill contact" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
-                    </svg> 
-                    Stuur een privébericht naar Oleada Beads op Facebook
-                </p>
-            </div>
-        </div>
-        <div class="row contact-list">
-            <div class="col">
-                <p class="big-text">Gegevens</p>
-                <p>Oleada Beads</p>
-                <p>KvK-nummer: 82217769</p>
-                <p>BTW-nummer: 862380315B01</p>
-                <p>Rekeningnummer: NL69INGB0009016577</p>
-                <p>Adres: Sibogastraat 85, 1094SL Amsterdam</p>
-            </div>
+    <div class="centered lg-header thin space-above">Contact informatie</div>
+    <div class="information">
+        Voor vragen, opmerkingen, etc. kan je ons een berichtje sturen via 
+        <a href="https://www.instagram.com/oleadabeads/">@oleadabeads</a> op Instagram,
+        <a href="https://www.facebook.com/OleadaBeads">Oleada Beads</a> op Facebook of ons e-mailadres oleadabeads@gmail.com.
+    </div>
+    <div class="last information">
+        <div class="md-header thick space-below">Gegevens</div>
+        <div class="legal-info">
+            <div>Oleada Beads</div>
+            <div>KvK-nummer: 82217769</div>
+            <div>BTW-nummer: 862380315B01</div>
+            <div>Rekeningnummer: NL69INGB0009016577</div>
+            <div>Adres: Sibogastraat 85, 1094SL Amsterdam</div>
         </div>
     </div>
 

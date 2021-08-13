@@ -1,66 +1,55 @@
-{% extends "webshop/layout.html" %}
+{% extends "webshop/layout1.html" %}
 
 {% block body %}
 {% load static %}
 
-    <div class="body-wrapper">
-        <p class="contact-list statement">Verzenden en retourneren</p>
-        <div class="row contact-list">
-            <div class="col">
-                <p class="big-text">Verzenden</p>
-                <p>Wij verzenden onze pakketjes met PostNL en ze passen allemaal door de brievenbus. </p>
-                <p>Verzendkosten binnen Nederland bedragen €2 (zonder Track & Trace) of €4 (met Track & Trace)</p>
-                <p>Bij besteding van €35 of meer is verzending gratis.</p>
-                <p>Alle bestellingen die voor 16:00 uur worden geplaatst worden diezelfde dag nog in behandeling genomen.</p>
-            </div>
-        </div>
-        <div class="row contact-list">
-            <div class="col">
-                <p class="big-text">Retourneren</p>
-                <p>Wij hopen uiteraard dat uw aankoop naar wens is, mocht er toch iets niet naar wens zijn, dan is retourneren mogelijk binnen 14 dagen na ontvangst van de bestelling.</p>
-                <p>
-                    Om een product te retourneren, dient u voorafgaand aan de retourzending de volgende informatie te sturen per e-mail:
-                </p>
-                <p> 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-record-fill contact" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
-                    </svg> 
-                    het ordernummer
-                </p>
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-record-fill contact" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
-                    </svg>
-                    het product dat u retour stuurt
-                </p>
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-record-fill contact" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
-                    </svg>
-                    de reden van retour
-                </p>
-                <p>
-                    Let op: deze email is noodzakelijk om het retourproces uit te kunnen voeren, retour pakketjes zonder aanmelding of begeleidend schrijven kunnen niet in behandeling genomen worden.
-                </p>
-
-                <p class="blank">Retouradres:</p>
-                <p>Oleada Beads t.a.v. Emmelien Schiet</p>
-                <p>Sibogastraat 85, 1094SL Amsterdam</p>
-                
-                <p class="blank">
-                    Het product dient ongebruikt en onbeschadigd te zijn, 'wanneer redelijkerwijs mogelijk' in de originele verpakking verpakt te zijn en in deugdelijke verpakking te worden geretourneerd.
-                </p>
-                <p>
-                    Een retourzending geschiedt op eigen risico. De verzendkosten zijn voor uw rekening en Oleada Beads is niet aansprakelijk voor het beschadigen of zoekraken van retour gestuurde producten. We adviseren daarom in ieder geval met track & trace te verzenden en het verzendbewijs te bewaren totdat u van ons een retourbevestiging heeft ontvangen. Indien het vermoeden bestaat dat retour gezonden artikelen gebruikt of beschadidigd zijn door koper behouden wij het recht deze artikelen te weigeren.
-                </p>
-                <p>
-                    Het aankoopbedrag van het artikel wordt binnen een termijn van 5 werkdagen teruggestort.
-                </p>
-                <p>
-                    Het is niet mogelijk producten in de sale te retourneren.
-                </p>
-            </div>
+    <div class="centered lg-header thin space-above">Verzenden & retourneren</div>
+    <div class="information">
+        <div class="md-header thick space-below">Verzenden</div>
+        <div>
+            Wij verzenden onze pakketjes met PostNL en ze passen allemaal door de brievenbus. 
+            Verzendkosten binnen Nederland bedragen €2 (zonder Track & Trace) of €4 (met Track & Trace). 
+            Bij besteding van €35 of meer is verzending gratis. Alle bestellingen die voor 16:00 uur 
+            worden geplaatst worden diezelfde dag nog in behandeling genomen.
         </div>
     </div>
-
+    <div class="last information">
+        <div class="md-header thick space-below">Retourneren</div>
+        <div>
+            Wij hopen uiteraard dat uw aankoop naar wens is, mocht er toch iets niet naar wens zijn, 
+            dan is retourneren mogelijk binnen 14 dagen na ontvangst van de bestelling. 
+            Om een product te retourneren, dient u voorafgaand aan de retourzending de volgende informatie te sturen per e-mail: <br>
+            - het ordernummer <br>
+            - het product dat u retour stuurt <br>
+            - de reden van retour
+        </div>
+        <div class="space-above">
+            Let op: deze email is noodzakelijk om het retourproces uit te kunnen voeren, 
+            retour pakketjes zonder aanmelding of begeleidend schrijven kunnen niet in behandeling genomen worden.
+        </div>
+        <div class="space-above">
+            Retouradres:
+            Oleada Beads t.a.v. Emmelien Schiet
+            Sibogastraat 85, 1094SL Amsterdam
+        </div>
+        <div class="space-above">
+            Het product dient ongebruikt en onbeschadigd te zijn, 'wanneer redelijkerwijs mogelijk' 
+            in de originele verpakking verpakt te zijn en in deugdelijke verpakking te worden geretourneerd.
+        </div>
+        <div class="space-above">
+            Een retourzending geschiedt op eigen risico. De verzendkosten zijn voor uw rekening en Oleada Beads 
+            is niet aansprakelijk voor het beschadigen of zoekraken van retour gestuurde producten. 
+            We adviseren daarom in ieder geval met track & trace te verzenden en het verzendbewijs te 
+            bewaren totdat u van ons een retourbevestiging heeft ontvangen. Indien het vermoeden bestaat 
+            dat retour gezonden artikelen gebruikt of beschadidigd zijn door koper behouden wij het recht 
+            deze artikelen te weigeren.
+        </div>
+        <div class="space-above">
+            Het aankoopbedrag van het artikel wordt binnen een termijn van 5 werkdagen teruggestort.
+        </div>
+        <div class="space-above">
+            Het is niet mogelijk producten in de uitverkoop te retourneren.
+        </div>
+    </div>
+    
 {% endblock %}

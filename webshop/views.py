@@ -24,16 +24,12 @@ class RegisterView(generic.CreateView):
 
 def home(request):
     cust = get_customer_session(request)
-
-    new_items, new = get_new_items()
+    new_products, new = get_new_products()
 
     return render(request, "webshop/home.html", {
-        "newitems": new_items,
+        "new_products": new_products,
         "new": new
     })
-
-# def home(request):
-    # return render(request, "webshop/comingsoon.html")
 
 def logout_view(request):
     django_logout(request)

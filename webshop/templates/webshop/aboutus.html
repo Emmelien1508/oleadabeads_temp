@@ -1,83 +1,79 @@
-{% extends "webshop/layout.html" %}
+{% extends "webshop/layout1.html" %}
 
 {% block body %}
 {% load static %}
 
-    <div class="body-wrapper-about-us">
-        <div class="row about-us-together">
-            <div class="col home-overlapping-pictures">
-                <div class="color-block"></div>
-                <div class="picture-together">
-                    <img src="{% static 'images/About-Us-Together.jpg' %}" class="image-together">
+    <div class="centered lg-header thin space-above">Over ons</div>
+    <div class="about-us">
+        <div>
+            Wij zijn beste vriendinnen die er tijdens de lockdown een hobby bij hebben gekregen: kralen. 
+            Sieraden maken is voor ons de ultieme self-care, even lekker niks aan ons hoofd en gewoon gezellig samen zijn. 
+        </div>
+        <div class="space-above">
+            Naast onze studies Econometrie en Creative Business zijn we een tijd geleden begonnen met armbandjes maken.
+            Dit hebben we inmiddels uitgebreid met kettingen en oorbellen met veel verschillende designs. 
+            Parels, bedels, kralen, deel je idee met ons en wij maken het!
+        </div>
+        <div class="space-above">
+            Wij kennen elkaar inmiddels bijna 20 jaar en hebben veel meegemaakt. 
+            Sinds corona hebben we elkaar in de creativiteit gevonden. 
+            Onze smaak is grappig genoeg super verschillend! 
+            Cleo houdt van een minimalistische en elegante look, terwijl Emmelien juist een voorkeur heeft voor maximalisme. 
+            Hoe kleurrijker en gekker, hoe beter!
+        </div>
+    </div>
+    <div class="about-us blue-div">
+        <div class="md-header thick space-below">Cleo</div>
+        <div class="text-img">
+            <div class="img-c">
+                <img class="md-photo" src="{% static 'images/Cleo.png' %}">
+            </div>
+            <div class="text-c">
+                <div>
+                    Al 22 jaar loop ik rond op deze wereld. 
+                    Na het behalen van mijn MBO diploma voor animatie en audiovisuele 
+                    vormgeving studeer ik nu Creative Business aan de Hogeschool van 
+                    Amsterdam. Hier leer ik alles gerelateerd aan de media industrie.
+               </div>
+               <div class="space-above">
+                    Ik ben dol op ontwerpen en content creëren en ben altijd wel met een 
+                    telefoon in m’n handen te vinden, klaar om een foto te schieten. 
+                    De vormgeving en foto’s van Oleada Beads verzorg ik dan ook zelf, 
+                    wat ik een super leuk project vind.  
+               </div>
+               <div class="space-above">
+                    Kralen is een nieuwe hobby geworden sinds corona tijd. 
+                    Ik ben altijd al iemand geweest die veel sieraden draagt 
+                    dus ik vind het heel leuk dat ik nu mijn eigen gemaakte sieraden kan dragen! 
+                    Daarnaast sport ik graag en ben ik veel bezig met mijn fysieke en mentale gezondheid, 
+                    ik ben groot fan van self care!
                 </div>
             </div>
-            <div class="col home-text-about-us">
-                <p class="statement">
-                    Over ons
-                </p>
-                <p class="material">
-                    Wij zijn Emmelien en Cleo, vriendinnen sinds groep 1! 
-                    Naast onze studies Econometrie en Creative Business zijn we een tijd geleden begonnen met armbandjes maken.
-                    Dit hebben we inmiddels uitgebreid met kettingen en oorbellen met veel verschillende designs. 
-                    Parels, bedels, kralen, deel je idee met ons en wij maken het!
-                </p>
-                <p  class="material">
-                    Wij zijn begonnen met Oleada Beads aan het begin van de coronatijd. 
-                    Om een beetje een zakcentje te verdienen besloten we kralen armbandjes te maken.
-                    Na inspiratie te hebben opgedaan van Pinterest zijn we aan de slag gegaan!
-                    We vinden het mega gezellig om sieraden te maken!
-                </p>
-            </div>
         </div>
-        <div class="row emmelien-text">
-            <div class="col about-emmelien-left">
-                <p class="big-text">Emmelien</p>
-                <p class="material">
-                    Ik ben 23 jaar en woon in Amsterdam.
-                    Ik ben net afgestudeerd met de bachelor Econometrie 
-                    aan de Universiteit van Amsterdam
-                    en komend jaar ga ik er lekker een jaartje uit!
-                </p>
-                <p class="material">
-                    Tijdens de minor programmeren heb ik onder andere geleerd websites te maken, 
-                    en dit vond ik erg leuk!
-                    De combinatie van creatief en technisch vind ik super cool 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                        <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
-                    </svg>. Ik zie mezelf hier zeker verder in ontwikkelen!
-                </p>
-                <p class="material">
+    </div>
+    <div class="about-us pink-div">
+        <div class="md-header thick dark-text space-below">Emmelien</div>
+        <div class="text-img">
+            <div class="text-e">
+                <div>
+                    Ik ben 23 jaar en woon in Amsterdam. 
+                    Ik ben net afgestudeerd met de bachelor Econometrie aan de Universiteit van 
+                    Amsterdam en komend jaar ga ik er lekker een jaartje uit!
+               </div>
+               <div class="space-above">
+                   Tijdens de minor programmeren heb ik onder andere geleerd websites te maken, 
+                   en dit vond ik erg leuk! De combinatie van creatief en technisch vind ik super cool :). 
+                   Ik zie mezelf hier zeker verder in ontwikkelen! 
+               </div>
+               <div class="space-above">
                     Afgelopen jaar heb ik een artistieke kant van mezelf ontdekt: 
-                    het maken van sieraden en schilderen is een grote hobby geworden.
-                    Ik vond schilderen altijd al leuk, maar sinds corona tijd heb ik het weer opgepakt.
-                    Verder houd ik van koken, dansen en sporten! 
-                </p>
+                    het maken van sieraden en schilderen is een grote hobby geworden. 
+                    Ik vond schilderen altijd al leuk, maar sinds corona tijd heb ik het weer opgepakt. 
+                    Verder houd ik van koken, dansen en sporten!
+               </div>
             </div>
-            <div class="col about-emmelien-right">
-                <img src="{% static 'images/Emmelien.png' %}">
-            </div>
-        </div>
-        <div class="row cleo-text">
-            <div class="col about-cleo-left">
-                <img src="{% static 'images/Cleo.png' %}">
-            </div>
-            <div class="col about-cleo-right">
-                <p class="big-text">Cleo</p>
-                <p class="material">
-                    Al 22 jaar loop ik rond op deze wereld.
-                    Na het behalen van mijn MBO diploma voor animatie en audiovisuele vormgeving studeer ik nu Creative Business aan de Hogeschool van Amsterdam. 
-                    Hier leer ik alles gerelateerd aan de media industrie.
-                </p>
-                <p class="material">
-                    Ik ben dol op ontwerpen en content creëren en ben altijd wel met een telefoon in m’n handen te vinden, klaar om een foto te schieten. 
-                    De vormgeving en foto’s van Oleada Beads verzorg ik dan ook zelf, wat ik een super leuk project vind.
-                </p>
-                <p class="material">
-                    Kralen is een nieuwe hobby geworden sinds corona tijd. 
-                    Ik ben altijd al iemand geweest die veel sieraden draagt dus ik vind het heel leuk dat ik nu mijn eigen gemaakte sieraden kan dragen! 
-                    Daarnaast sport ik graag en ben ik veel bezig met mijn fysieke en mentale gezondheid, ik ben groot fan van self care!
-                </p>
+            <div class="img-e">
+                <img class="md-rectangle" src="{% static 'images/emmelien.png' %}">
             </div>
         </div>
     </div>

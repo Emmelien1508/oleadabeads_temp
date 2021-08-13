@@ -1,81 +1,54 @@
-{% extends "webshop/layout.html" %}
+{% extends "webshop/layout1.html" %}
 
 {% block body %}
 {% load static %}
 
-    <div class="body-wrapper">
-        <div class="row all-products-wrapper">
-            <div class="col">
-                <p class="statement jewelry-title-name">{{ name }}</p>
-            </div>
-            <div class="col filter-option">
-                <p class="statement filter-icon">
-                    <p>Sorteer op</p>
-                    <select name="orderSection" id="orderSelection">
-                        <option value="bestsellers">Populariteit</option>
-                        <option value="price">Laagste prijs</option>
-                        <option value="-price">Hoogste prijs</option>
-                        <option value="name">A - Z</option>
-                        <option value="-name">Z - A</option>
-                        <option value="-date_added">Nieuwste</option>
-                        <option value="date_added">Oudste</option>
-                    </select>
-                </p>
-            </div>
+    <div class="information topbar">
+        <div class="filter">
+            <select name="orderSection" id="orderSelection">
+                <option value="bestsellers">Sorteer op populariteit</option>
+                <option value="price">Sorteer op laagste prijs</option>
+                <option value="-price">Sorteer op hoogste prijs</option>
+                <option value="name">Sorteer op A - Z</option>
+                <option value="-name">Sorteer op Z - A</option>
+                <option value="-date_added">Sorteer op nieuwste</option>
+                <option value="date_added">Sorteer op oudste</option>
+            </select>
         </div>
-        {% if empty %}
-            <div class="row">
-                <div class="col subtext">Sorry, we hebben even geen producten in deze categorie!</div>
-            </div>
-        {% else %}
-            <div class="row all-products-wrapper" id="results-div">
-                {% for product in products %}
-                    {% if product.in_stock %}
-                        {% if product.sale %}
-                            <div class="product">
-                                <a href="{% url 'product' product.name %}">
-                                    <img src="{% static product.image.first.image.url %}">
-                                    <div class="top-right">Sale!</div>
-                                    <div class="product-info">
-                                        {{ product.name }}
-                                    </div>
-                                    <div class="product-price">
-                                        <p class="not-sale-price">{{ product.price }}</p>
-                                        {{ product.sale_price }}
-                                    </div>
-                                </a>
-                            </div>
-                        {% else %}
-                            <div class="product">
-                                <a href="{% url 'product' product.name %}">
-                                    <img src="{% static product.image.first.image.url %}">
-                                    <div class="product-info">
-                                        {{ product.name }}
-                                    </div>
-                                    <div class="product-price">
-                                        {{ product.price }}
-                                    </div>
-                                </a>
-                            </div>
-                        {% endif %}
-                    {% else %}
-                    <div class="product">
-                        <a href="{% url 'product' product.name %}">
-                            <img src="{% static product.image.first.image.url %}">
-                            <div class="top-right">Uitverkocht</div>
-                            <div class="product-info">
-                                {{ product.name }}
-                            </div>
-                            <div class="product-price">
-                                {{ product.price }}
-                            </div>
-                        </a>
-                    </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        {% endif %}
+        <div class="lg-header thin right">{{ name }}</div>
     </div>
+    {% if empty %}
+        <div class="centered">Sorry, we hebben even geen producten in deze categorie!</div>
+    {% else %}
+        <div class="all-products-wrapper" id="results-div">
+            {% for product in products %}
+                <div class="product-card">
+                    {% if not product.in_stock %}
+                        <div class="top-right1 centered pink-div dark-text sm-size">Sold <br> out</div>
+                    {% endif %}
+                    {% if product.sale %}
+                        <div class="top-right2 centered pink-div dark-text lg-size">Sale!</div>
+                    {% endif %}
+                    <a href="{% url 'product' product.name %}">
+                        {% for img in product.image.all %}
+                            {% if img.first_item %}
+                                <img class="md-photo product-img" src="{% static img.image.url %}">
+                            {% endif %}
+                        {% endfor %}
+                        <div class="product-info centered thin lg-size name-price">
+                            <div class="name">{{ product.name }}</div>
+                            {% if product.sale %}
+                                <div class="strikethrough price">{{ product.price }}</div>
+                                <div class="price">{{ product.sale_price }}</div>
+                            {% else %}
+                                <div class="price">{{ product.price }}</div>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <script>
         const resultsDiv = document.querySelector("#results-div")
