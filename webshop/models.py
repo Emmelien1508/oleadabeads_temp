@@ -131,7 +131,8 @@ class Product(models.Model):
 
     def to_JSON(self):
         x = model_to_dict(self)    
-        x['image'] = x['image'][0].image.url 
+        x['image'] = x['image'][0].image.url
+        x['raw_materials'] = 'inventory'
         return x
         
     def __str__(self):

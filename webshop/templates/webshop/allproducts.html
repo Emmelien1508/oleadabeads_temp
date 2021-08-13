@@ -20,7 +20,7 @@
     {% if empty %}
         <div class="centered">Sorry, we hebben even geen producten in deze categorie!</div>
     {% else %}
-        <div class="all-products-wrapper" id="results-div">
+        <div class="all-products-wrapper" id="results-div" data-jewelry-type="{{ name }}">
             {% for product in products %}
                 <div class="product-card">
                     {% if not product.in_stock %}
@@ -68,10 +68,13 @@
                         let productCard = productCards[i]
                         text = ` 
                             <a href="/product/${product.name}">
-                            <img src="/static/${product.image}">
+                            <img class="md-photo product-img" src="/static/${product.image}">
                         `
                         if (!product.in_stock) {
                             text += `<div class="top-right1 centered pink-div dark-text sm-size">Sold <br> out</div>`
+                        }
+                        if (product.sale) {
+                            text += `<div class="top-right2 centered pink-div dark-text lg-size">Sale!</div>`
                         }
                         text += `
                             <div class="product-info centered thin lg-size name-price">

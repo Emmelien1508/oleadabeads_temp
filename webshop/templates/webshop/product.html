@@ -1,117 +1,99 @@
-{% extends "webshop/layout.html" %}
+{% extends "webshop/layout1.html" %}
 
 {% block body %}
 {% load static %}
 
-    <div class="body-wrapper product-image-carousel">
-        <div class="row">
-            <div class="col">
-                <div class="row image-product-display big-image-wrapper">
-                    <div class="col">
-                        {% for image in product.image.all %}
-                            {% if forloop.counter == 1 %}
-                                <div id="{{ forloop.counter }}" class="picture">
-                                    <img class="img-fluid" src="{% static image.image.url%}" alt="Lotus">
-                                </div>
-                            {% else %}
-                                <div id="{{ forloop.counter }}" class="picture not-first-picture">
-                                    <img class="img-fluid" src="{% static image.image.url%}" alt="Boat">
-                                </div>
-                            {% endif %}
-                        {% endfor %}
+    <div class="product-wrapper big-space-above">
+        <div class="product-images">
+            <div class="big-image">
+                {% for image in product.image.all %}
+                    {% if forloop.counter == 1 %}
+                        <div id="{{ forloop.counter }}" class="picture">
+                            <img class="xl-photo" src="{% static image.image.url%}">
+                        </div>
+                    {% else %}
+                        <div id="{{ forloop.counter }}" class="picture not-first-picture">
+                            <img class="xl-photo" src="{% static image.image.url%}">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="small-image">
+                {% for image in product.image.all %}
+                    <div class="small-image-widgets">
+                        <a href="javascript:void(0)" class="myhover" onclick="openImg('{{ forloop.counter }}');">
+                            <img class="xs-photo" src="{% static image.image.url%}" alt="">
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="product-description">
+            <div class="lg-header thin">{{ product.name }}</div>
+            {% if product.sale %}
+                <div class="strikethrough sale-price">€{{ product.price }}</div>
+                <div class="sale-price">€{{ product.sale_price }}</div>
+            {% else %}
+                <div>€{{ product.price }}</div>
+            {% endif %}
+            <div class="uppercase space-above">Productbeschrijving</div>
+            <div>{{ product.description }}</div>
+            {% if product.left < 5 %}
+                {% if product.left == 1%}
+                    <div class="space-above">Er is nog {{ product.left }} stuk van dit product op voorraad!</div>
+                {% else %}
+                    <div class="space-above">Er zijn nog {{ product.left }} stuks van dit product op voorraad!</div>
+                {% endif %}
+            {% endif %}
+            <form class="add-to-cart-form big-space-above" action="{% url 'addtocart' product.name %}" method="post">
+                {% csrf_token %}
+                <div class="form-amount">
+                    <input class="form-control" type="number" placeholder="Aantal" id="inputnumber" name="hoeveelheid" min="1" max="{{ product.left }}">
+                </div>
+                <div class="form-button">
+                    <button type="submit" data-testid="add-to-cart-button-enabled" class="btn-blue" id="buttonadd" name="addtocart">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                            </svg>
+                            In winkelmand
+                        </span>
+                    </button>
+                </div>
+            </form>
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Accordion Item #2
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                        </div>
                     </div>
                 </div>
-                <div class="row image-product-display lower-images">
-                    {% for image in product.image.all %}
-                        {% if forloop.first %}
-                            <div class="col first-image">
-                                <a href="javascript:void(0)" class="myhover" onclick="openImg('{{ forloop.counter }}');">
-                                    <img class="img-fluid" src="{% static image.image.url%}" alt="">
-                                </a>
-                            </div>
-                        {% elif forloop.last %}
-                            <div class="col last-image">
-                                <a href="javascript:void(0)" class="myhover" onclick="openImg('{{ forloop.counter }}');">
-                                    <img class="img-fluid" src="{% static image.image.url%}" alt="">
-                                </a>
-                            </div>
-                        {% else %}
-                            <div class="col">
-                                <a href="javascript:void(0)" class="myhover" onclick="openImg('{{ forloop.counter }}');">
-                                    <img class="img-fluid" src="{% static image.image.url%}" alt="">
-                                </a>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Accordion Item #3
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col">
-                <p class="statement">{{ product.name }}</p>
-                {% if addedtocart %}
-                    <div class="row">
-                        <div class="col alert-message">
-                            <div class="alert alert-custom alert-dismissible fade show" role="alert">
-                                {{ addedtocart }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-                {% if product.sale %}
-                    <div class="sale-section">
-                        <p class="not-sale-price">{{ product.price }}</p>
-                        {{ product.sale_price }}
-                    </div>
-                {% else %}
-                    <p>€{{ product.price }}</p>
-                {% endif %}
-                <div>
-                    <p class="big-text product-info-text">Productbeschrijving</p>
-                    <p class="product-description">{{ product.description }}</p>
-                </div>
-                {% if message %}
-                    <p class="bold product-info-text">{{ message }}</p>
-                {% else %}
-                    {% if product.left < 5 %}
-                        {% if product.left == 1%}
-                            <p class="product-info-text">Er is nog {{ product.left }} stuk van dit product op voorraad!</p>
-                        {% else %}
-                            <p class="product-info-text">Er zijn nog {{ product.left }} stuks van dit product op voorraad!</p>
-                        {% endif %}
-                    {% endif %}
-                    <form class="product-info-text" action="{% url 'addtocart' product.name %}" method="post">
-                        {% csrf_token %}
-                        <div class="row add-to-cart">
-                            <div class="col number-input">
-                                <label class="tiny" for="inputnumber">Aantal</label>
-                                <input class="form-control" type="number" id="inputnumber" name="hoeveelheid" min="1" max="{{ product.left }}">
-                            </div>
-                            {% if sizes %}
-                                <div class="col size-input">
-                                    <label class="tiny" for="inputnumber">Maat (cm)</label>
-                                    <select class="form-select" name="size">
-                                        {% for size in sizes %}
-                                            <option value="{{ size }}">{{ size }}</option>
-                                        {% endfor %}
-                                    </select>    
-                                </div>
-                            {% endif %}
-                            <div class="col-10">
-                                <button type="submit" data-testid="add-to-cart-button-enabled" class="btn" id="buttonadd" name="addtocart">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
-                                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
-                                        </svg>
-                                        In winkelmand
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                {% endif %}
-                <div id="accordion" class="extra-product-info">
+        </div>
+    </div>
+
+
+
+
+                <!-- <div id="accordion" class="extra-product-info">
                     <div class="card">
                         <div class="card-header first-heading" id="headingOne">
                             <p class="big-text">Product informatie</p>
@@ -183,7 +165,7 @@
                 </div>
             {% endfor %}
         </div>
-    </div>
+    </div> -->
 
     <script>
         $(document).ready(function(){  
@@ -243,6 +225,8 @@
             }
             document.getElementById(imgName).style.display = "block";
         }
+
+        items.forEach(item => item.addEventListener('click', toggleAccordion));
     </script>
 
 {% endblock %}

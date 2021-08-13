@@ -314,5 +314,9 @@ def send_update_email(order):
 
 def get_random_products(item):
     products = list(Product.objects.exclude(id=item.id))
-    random_products = sample(products, 4)
+    try:
+        random_products = sample(products, 4)
+    except:
+        random_products = products
+        
     return random_products
