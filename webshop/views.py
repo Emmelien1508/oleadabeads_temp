@@ -26,7 +26,7 @@ class RegisterView(generic.CreateView):
 def home(request):
     cust = get_customer_session(request)
 
-    new_items, new = get_new_items()
+    new_items, new = get_new_products()
 
     return render(request, "webshop/home.html", {
         "newitems": new_items,
@@ -295,13 +295,6 @@ def disclaimer(request):
 
 def guarantee(request):
     return render(request, "webshop/guarantee.html")
-
-def diyproduct(request, idnr):
-    product = Diy.objects.get(name = idnr)
-
-    return render(request, "webshop/diyproduct.html", {
-        "product": product
-    })
 
 def material(request):
     return render(request, "webshop/material_info.html")
