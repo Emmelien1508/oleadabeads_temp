@@ -5,6 +5,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 from django.views import generic
 from django.template import loader, RequestContext
+from django.http import JsonResponse
 
 from pandas import DataFrame
 import json
@@ -24,10 +25,11 @@ class RegisterView(generic.CreateView):
 
 def home(request):
     cust = get_customer_session(request)
-    new_products, new = get_new_products()
+
+    new_items, new = get_new_items()
 
     return render(request, "webshop/home.html", {
-        "new_products": new_products,
+        "newitems": new_items,
         "new": new
     })
 
@@ -294,45 +296,26 @@ def disclaimer(request):
 def guarantee(request):
     return render(request, "webshop/guarantee.html")
 
+def diyproduct(request, idnr):
+    product = Diy.objects.get(name = idnr)
+
+    return render(request, "webshop/diyproduct.html", {
+        "product": product
+    })
+
 def material(request):
     return render(request, "webshop/material_info.html")
 
 def sort(request):
-
     passedValue = dict(request.GET)["passedValue"][0]
-    print(request.method)
-    print(request.is_ajax)
-    print(passedValue)
-    if passedValue == "bestsellers":
-        products, _ = get_sorted_bestsellers()
-    else:
-        products = list(Product.objects.all().order_by(f"{passedValue}"))
-
-    if not products:
-        products = list(Product.objects.all())
-        
-    # return JsonResponse({product.name: product for product in products})
-    print([product.name for product in products])
-
-    empty = False
-    for item in products:
-        if item.jewelry_type == "Armband":
-            name = "Oorbellen"
-        elif item.jewelry_type == "Ketting":
-            name = "Kettingen"
-        else:
-            name = "Armbanden"
-        break
+    jewelryType = dict(request.GET)["jewelryType"][0]
     
-    if request.is_ajax:
-        # print(" IN THE AJAX")
-        t = loader.get_template('webshop/allproducts.html')
-        # print(f'this is t: {t}')
-        html = t.render({'products': products, "empty": empty, "name": name})
-        # print(type(html))
-        # print('____________________________')
-        # print(' now comes the return bro')
-        return HttpResponse(json.dumps({'html': html}))
+    if passedValue == "bestsellers":
+        products, _ = get_sorted_bestsellers(jewelryType)
+        if not products:
+            products = list(Product.objects.filter(jewelry_type = jewelryType))
     else:
-        return HttpResponse("<h1>HELLO</h1>")
+        products = list(Product.objects.filter(jewelry_type = jewelryType).order_by(f"{passedValue}"))
 
+        
+    return JsonResponse({i: product.to_JSON() for i, product in enumerate(products)})

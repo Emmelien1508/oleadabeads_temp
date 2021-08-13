@@ -128,6 +128,11 @@ class Product(models.Model):
     data = models.JSONField(null=True)
     raw_materials = models.ManyToManyField(InventoryProduct)
 
+    def to_JSON(self):
+        x = model_to_dict(self)    
+        x['image'] = x['image'][0].image.url 
+        return x
+        
     def __str__(self):
         return self.name
 
