@@ -6,6 +6,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.utils import timezone
 from django.contrib.sessions.models import Session
 from django.utils.timezone import now
+from django.forms.models import model_to_dict
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, firstname, lastname, password=None):
